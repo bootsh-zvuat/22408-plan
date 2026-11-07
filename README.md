@@ -39,7 +39,11 @@
 │   └── _archive/               第 1 版排课脚本、旧补丁，仅留档
 ├── deploy/                     GitHub Pages 静态包（index.html + 说明）
 ├── screenshots/                界面截图
-└── 00-入口/ … 06-政治/          Obsidian 笔记（脚本生成）
+└── notes/                      Obsidian 笔记库（脚本生成，用 Obsidian 打开这个文件夹）
+    ├── .obsidian/              库配置（模板 / 附件 / 日记目录）
+    ├── _templates/             每日 / 错题 / 学习笔记 / 周复盘 模板
+    ├── 99-附件/                粘图、手写拍照
+    └── 00-入口/ … 06-政治/     各科笔记
 ```
 
 | 文件 / 目录 | 作用 |
@@ -137,9 +141,9 @@
 
 ## Obsidian 笔记库
 
-这个目录**同时是一个 Obsidian 库**（vault 根目录就是它本身）。Obsidian 1.15.0 已装在 `/Applications`。
+笔记全部收在 `notes/` 里，**它本身就是一个 Obsidian 库**（vault 根目录 = `notes/`，打开 Obsidian 时选这个文件夹）。Obsidian 1.15.0 已装在 `/Applications`。
 
-| 路径 | 内容 |
+| 路径（相对 `notes/`） | 内容 |
 |---|---|
 | `00-入口/` | 首页、阶段路线、项目说明、库设置说明 |
 | `01-数学二/` `02-408/` | 各科总览 + 12 篇周笔记（学习日、课后题、参考答案、完成标准） |
@@ -150,8 +154,8 @@
 | `_templates/` | 每日 / 错题 / 学习笔记 / 周复盘 四个模板 |
 | `99-附件/` | 粘图、手写拍照自动落这里 |
 
-- 周笔记 / 阶段笔记都是**骨架**，由 `python3 scripts/build_obsidian_vault.py` 生成，重跑会覆盖；自己的总结用 `_templates/学习笔记.md` 新建。
-- `00-入口/阶段路线.md` 是四科阶段的总览：每科的段位、时间、目标、门槛，一份看完。
+- 周笔记 / 阶段笔记都是**骨架**，由 `python3 scripts/build_obsidian_vault.py` 生成（输出根目录为 `notes/`），重跑会覆盖；自己的总结用 `notes/_templates/学习笔记.md` 新建。
+- `notes/00-入口/阶段路线.md` 是四科阶段的总览：每科的段位、时间、目标、门槛，一份看完。
 - `.py` / `.xlsx` / `.json` 已在 Obsidian 的搜索和关系图里排除（`userIgnoreFilters`），文件列表里仍可见。
 
 ## 怎么用

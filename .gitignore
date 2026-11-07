@@ -6,10 +6,16 @@ __pycache__/
 *.pyc
 
 # Obsidian 本机 UI 状态（每台机器不一样，别提交）
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-.obsidian/graph.json
-.obsidian/cache/
+notes/.obsidian/workspace.json
+notes/.obsidian/workspace-mobile.json
+notes/.obsidian/graph.json
+notes/.obsidian/cache/
+
+# Obsidian 回收站（删掉的笔记不用进版本库）
+notes/.trash/
+
+# 根目录残留的旧 .obsidian（库已搬到 notes/，这里的是 Obsidian 自动重建的空壳）
+/.obsidian/
 
 # 临时文件
 *.tmp
