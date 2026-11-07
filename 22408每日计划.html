@@ -40,6 +40,8 @@
   .planbar button.on[data-plan="cs408"]{color:#0e9f6e;border-bottom-color:#0e9f6e}
   .planbar button.on[data-plan="english"]{color:#d97706;border-bottom-color:#d97706}
   .planbar button.on[data-plan="politics"]{color:#d92d20;border-bottom-color:#d92d20}
+  .planbar button.global{border-right:1px solid var(--line);padding-right:16px;margin-right:4px}
+  .planbar button.global.on{color:var(--text);border-bottom-color:var(--text)}
   .badge.subj{background:var(--scw,#eef3fe);color:var(--sc,#2f6feb);font-weight:600}
   .badge.subj::before{content:'';display:inline-block;width:6px;height:6px;border-radius:99px;
     background:var(--sc,#2f6feb);margin-right:6px;vertical-align:1px}
@@ -260,7 +262,6 @@
   <div class="stats" id="stats"></div>
 
   <div class="tabs" id="tabs">
-    <div class="tab on" data-view="plan">今日计划</div>
     <div class="tab" data-view="today">单科今日</div>
     <div class="tab" data-view="phase">阶段</div>
     <div class="tab" data-view="weeks">全部周次</div>
@@ -997,13 +998,16 @@
     var isGlobal = (view === 'plan');
     document.body.dataset.subject = pid();
     var bar = document.getElementById('planbar');
-    bar.innerHTML = Object.keys(PLANS).map(function(k){
-      var d = studyDays(k), dn = d.filter(function(x){
-        var s = state.plans[k].checks[x.id]; return s && s.done;
-      }).length;
-      return '<button data-plan="' + k + '" class="' + (k === pid() ? 'on' : '') + '">' +
-        esc(PLAN_META[k].short) + '<small>' + dn + '/' + d.length + '</small></button>';
-    }).join('');
+    var gc0 = globalCounts();
+    bar.innerHTML = '<button data-plan="__plan" class="global ' + (isGlobal ? 'on' : '') + '">今日计划<small>' +
+      gc0.done + '/' + gc0.total + '</small></button>' +
+      Object.keys(PLANS).map(function(k){
+        var d = studyDays(k), dn = d.filter(function(x){
+          var s = state.plans[k].checks[x.id]; return s && s.done;
+        }).length;
+        return '<button data-plan="' + k + '" class="' + (!isGlobal && k === pid() ? 'on' : '') + '">' +
+          esc(PLAN_META[k].short) + '<small>' + dn + '/' + d.length + '</small></button>';
+      }).join('');
 
     var st = studyDays(pid());
     var doneN = st.filter(isDone).length;
@@ -1028,6 +1032,9 @@
     document.getElementById('start').style.display = isGlobal ? 'none' : '';
     document.getElementById('reset').style.display = isGlobal ? 'none' : '';
     document.getElementById('start').value = P().startDate;
+    document.querySelectorAll('#tabs .tab').forEach(function(t){
+      t.classList.toggle('on', t.dataset.view === view);
+    });
     var exT = exTotal(pid());
     var wr = wordRange();
     var secondCard = wr
@@ -1738,6 +1745,11 @@
   document.getElementById('planbar').addEventListener('click', function(e){
     var b = e.target.closest('button[data-plan]');
     if(!b) return;
+    if(b.dataset.plan === '__plan'){
+      switchView('plan');
+      window.scrollTo(0, 0);
+      return;
+    }
     state.active = b.dataset.plan;
     P().offset = null;
     save();
