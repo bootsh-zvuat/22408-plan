@@ -1,0 +1,5 @@
+{
+  "folder": "04-每日",
+  "format": "YYYY-MM-DD",
+  "template": "_templates/每日笔记.md"
+}

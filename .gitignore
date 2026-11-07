@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Obsidian 本机 UI 状态（每台机器不一样，别提交）
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/graph.json
+.obsidian/cache/
+
+# 临时文件
+*.tmp
+*.log
+
+# 本项目专用 SSH 密钥（不提交）
+.ssh-22408/

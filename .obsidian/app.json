@@ -1,0 +1,24 @@
+{
+  "attachmentFolderPath": "99-附件",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "04-每日",
+  "alwaysUpdateLinks": true,
+  "useMarkdownLinks": false,
+  "newLinkFormat": "shortest",
+  "showLineNumber": true,
+  "readableLineLength": true,
+  "promptDelete": true,
+  "trashOption": "local",
+  "showUnsupportedFiles": true,
+  "userIgnoreFilters": [
+    "*.py",
+    "*.xlsx",
+    "*.json",
+    "*.html",
+    "scripts/",
+    "data/",
+    "web/",
+    "deploy/",
+    "screenshots/"
+  ]
+}
