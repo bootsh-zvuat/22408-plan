@@ -206,7 +206,10 @@ python3 scripts/build_obsidian_vault.py
 
 ## 部署
 
-见 `deploy/README.md`。核心就三步：建仓库 → 推 `deploy/index.html` → Settings → Pages 选 main 分支。
+- **代码托管**：仓库 <https://github.com/bootsh-zvuat/22408-plan>（`main` 分支）。
+- **GitHub Pages（手机随时看）**：仓库 Settings → Pages → Source 选 `Deploy from a branch`，分支 `main`、目录 `/ (root)`，保存后访问
+  <https://bootsh-zvuat.github.io/22408-plan/>。根目录的 `index.html` 会跳转到 `22408每日计划.html`。
+- **其他静态托管**：见 `deploy/README.md`，直接把 `deploy/index.html` 推上去也行。
 
 ## 进度边界
 
