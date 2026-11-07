@@ -171,7 +171,7 @@
   .chapters.wide{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
   .chapters.wide .chapgroup{border:1px solid var(--line);border-radius:10px;padding:4px 10px 6px;border-top:1px solid var(--line)}
   @media (max-width:760px){.chapters.wide{grid-template-columns:1fr}}
-  .heat-wrap{overflow-x:auto;padding:2px 0 6px}
+  .heat-wrap{overflow-x:auto;padding:2px 0 6px;max-width:100%}
   .heat{display:inline-flex;gap:3px;align-items:flex-start}
   .heat .hcol{display:grid;grid-template-rows:repeat(7,12px);gap:3px}
   .heat .hd{width:12px;height:12px;border-radius:3px;background:#eef0f3;border:0;padding:0;cursor:pointer}
@@ -185,8 +185,8 @@
   .heat-months{display:flex;gap:3px;font-size:10.5px;color:var(--muted);margin-bottom:4px}
   .heat-months span{width:13px;flex:0 0 13px;overflow:visible;white-space:nowrap}
   .heat-legend{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);margin-top:6px}
-  .heat-row{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap}
-  .heat-stats{display:flex;gap:26px;padding-top:18px}
+  .heat-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+  .heat-stats{display:flex;gap:26px}
   .heat-stats b{display:block;font-size:20px;line-height:1.2;color:var(--text);font-variant-numeric:tabular-nums}
   .heat-stats span{font-size:11.5px;color:var(--muted);white-space:nowrap}
   .heat .hd{width:13px;height:13px}
@@ -319,6 +319,7 @@
     });
     if(!s.active || !PLANS[s.active]) s.active = Object.keys(PLANS)[0];
     if(!s.wrong) s.wrong = {};
+    if(!s.statsScope) s.statsScope = 'all';
     return s;
   }
   function emptyState(){
@@ -859,16 +860,16 @@
       prevOk = ok;
     }
     var streak = streakOfMap(map);
-    return '<div class="heat-row">' +
-      '<div><div class="heat-months">' + months + '</div>' +
-      '<div class="heat-wrap"><div class="heat">' + cols + '</div></div>' +
+    return '<div class="heat-top">' +
       '<div class="heat-legend"><span>少</span><i style="opacity:.25"></i><i style="opacity:.45"></i>' +
-      '<i style="opacity:.7"></i><i></i><span>多</span></div></div>' +
+      '<i style="opacity:.7"></i><i></i><span>多</span></div>' +
       '<div class="heat-stats">' +
       '<div><b>' + activeDays + '</b><span>天打卡</span></div>' +
       '<div><b>' + streak + '</b><span>当前连续</span></div>' +
       '<div><b>' + best + '</b><span>最长连续</span></div>' +
-      '</div></div>';
+      '</div></div>' +
+      '<div class="heat-wrap"><div class="heat-months">' + months + '</div>' +
+      '<div class="heat">' + cols + '</div></div>';
   }
   function bindHeat(el){
     el.querySelectorAll('[data-hidx]').forEach(function(b){
@@ -996,6 +997,9 @@
 
   function renderHead(){
     var isGlobal = (view === 'plan');
+    var isStats = (view === 'stats');
+    var chromeHidden = isGlobal || isStats;
+    var scope = state.statsScope || 'all';
     document.body.dataset.subject = pid();
     var bar = document.getElementById('planbar');
     var gc0 = globalCounts();
@@ -1015,7 +1019,9 @@
     var cur = curDay();
     var ph = curPhase();
     var examD = plan().examDate ? dISO(plan().examDate) : null;
-    document.getElementById('title').textContent = isGlobal ? '22408 · 今日计划' : plan().title;
+    document.getElementById('title').textContent = isGlobal ? '22408 · 今日计划'
+      : isStats ? '22408 · 进度统计'
+      : plan().title;
     var metaTxt =
       '起始 ' + P().startDate + ' · ' + phases().length + ' 个阶段 / ' + totalPhaseWeeks() + ' 周（细化 ' + plan().weeks.length +
       ' 周）· ' + st.length + ' 个章节学习日 · ' + reviewDays(pid()).length + ' 个复盘日' +
@@ -1023,14 +1029,18 @@
       (ph ? ' · 当前 ' + ph.short + '（第 ' + phaseWeekIndex(ph) + '/' + ph.weeks + ' 周）' : ' · 当前第 ' + (cur ? cur.week : '—') + ' 周');
     document.getElementById('meta').textContent = isGlobal
       ? (fmt(todayD()) + ' · 四科今日任务 · ' + (examD ? '距初试 ' + Math.max(0, diffDays(examD, todayD())) + ' 天' : ''))
-      : metaTxt;
-    document.getElementById('phases').innerHTML = isGlobal ? globalStageBarHtml() : phaseBarHtml();
-    document.getElementById('phases').style.display = '';
-    document.getElementById('stats').style.display = isGlobal ? 'none' : '';
-    document.getElementById('mode').style.display = isGlobal ? 'none' : '';
-    document.getElementById('startLabel').style.display = isGlobal ? 'none' : '';
-    document.getElementById('start').style.display = isGlobal ? 'none' : '';
-    document.getElementById('reset').style.display = isGlobal ? 'none' : '';
+      : isStats
+        ? (fmt(todayD()) + ' · ' + (scope === 'all' ? '四科全局 · 每天打卡、章节、单词合并统计'
+            : esc(PLAN_META[scope].short) + ' · 单科统计（可切回全局）') +
+           (examD ? ' · 距初试 ' + Math.max(0, diffDays(examD, todayD())) + ' 天' : ''))
+        : metaTxt;
+    document.getElementById('phases').innerHTML = isGlobal ? globalStageBarHtml() : (isStats ? '' : phaseBarHtml());
+    document.getElementById('phases').style.display = (isGlobal || !isStats) ? '' : 'none';
+    document.getElementById('stats').style.display = chromeHidden ? 'none' : '';
+    document.getElementById('mode').style.display = chromeHidden ? 'none' : '';
+    document.getElementById('startLabel').style.display = chromeHidden ? 'none' : '';
+    document.getElementById('start').style.display = chromeHidden ? 'none' : '';
+    document.getElementById('reset').style.display = chromeHidden ? 'none' : '';
     document.getElementById('start').value = P().startDate;
     document.querySelectorAll('#tabs .tab').forEach(function(t){
       t.classList.toggle('on', t.dataset.view === view);
@@ -1568,6 +1578,156 @@
     if(backNow) backNow.addEventListener('click', function(){ gotoPhase(phNow.id); });
   }
 
+  var SUBJ_COLOR = { math2: '#2f6feb', cs408: '#0e9f6e', english: '#d97706', politics: '#d92d20' };
+  function statsScopeBar(){
+    var scope = state.statsScope || 'all';
+    return '<div class="pseg" style="margin-bottom:14px">' +
+      '<button class="pseg-b' + (scope === 'all' ? ' on' : '') + '" data-scope="all">全局</button>' +
+      Object.keys(PLANS).map(function(k){
+        return '<button class="pseg-b' + (scope === k ? ' on' : '') + '" data-scope="' + k + '">' +
+          esc(PLAN_META[k].short) + '</button>';
+      }).join('') + '</div>';
+  }
+  function bindScope(el){
+    el.querySelectorAll('[data-scope]').forEach(function(b){
+      b.addEventListener('click', function(){
+        state.statsScope = b.dataset.scope;
+        if(b.dataset.scope !== 'all') state.active = b.dataset.scope;
+        save();
+        renderHead();
+        renderStats();
+        var tabs = document.getElementById('tabs');
+        window.scrollTo(0, Math.max(0, tabs.getBoundingClientRect().top + window.pageYOffset - 12));
+      });
+    });
+  }
+  function subjectStat(p){
+    var data = planOf(p);
+    var days = studyDays(p);
+    var done = days.filter(function(d){
+      var st = Pof(p).checks[d.id];
+      return st && st.done;
+    }).length;
+    var map = checkinMap(p);
+    var last7 = 0;
+    for(var i = 0; i < 7; i++){
+      var ds = fmt(new Date(todayD().getTime() - i * 86400000));
+      if(map[ds]) last7++;
+    }
+    return {
+      p: p, data: data, total: days.length, done: done,
+      pct: days.length ? Math.round(done / days.length * 100) : 0,
+      phase: curPhaseOf(p), ch: chapterStatsOf(p), wr: wordRangeOf(p),
+      last7: last7, map: map,
+      minutes: days.reduce(function(n, d){
+        var st = Pof(p).checks[d.id];
+        return n + (st && st.done ? (d.minutes || 0) : 0);
+      }, 0)
+    };
+  }
+  function globalHeatmapHtml(){
+    var order = Object.keys(PLANS), maps = {}, start = null, end = null;
+    order.forEach(function(p){
+      maps[p] = checkinMap(p);
+      var s0 = planStartOf(p), list = daysOf(p);
+      if(!list.length) return;
+      var e0 = new Date(s0.getTime() + (list.length - 1) * 86400000);
+      if(!start || s0 < start) start = s0;
+      if(!end || e0 > end) end = e0;
+    });
+    if(!start) return '';
+    var total = Math.round((end - start) / 86400000) + 1;
+    var weeks = Math.ceil(total / 7);
+    var counts = {};
+    order.forEach(function(p){
+      Object.keys(maps[p]).forEach(function(k){ counts[k] = (counts[k] || 0) + maps[p][k]; });
+    });
+    var todayS = fmt(todayD()), months = '', cols = '', lastMonth = -1;
+    for(var w = 0; w < weeks; w++){
+      var mon = new Date(start.getTime() + w * 7 * 86400000);
+      months += '<span>' + (mon.getMonth() !== lastMonth ? (mon.getMonth() + 1) + '月' : '') + '</span>';
+      lastMonth = mon.getMonth();
+      var col = '';
+      for(var dow = 0; dow < 7; dow++){
+        var idx = w * 7 + dow;
+        if(idx >= total){ col += '<button type="button" class="hd off"></button>'; continue; }
+        var ds = fmt(new Date(start.getTime() + idx * 86400000));
+        var c = counts[ds] || 0;
+        col += '<button type="button" class="hd' + (c ? ' lv' + Math.min(4, c) : '') + (ds === todayS ? ' today' : '') +
+          '" title="' + ds + ' · ' + c + ' 次打卡"></button>';
+      }
+      cols += '<div class="hcol">' + col + '</div>';
+    }
+    var active = 0, best = 0, run = 0, prev = false;
+    for(var i2 = 0; i2 < total; i2++){
+      var k2 = fmt(new Date(start.getTime() + i2 * 86400000));
+      var ok = (counts[k2] || 0) > 0;
+      if(ok){ active++; run = prev ? run + 1 : 1; if(run > best) best = run; }
+      else run = 0;
+      prev = ok;
+    }
+    var dd = todayD();
+    if(!counts[fmt(dd)]) dd = new Date(dd.getTime() - 86400000);
+    var streak = 0;
+    while(counts[fmt(dd)]){ streak++; dd = new Date(dd.getTime() - 86400000); }
+    return '<div class="heat-top">' +
+      '<div class="heat-legend"><span>少</span><i style="opacity:.25"></i><i style="opacity:.45"></i>' +
+      '<i style="opacity:.7"></i><i></i><span>多</span></div>' +
+      '<div class="heat-stats">' +
+      '<div><b>' + active + '</b><span>天打卡</span></div>' +
+      '<div><b>' + streak + '</b><span>当前连续</span></div>' +
+      '<div><b>' + best + '</b><span>最长连续</span></div>' +
+      '</div></div>' +
+      '<div class="heat-wrap"><div class="heat-months">' + months + '</div>' +
+      '<div class="heat" style="--subj:#475569">' + cols + '</div></div>';
+  }
+  function subjectStatCard(s){
+    var second = s.ch
+      ? '章节 ' + s.ch.done + '/' + s.ch.total + ' 章'
+      : (s.wr ? '单词 ' + s.wr.done + '/' + s.wr.total + '（第 ' + s.wr.w.cycle + ' 轮）'
+              : '阶段 ' + (s.phase ? s.phase.short : '—'));
+    return '<div class="gcard">' +
+      '<div class="row"><span class="badge subj c-' + s.p + '">' + esc(PLAN_META[s.p].short) + '</span>' +
+      '<span class="gt">' + (s.phase ? esc(s.phase.short) : '—') + '</span>' +
+      '<div class="grow"></div><span class="sub">' + s.pct + '%</span></div>' +
+      '<div class="sub" style="margin-top:4px">第 ' +
+      (s.phase ? phaseWeekIndex(s.phase) + '/' + s.phase.weeks : '—') + ' 周 · 学习日 ' + s.done + '/' + s.total +
+      ' · 近 7 天 ' + s.last7 + ' 天</div>' +
+      '<div class="bar" style="margin-top:8px"><i style="width:' + s.pct + '%;background:' + SUBJ_COLOR[s.p] + '"></i></div>' +
+      '<div class="row" style="margin-top:10px"><span class="sub">' + second + '</span><div class="grow"></div>' +
+      '<button class="btn sm" data-scope="' + s.p + '">看这一科 →</button></div></div>';
+  }
+  function renderGlobalStats(){
+    var el = document.getElementById('view');
+    var stats = Object.keys(PLANS).map(subjectStat);
+    var totalDays = 0, doneDays = 0, minutes = 0, pctSum = 0;
+    stats.forEach(function(s){
+      totalDays += s.total; doneDays += s.done; minutes += s.minutes; pctSum += s.pct;
+    });
+    var avg = stats.length ? Math.round(pctSum / stats.length) : 0;
+    var examD = plan().examDate ? dISO(plan().examDate) : null;
+    var html = '<div class="card">' + statsScopeBar() +
+      '<div class="row" style="align-items:flex-end">' +
+      '<div class="grow"><h2 style="margin:0 0 4px">总进度</h2>' +
+      '<div class="sub">四科平均完成度（每科各占 1/4，避免英语 354 天把比例吃掉）</div></div>' +
+      '<div style="text-align:right"><b style="font-size:34px;line-height:1.1;font-variant-numeric:tabular-nums">' + avg + '%</b></div></div>' +
+      '<div class="row" style="margin-top:10px;font-size:13px;color:var(--muted)">' +
+      '<span>累计完成 <b>' + doneDays + ' / ' + totalDays + '</b> 个学习日</span><span>·</span>' +
+      '<span>已投入约 ' + Math.round(minutes / 60) + ' 小时</span><span>·</span>' +
+      '<span>距初试 ' + (examD ? Math.max(0, diffDays(examD, todayD())) : '—') + ' 天</span></div>' +
+      '<div class="list-prog" style="margin-top:12px">' +
+      stats.map(function(s){
+        return '<div class="lp"><div class="h"><span>' + esc(PLAN_META[s.p].short) + '</span>' +
+          '<span class="muted">' + s.done + '/' + s.total + ' · ' + s.pct + '%</span></div>' +
+          '<div class="bar"><i style="width:' + s.pct + '%;background:' + SUBJ_COLOR[s.p] + '"></i></div></div>';
+      }).join('') +
+      '</div></div>';
+    html += '<div class="gcards">' + stats.map(subjectStatCard).join('') + '</div>';
+    html += '<div class="card" style="margin-top:12px"><h3 style="margin-top:0">打卡日历 · 四科合计</h3>' + globalHeatmapHtml() + '</div>';
+    el.innerHTML = html;
+    bindScope(el);
+  }
+
   function statGroups(p){
     if(p === 'math2') return [{name:'高数（第 1–7 周）', from:1, to:7}, {name:'线代（第 8–10 周）', from:8, to:10},
       {name:'错题与总测（第 11–12 周）', from:11, to:12}];
@@ -1579,11 +1739,12 @@
     });
   }
   function renderStats(){
-    var p = pid();
+    if((state.statsScope || 'all') === 'all'){ renderGlobalStats(); return; }
+    var p = state.statsScope;
     var st = studyDays(p);
     var doneN = st.filter(isDone).length;
     var groups = statGroups(p);
-    var html = '<div class="card"><h2>总体进度</h2>' +
+    var html = statsScopeBar() + '<div class="card"><h2>总体进度</h2>' +
       '<div class="lp" style="margin-bottom:14px"><div class="h"><span>全部章节学习日</span><span class="muted">' +
       doneN + '/' + st.length + '</span></div><div class="bar"><i style="width:' + Math.round(doneN/st.length*100) + '%"></i></div></div>' +
       '<h3>阶段进度</h3><div class="list-prog">' +
@@ -1625,6 +1786,7 @@
     var heat = heatmapHtml(p);
     html = html.replace('<!--CHAPTERS-->', '<h3>打卡日历</h3>' + heat + chapBlock);
     document.getElementById('view').innerHTML = html;
+    bindScope(document.getElementById('view'));
     bindChapter(document.getElementById('view'));
     bindHeat(document.getElementById('view'));
   }
@@ -1752,6 +1914,7 @@
     }
     state.active = b.dataset.plan;
     P().offset = null;
+    if(view === 'stats') state.statsScope = state.active;
     save();
     if(view === 'plan'){ switchView('today'); return; }
     if(view === 'today' || view === 'phase' || view === 'weeks' || view === 'stats') render(); else { renderHead(); renderWrong(); }
