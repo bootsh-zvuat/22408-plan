@@ -9,7 +9,17 @@
     --bg:#f6f7f9; --card:#fff; --text:#16181d; --muted:#6b7280;
     --line:#e6e8ec; --accent:#2f6feb; --ok:#0e9f6e; --danger:#d92d20;
     --shadow:0 1px 2px rgba(16,24,40,.04),0 1px 3px rgba(16,24,40,.06);
+    --subj:#2f6feb; --subj-weak:#eef3fe; --subj-line:#bcd0f7;
   }
+  body[data-subject="math2"]{--subj:#2f6feb;--subj-weak:#eef3fe;--subj-line:#bcd0f7}
+  body[data-subject="cs408"]{--subj:#0e9f6e;--subj-weak:#e7f6ef;--subj-line:#bfe6d4}
+  body[data-subject="english"]{--subj:#d97706;--subj-weak:#fef3c7;--subj-line:#f3d18e}
+  body[data-subject="politics"]{--subj:#d92d20;--subj-weak:#fee4e2;--subj-line:#f3c1be}
+  /* 科目固定色（跨科目混排时用，不随当前科目变） */
+  .c-math2{--sc:#2f6feb;--scw:#eef3fe}
+  .c-cs408{--sc:#0e9f6e;--scw:#e7f6ef}
+  .c-english{--sc:#d97706;--scw:#fef3c7}
+  .c-politics{--sc:#d92d20;--scw:#fee4e2}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--text);
     font:15px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Segoe UI",sans-serif;
@@ -26,6 +36,13 @@
   .planbar button{border:0;background:transparent;font:inherit;font-size:16px;font-weight:600;color:var(--muted);
     padding:6px 2px 10px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
   .planbar button.on{color:var(--text);border-bottom-color:var(--accent)}
+  .planbar button.on[data-plan="math2"]{color:#2f6feb;border-bottom-color:#2f6feb}
+  .planbar button.on[data-plan="cs408"]{color:#0e9f6e;border-bottom-color:#0e9f6e}
+  .planbar button.on[data-plan="english"]{color:#d97706;border-bottom-color:#d97706}
+  .planbar button.on[data-plan="politics"]{color:#d92d20;border-bottom-color:#d92d20}
+  .badge.subj{background:var(--scw,#eef3fe);color:var(--sc,#2f6feb);font-weight:600}
+  .badge.subj::before{content:'';display:inline-block;width:6px;height:6px;border-radius:99px;
+    background:var(--sc,#2f6feb);margin-right:6px;vertical-align:1px}
   .planbar small{font-weight:400;font-size:12px;color:var(--muted);margin-left:6px}
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
   .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow)}
@@ -103,7 +120,7 @@
   .ph{flex:1 1 150px;border:1px solid var(--line);border-radius:12px;padding:10px 11px;background:#fbfcfd;
     cursor:pointer;font:inherit;text-align:left;color:var(--text);display:block}
   .ph:hover{border-color:#c9ced6;background:#f7f9fc}
-  .ph.on{border-color:var(--accent);background:#f4f8ff}
+  .ph.on{border-color:var(--subj);background:var(--subj-weak)}
   .ph.done{background:#f8fbfa}
   .ph .n{display:block;font-size:11px;color:var(--muted)}
   .ph .t{display:block;font-size:13.5px;font-weight:600;margin-top:2px}
@@ -152,6 +169,33 @@
   .chapters.wide{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start}
   .chapters.wide .chapgroup{border:1px solid var(--line);border-radius:10px;padding:4px 10px 6px;border-top:1px solid var(--line)}
   @media (max-width:760px){.chapters.wide{grid-template-columns:1fr}}
+  .heat-wrap{overflow-x:auto;padding:2px 0 6px}
+  .heat{display:inline-flex;gap:3px;align-items:flex-start}
+  .heat .hcol{display:grid;grid-template-rows:repeat(7,12px);gap:3px}
+  .heat .hd{width:12px;height:12px;border-radius:3px;background:#eef0f3;border:0;padding:0;cursor:pointer}
+  .heat .hd.off{background:transparent;cursor:default}
+  .heat .hd.lv1{background:var(--subj);opacity:.25}
+  .heat .hd.lv2{background:var(--subj);opacity:.45}
+  .heat .hd.lv3{background:var(--subj);opacity:.7}
+  .heat .hd.lv4{background:var(--subj);opacity:1}
+  .heat .hd.today{outline:2px solid var(--subj);outline-offset:1px}
+  .heat .hd:hover{outline:1px solid #94a3b8;outline-offset:1px}
+  .heat-months{display:flex;gap:3px;font-size:10.5px;color:var(--muted);margin-bottom:4px}
+  .heat-months span{width:13px;flex:0 0 13px;overflow:visible;white-space:nowrap}
+  .heat-legend{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);margin-top:6px}
+  .heat-row{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap}
+  .heat-stats{display:flex;gap:26px;padding-top:18px}
+  .heat-stats b{display:block;font-size:20px;line-height:1.2;color:var(--text);font-variant-numeric:tabular-nums}
+  .heat-stats span{font-size:11.5px;color:var(--muted);white-space:nowrap}
+  .heat .hd{width:13px;height:13px}
+  .heat .hcol{grid-template-rows:repeat(7,13px)}
+  .heat-legend i{width:11px;height:11px;border-radius:3px;background:var(--subj);display:inline-block}
+  #toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);opacity:0;pointer-events:none;
+    background:#111827;color:#fff;font-size:13px;padding:10px 14px;border-radius:11px;display:flex;gap:16px;
+    align-items:center;box-shadow:0 12px 32px rgba(15,23,42,.22);transition:opacity .18s,transform .18s;z-index:99}
+  #toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+  #toast button{background:none;border:0;color:#7dd3fc;font:inherit;cursor:pointer;padding:0}
+  #toast button:hover{text-decoration:underline}
   .gcard{border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:var(--shadow);padding:14px 16px;margin:10px 0}
   .gcard .badge{margin-right:2px}
   .gcard.dim{opacity:.66}
@@ -474,10 +518,13 @@
     if(log) log.addEventListener('click', function(){
       var num = parseInt((el.querySelector('#wnum') || {}).value, 10);
       if(!num || num < 1) num = r.per;
-      wordLog(num); renderHead(); renderToday();
+      logWords(num);
     });
     var undo = el.querySelector('#wundo');
-    if(undo) undo.addEventListener('click', function(){ wordLog(-wordToday()); renderHead(); renderToday(); });
+    if(undo) undo.addEventListener('click', function(){
+      if(wordToday() === 0) return;
+      logWords(-wordToday());
+    });
     el.querySelectorAll('[data-wstep]').forEach(function(b){
       b.addEventListener('click', function(){
         var v = Math.max(10, Math.min(600, (r.per || 100) + parseInt(b.dataset.wstep, 10)));
@@ -509,9 +556,8 @@
     });
     var chk = el.querySelector('#wordChk');
     if(chk) chk.addEventListener('change', function(){
-      if(chk.checked){ if(wordToday() === 0) wordLog(r.per); }
-      else { wordLog(-wordToday()); }
-      renderHead(); renderToday();
+      if(chk.checked){ if(wordToday() === 0) logWords(r.per); else renderToday(); }
+      else { if(wordToday() > 0) logWords(-wordToday()); else renderToday(); }
     });
   }
 
@@ -543,7 +589,7 @@
       var g = cs.groups[bi];
       var open = cs.total <= 12 || bi === 0;
       return '<details class="chapgroup"' + (open ? ' open' : '') + '>' +
-        '<summary><span>' + esc(b.short || b.name) + '</span><span class="sub">' + g.done + '/' + g.total + '</span></summary>' +
+        '<summary><span>' + esc(b.short || b.name) + '</span><span class="sub" data-chapgroup="' + b.id + '">' + g.done + '/' + g.total + '</span></summary>' +
         b.chapters.map(function(ch){
           var st = cs.state[ch.id] || {};
           return '<label class="chap' + (st.done ? ' done' : '') + '"><input type="checkbox" data-chapter="' + p + '|' + ch.id + '"' +
@@ -554,9 +600,9 @@
   function chapterCardHtml(p){
     var cs = chapterStatsOf(p);
     if(!cs) return '';
-    return '<div class="card side-card"><div class="row"><b>章节进度</b><div class="grow"></div>' +
-      '<span class="sub">' + cs.done + ' / ' + cs.total + ' 章</span></div>' +
-      '<div class="bar" style="margin-top:8px"><i style="width:' + cs.pct + '%"></i></div>' +
+    return '<div class="card side-card" data-chap-card><div class="row"><b>章节进度</b><div class="grow"></div>' +
+      '<span class="sub" data-chap-total>' + cs.done + ' / ' + cs.total + ' 章</span></div>' +
+      '<div class="bar" style="margin-top:8px"><i data-chap-bar style="width:' + cs.pct + '%"></i></div>' +
       '<div class="sub" style="margin-top:6px">' + esc(cs.title) + '</div>' +
       '<div class="chapters">' + chapterListHtml(p) + '</div>' +
       '<div class="sub" style="margin-top:6px">过完一章勾一章；点书名列可收起。</div></div>';
@@ -582,9 +628,19 @@
       box.addEventListener('change', function(){
         var parts = box.dataset.chapter.split('|');
         var cs = chapterStateOf(parts[0]);
+        var prev = cs[parts[1]] || {done:false};
+        var lab = box.closest('label');
         cs[parts[1]] = box.checked ? {done:true, at:fmt(todayD())} : {done:false};
         save();
-        if(view === 'stats') renderStats(); else renderToday();
+        if(lab) lab.classList.toggle('done', box.checked);
+        if(view === 'stats') renderStats(); else updateChapterDom(parts[0]);
+        toast((box.checked ? '已过 · ' : '取消 · ') + shortText(lab ? lab.innerText : '', 16), '撤销', function(){
+          cs[parts[1]] = prev;
+          box.checked = !!prev.done;
+          save();
+          if(view === 'stats'){ renderStats(); }
+          else { if(lab) lab.classList.toggle('done', !!prev.done); updateChapterDom(parts[0]); }
+        });
       });
     });
   }
@@ -705,8 +761,226 @@
     return n;
   }
 
+  // ---- 轻提示 + 撤销
+  var toastTimer = null;
+  function hideToast(){
+    var t = document.getElementById('toast');
+    if(t) t.classList.remove('show');
+  }
+  function toast(msg, actionLabel, actionFn){
+    var t = document.getElementById('toast');
+    if(!t){ t = document.createElement('div'); t.id = 'toast'; document.body.appendChild(t); }
+    t.innerHTML = '<span></span>';
+    t.firstChild.textContent = msg;
+    if(actionLabel){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = actionLabel;
+      b.addEventListener('click', function(){ hideToast(); if(actionFn) actionFn(); });
+      t.appendChild(b);
+    }
+    clearTimeout(toastTimer);
+    t.classList.add('show');
+    toastTimer = setTimeout(hideToast, 4200);
+  }
+  function shortText(s, n){ s = String(s || ''); return s.length > n ? s.slice(0, n) + '…' : s; }
+
+  // ---- 打卡日历（日期 → 当天打卡次数）
+  function planStartOf(p){ return dISO(planOf(p).startDate); }
+  function dayDateOf(p, idx){ return new Date(planStartOf(p).getTime() + idx * 86400000); }
+  function checkinMap(p){
+    var map = {}, checks = Pof(p).checks || {};
+    daysOf(p).forEach(function(d, i){
+      var st = checks[d.id];
+      if(st && st.done){
+        var at = st.at || fmt(dayDateOf(p, i));
+        map[at] = (map[at] || 0) + 1;
+      }
+    });
+    var w = wordStateOf(p);
+    if(w && w.log) Object.keys(w.log).forEach(function(k){ if(w.log[k] > 0) map[k] = (map[k] || 0) + 1; });
+    var cs = chapterStateOf(p);
+    Object.keys(cs).forEach(function(k){
+      if(cs[k] && cs[k].done && cs[k].at) map[cs[k].at] = (map[cs[k].at] || 0) + 1;
+    });
+    return map;
+  }
+  function streakOfMap(map){
+    var d = todayD(), n = 0;
+    if(!map[fmt(d)]) d = new Date(d.getTime() - 86400000);
+    while(map[fmt(d)]){ n++; d = new Date(d.getTime() - 86400000); }
+    return n;
+  }
+  function heatmapHtml(p){
+    var map = checkinMap(p), days = daysOf(p);
+    if(!days.length) return '';
+    var start = planStartOf(p), weeks = Math.ceil(days.length / 7), todayS = fmt(todayD());
+    var months = '', cols = '', lastMonth = -1;
+    for(var w = 0; w < weeks; w++){
+      var mon = new Date(start.getTime() + w * 7 * 86400000);
+      months += '<span>' + (mon.getMonth() !== lastMonth ? (mon.getMonth() + 1) + '月' : '') + '</span>';
+      lastMonth = mon.getMonth();
+      var col = '';
+      for(var dow = 0; dow < 7; dow++){
+        var idx = w * 7 + dow;
+        var ds = fmt(new Date(start.getTime() + idx * 86400000));
+        var inRange = idx < days.length;
+        var count = inRange ? (map[ds] || 0) : 0;
+        var lv = count > 0 ? Math.min(4, count) : 0;
+        col += '<button type="button" class="hd' + (inRange ? (lv ? ' lv' + lv : '') : ' off') +
+          (ds === todayS ? ' today' : '') + '" data-hidx="' + idx + '"' +
+          (inRange ? ' title="' + ds + ' · ' + count + ' 次打卡"' : '') + '></button>';
+      }
+      cols += '<div class="hcol">' + col + '</div>';
+    }
+    var startMs = start.getTime();
+    var activeDays = 0, best = 0, run = 0, prevOk = false;
+    for(var ii = 0; ii < days.length; ii++){
+      var kk = fmt(new Date(startMs + ii * 86400000));
+      var ok = (map[kk] || 0) > 0;
+      if(ok){ activeDays++; run = prevOk ? run + 1 : 1; if(run > best) best = run; }
+      else run = 0;
+      prevOk = ok;
+    }
+    var streak = streakOfMap(map);
+    return '<div class="heat-row">' +
+      '<div><div class="heat-months">' + months + '</div>' +
+      '<div class="heat-wrap"><div class="heat">' + cols + '</div></div>' +
+      '<div class="heat-legend"><span>少</span><i style="opacity:.25"></i><i style="opacity:.45"></i>' +
+      '<i style="opacity:.7"></i><i></i><span>多</span></div></div>' +
+      '<div class="heat-stats">' +
+      '<div><b>' + activeDays + '</b><span>天打卡</span></div>' +
+      '<div><b>' + streak + '</b><span>当前连续</span></div>' +
+      '<div><b>' + best + '</b><span>最长连续</span></div>' +
+      '</div></div>';
+  }
+  function bindHeat(el){
+    el.querySelectorAll('[data-hidx]').forEach(function(b){
+      b.addEventListener('click', function(){
+        var idx = +b.dataset.hidx, list = daysOf(pid());
+        if(idx < 0 || idx >= list.length) return;
+        P().offset = idx; save();
+        switchView('today'); window.scrollTo(0, 0);
+      });
+    });
+  }
+
+  // ---- 局部更新：今日计划 / 全局计数 / 章节进度
+  function finishRowHtml(done){
+    return done
+      ? '<button class="btn" id="unfinish">标记未完成</button><span class="sub">这一天已完成</span>'
+      : '<button class="btn pri" id="finish">全部达标，标记完成</button><span class="sub">也可直接把上面的今日计划全部勾上</span>';
+  }
+  function bindFinish(d){
+    var el = document.getElementById('view');
+    var f = el.querySelector('#finish');
+    if(f) f.addEventListener('click', function(){
+      var st = ds(d.id);
+      (d.checklist || []).forEach(function(_, i){ st.c[i] = true; });
+      if(wordBook() && wordToday() === 0) wordLog(wordState().perDay);
+      st.done = true; st.at = fmt(todayD());
+      P().offset = daysOf(pid()).indexOf(d);
+      save(); renderHead(); renderToday();
+      toast('已标记完成：' + shortText(d.title, 16));
+    });
+    var u = el.querySelector('#unfinish');
+    if(u) u.addEventListener('click', function(){
+      var st = ds(d.id);
+      st.done = false; delete st.at;
+      save(); renderHead(); renderToday();
+      toast('已取消完成：' + shortText(d.title, 16));
+    });
+  }
+  function updateTodayChecks(d, st){
+    var el = document.getElementById('view');
+    var checked = 0;
+    el.querySelectorAll('input[data-c]').forEach(function(box){
+      var on = !!st.c[+box.dataset.c];
+      if(on) checked++;
+      var lab = box.closest('label');
+      if(lab) lab.classList.toggle('done', on);
+    });
+    var hasWord = !!wordBook();
+    var head = el.querySelector('.plan-head');
+    if(head){
+      var wordDone = hasWord && wordToday() > 0 ? 1 : 0;
+      head.textContent = '今日计划 · 打卡 ' + (checked + wordDone) + '/' +
+        ((d.checklist || []).length + (hasWord ? 1 : 0));
+    }
+    var row = el.querySelector('.finish-row');
+    if(row){
+      var want = isDone(d);
+      if(row.dataset.done !== (want ? '1' : '')){
+        row.dataset.done = want ? '1' : '';
+        row.innerHTML = finishRowHtml(want);
+        bindFinish(d);
+      }
+    }
+  }
+  function globalCounts(){
+    var out = { total: 0, done: 0, per: {} };
+    Object.keys(PLANS).forEach(function(p){
+      var data = planOf(p), o = { done: 0, total: 0 };
+      if(data.startsLater && todayD() < dISO(data.startDate)){ out.per[p] = o; return; }
+      var d = curDayOf(p);
+      if(!d){ out.per[p] = o; return; }
+      var sc = dsOf(p, d.id), wb = data.wordBook;
+      o.total = (d.checklist || []).length + (wb ? 1 : 0);
+      o.done = (d.checklist || []).filter(function(_, i){ return !!sc.c[i]; }).length +
+        (wb && wordTodayOf(p) > 0 ? 1 : 0);
+      out.total += o.total; out.done += o.done;
+      out.per[p] = o;
+    });
+    return out;
+  }
+  function updateGlobalCounts(){
+    var el = document.getElementById('view');
+    if(!el) return;
+    var g = globalCounts();
+    var sum = el.querySelector('#gsum');
+    if(sum){
+      sum.textContent = g.done + ' / ' + g.total + ' 项';
+      var bar = el.querySelector('#gsumBar i');
+      if(bar) bar.style.width = (g.total ? Math.round(g.done / g.total * 100) : 0) + '%';
+    }
+    Object.keys(g.per).forEach(function(p){
+      var n = el.querySelector('[data-gcount="' + p + '"]');
+      if(n) n.textContent = '打卡 ' + g.per[p].done + '/' + g.per[p].total;
+    });
+    el.querySelectorAll('input[data-gc]').forEach(function(box){
+      var lab = box.closest('label');
+      if(lab) lab.classList.toggle('done', box.checked);
+    });
+  }
+  function updateChapterDom(p){
+    var cs = chapterStatsOf(p);
+    if(!cs) return;
+    var card = document.querySelector('.today-side [data-chap-card]');
+    if(!card) return;
+    var total = card.querySelector('[data-chap-total]');
+    if(total) total.textContent = cs.done + ' / ' + cs.total + ' 章';
+    var bar = card.querySelector('[data-chap-bar]');
+    if(bar) bar.style.width = cs.pct + '%';
+    cs.groups.forEach(function(gp){
+      var n = card.querySelector('[data-chapgroup="' + gp.id + '"]');
+      if(n) n.textContent = gp.done + '/' + gp.total;
+    });
+  }
+  function logWords(amount){
+    var wb = wordBook();
+    var before = wordState().done;
+    wordLog(amount);
+    var after = wordState().done;
+    renderHead(); renderToday();
+    toast('单词 ' + (amount > 0 ? '+' : '') + amount + '（' + after + ' / ' + wb.total + '）', '撤销', function(){
+      wordLog(before - after);
+      renderHead(); renderToday();
+    });
+  }
+
   function renderHead(){
     var isGlobal = (view === 'plan');
+    document.body.dataset.subject = pid();
     var bar = document.getElementById('planbar');
     bar.innerHTML = Object.keys(PLANS).map(function(k){
       var d = studyDays(k), dn = d.filter(function(x){
@@ -769,7 +1043,7 @@
 
     order.forEach(function(p){
       var data = planOf(p), st = Pof(p);
-      var head = '<span class="badge k-learn">' + esc(PLAN_META[p].short) + '</span>';
+      var head = '<span class="badge subj c-' + p + '">' + esc(PLAN_META[p].short) + '</span>';
       if(data.startsLater && todayD() < dISO(data.startDate)){
         var wait = diffDays(dISO(data.startDate), todayD());
         blocks += '<div class="gcard dim"><div class="row">' + head +
@@ -813,7 +1087,7 @@
       blocks += '<div class="gcard">' +
         '<div class="row" style="align-items:baseline">' + head +
         '<span class="gt">' + esc(d.title) + '</span>' +
-        '<div class="grow"></div><span class="sub">打卡 ' + nDone + '/' + nItems + '</span></div>' +
+        '<div class="grow"></div><span class="sub" data-gcount="' + p + '">打卡 ' + nDone + '/' + nItems + '</span></div>' +
         '<div class="row" style="margin-top:2px">' +
         '<span class="sub">第 ' + d.week + ' 周 · ' + esc(d.weekday) + (ph ? ' · ' + esc(ph.short) : '') + '</span>' +
         '<div class="grow"></div><button class="btn sm" data-gopen="' + p + '">细节 →</button></div>' +
@@ -825,8 +1099,8 @@
     var html = '<div class="card"><div class="row"><h2 style="margin:0" class="grow">今日计划</h2>' +
       '<span class="sub">' + fmt(todayD()) + ' · ' + order.length + ' 科' +
       (examD ? ' · 距初试 ' + Math.max(0, diffDays(examD, todayD())) + ' 天' : '') + '</span></div>' +
-      '<div class="row" style="margin-top:12px"><div class="bar grow" style="margin:0"><i style="width:' + pct + '%"></i></div>' +
-      '<span class="sub">' + doneN + ' / ' + total + ' 项</span></div>' +
+      '<div class="row" style="margin-top:12px" id="gsumBar"><div class="bar grow" style="margin:0"><i style="width:' + pct + '%"></i></div>' +
+      '<span class="sub" id="gsum">' + doneN + ' / ' + total + ' 项</span></div>' +
       '<div class="sub" style="margin-top:6px">勾一项就是打卡，四科都在这一页；点「细节」进单科看知识点、课后题和单词设置。</div></div>';
 
     el.innerHTML = html + '<div class="gcards">' + blocks + '</div>';
@@ -835,9 +1109,19 @@
       box.addEventListener('change', function(){
         var p = box.dataset.gp, dayId = box.dataset.gd, i = +box.dataset.gc;
         var st2 = dsOf(p, dayId);
+        var prev = !!st2.c[i];
         st2.c[i] = box.checked;
-        syncDone(dayById(p, dayId), st2);
-        save(); renderGlobalPlan();
+        var day = dayById(p, dayId);
+        syncDone(day, st2);
+        save();
+        updateGlobalCounts();
+        toast((box.checked ? '已打卡 · ' : '已取消 · ') + esc(PLAN_META[p].short) + ' · ' + shortText(day.checklist[i], 16), '撤销', function(){
+          st2.c[i] = prev;
+          box.checked = prev;
+          syncDone(day, st2);
+          save();
+          updateGlobalCounts();
+        });
       });
     });
     el.querySelectorAll('input[data-gw]').forEach(function(box){
@@ -850,9 +1134,13 @@
     });
     el.querySelectorAll('[data-gwlog]').forEach(function(b){
       b.addEventListener('click', function(){
-        var p = b.dataset.gwlog;
-        wordLogOf(p, wordStateOf(p).perDay);
+        var p = b.dataset.gwlog, before = wordStateOf(p).done, amount = wordStateOf(p).perDay;
+        wordLogOf(p, amount);
         renderGlobalPlan();
+        toast('单词 +' + amount + '（' + wordStateOf(p).done + ' / ' + wordBookOf(p).total + '）', '撤销', function(){
+          wordLogOf(p, before - wordStateOf(p).done);
+          renderGlobalPlan();
+        });
       });
     });
     el.querySelectorAll('[data-gopen]').forEach(function(b){
@@ -920,7 +1208,7 @@
       var nx = nextStudyAfter(d);
       if(nx) html += '<div class="kv"><b>下一天</b><span>第 ' + nx.week + ' 周 ' + esc(nx.weekday) + ' · ' + esc(nx.title) + '</span></div>';
       if(wordBook()){
-        html += '<h3 style="margin-top:16px">今日计划 · 打卡 ' + (wordToday() > 0 ? 1 : 0) + '/1</h3>' + wordRowHtml();
+        html += '<h3 class="plan-head" style="margin-top:16px">今日计划 · 打卡 ' + (wordToday() > 0 ? 1 : 0) + '/1</h3>' + wordRowHtml();
         html += '<div class="row" style="margin-top:14px">' +
           (done ? '<button class="btn" id="unfinish">标记未完成</button>' : '<button class="btn pri" id="finish">标记完成</button>') +
           '</div>';
@@ -932,7 +1220,7 @@
       var hasWord = !!wordBook();
       var planAll = all + (hasWord ? 1 : 0);
       var planDone = checked + (hasWord && wordToday() > 0 ? 1 : 0);
-      html += '<h3 style="margin-top:16px">今日计划 · 打卡 ' + planDone + '/' + planAll + '</h3>';
+      html += '<h3 class="plan-head" style="margin-top:16px">今日计划 · 打卡 ' + planDone + '/' + planAll + '</h3>';
       if(hasWord) html += wordRowHtml();
       (d.checklist||[]).forEach(function(c,i){
         html += '<label class="check ' + (s.c[i]?'done':'') + '"><input type="checkbox" data-c="' + i + '"' +
@@ -970,11 +1258,8 @@
         });
       }
 
-      html += '<div class="row" style="margin-top:16px">' +
-        (done
-          ? '<button class="btn" id="unfinish">标记未完成</button><span class="sub">这一天已完成</span>'
-          : '<button class="btn pri" id="finish">全部达标，标记完成</button><span class="sub">也可直接把上面的今日计划全部勾上</span>') +
-        '</div>';
+      html += '<div class="row finish-row" style="margin-top:16px" data-done="' + (done ? '1' : '') + '">' +
+        finishRowHtml(done) + '</div>';
     }
     html += '</div>';
     el.innerHTML = wrapToday(html);
@@ -984,10 +1269,22 @@
 
     el.querySelectorAll('input[data-c]').forEach(function(box){
       box.addEventListener('change', function(){
+        var i = +box.dataset.c;
         var st = ds(d.id);
-        st.c[+box.dataset.c] = box.checked;
+        var prev = !!st.c[i];
+        st.c[i] = box.checked;
         syncDone(d, st);
-        save(); renderHead(); renderToday();
+        save();
+        updateTodayChecks(d, st);
+        renderHead();
+        toast((box.checked ? '已打卡 · ' : '已取消 · ') + shortText(d.checklist[i], 18), '撤销', function(){
+          st.c[i] = prev;
+          box.checked = prev;
+          syncDone(d, st);
+          save();
+          updateTodayChecks(d, st);
+          renderHead();
+        });
       });
     });
     el.querySelectorAll('input[data-e]').forEach(function(box){
@@ -1014,20 +1311,7 @@
         if(view === 'wrong') renderWrong();
       });
     });
-    var f = el.querySelector('#finish');
-    if(f) f.addEventListener('click', function(){
-      var st = ds(d.id);
-      (d.checklist||[]).forEach(function(_,i){ st.c[i] = true; });
-      if(wordBook() && wordToday() === 0) wordLog(wordState().perDay);
-      st.done = true;
-      P().offset = daysOf(pid()).indexOf(d);
-      save(); renderHead(); renderToday();
-    });
-    var u = el.querySelector('#unfinish');
-    if(u) u.addEventListener('click', function(){
-      ds(d.id).done = false;
-      save(); renderHead(); renderToday();
-    });
+    bindFinish(d);
     var pv = el.querySelector('#prev'), nx2 = el.querySelector('#next'), td = el.querySelector('#today');
     if(pv) pv.addEventListener('click', function(){ step(-1); });
     if(nx2) nx2.addEventListener('click', function(){ step(1); });
@@ -1048,8 +1332,12 @@
   }
   function syncDone(d, st){
     var all = d.checklist || [];
-    if(all.length && all.every(function(_,i){ return !!st.c[i]; })) st.done = true;
-    else if(all.length) st.done = false;
+    if(all.length && all.every(function(_,i){ return !!st.c[i]; })){
+      if(!st.done){ st.done = true; st.at = fmt(todayD()); }
+    }else if(all.length){
+      st.done = false;
+      delete st.at;
+    }
   }
 
   function weekCard(w){
@@ -1312,9 +1600,11 @@
         }).join('') + '</div>' +
         '<div class="chapters wide">' + chapterListHtml(p) + '</div>'
       : '';
-    html = html.replace('<!--CHAPTERS-->', chapBlock);
+    var heat = heatmapHtml(p);
+    html = html.replace('<!--CHAPTERS-->', '<h3>打卡日历</h3>' + heat + chapBlock);
     document.getElementById('view').innerHTML = html;
     bindChapter(document.getElementById('view'));
+    bindHeat(document.getElementById('view'));
   }
 
   function wrongList(){
@@ -1481,7 +1771,7 @@
   });
 
   document.getElementById('foot').textContent =
-    '数据只存本机浏览器（localStorage），换设备用「导出」带走。「今日计划」是四科合一的打卡清单；知识点、课后题、单词量设置进「单科今日」。';
+    '数据只存本机浏览器（localStorage），换设备用「导出」带走。「今日计划」是四科合一的打卡清单；知识点、课后题、单词量设置进「单科今日」。 · v2026.11.07';
 
   render();
 })();
