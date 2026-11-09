@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>22408 · 每日计划</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232f6feb'/%3E%3Ctext x='16' y='21.5' font-family='-apple-system,sans-serif' font-size='11' font-weight='700' fill='%23ffffff' text-anchor='middle'%3E408%3C/text%3E%3C/svg%3E">
 <style>
   :root{
     --bg:#f6f7f9; --card:#fff; --text:#16181d; --muted:#6b7280;
@@ -32,24 +33,6 @@
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
   .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
   .grow{flex:1}
-  .planbar{display:flex;gap:18px;border-bottom:1px solid var(--line);margin-bottom:14px;flex-wrap:wrap}
-  .planbar button{border:0;background:transparent;font:inherit;font-size:16px;font-weight:600;color:var(--muted);
-    padding:6px 2px 10px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
-  .planbar button.on{color:var(--text);border-bottom-color:var(--accent)}
-  .planbar button.on[data-plan="math2"]{color:#2f6feb;border-bottom-color:#2f6feb}
-  .planbar button.on[data-plan="cs408"]{color:#0e9f6e;border-bottom-color:#0e9f6e}
-  .planbar button.on[data-plan="english"]{color:#d97706;border-bottom-color:#d97706}
-  .planbar button.on[data-plan="politics"]{color:#d92d20;border-bottom-color:#d92d20}
-  .planbar button.global{border-right:1px solid var(--line);padding-right:16px;margin-right:4px}
-  .planbar button.global.on{color:var(--text);border-bottom-color:var(--text)}
-  .badge.subj{background:var(--scw,#eef3fe);color:var(--sc,#2f6feb);font-weight:600}
-  .badge.subj::before{content:'';display:inline-block;width:6px;height:6px;border-radius:99px;
-    background:var(--sc,#2f6feb);margin-right:6px;vertical-align:1px}
-  .planbar small{font-weight:400;font-size:12px;color:var(--muted);margin-left:6px}
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow)}
-  .stat b{display:block;font-size:20px;line-height:1.35}
-  .stat span{color:var(--muted);font-size:12px}
   .bar{height:6px;background:#eef0f3;border-radius:99px;overflow:hidden;margin-top:8px}
   .bar>i{display:block;height:100%;background:var(--accent);width:0}
   .badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;line-height:1.7;white-space:nowrap}
@@ -57,10 +40,6 @@
   .k-practice{background:#f1e9fe;color:#7c3aed}
   .k-review{background:#fff3e0;color:#b45309}
   .k-rest{background:#f2f4f7;color:#6b7280}
-  .tabs{display:flex;gap:6px;margin:18px 0 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-  .tab{padding:8px 14px;border-radius:10px 10px 0 0;cursor:pointer;color:var(--muted);font-size:14px;
-    border:1px solid transparent;border-bottom:none;white-space:nowrap;flex:0 0 auto}
-  .tab.on{background:var(--card);color:var(--text);border-color:var(--line);font-weight:600}
   ul.pts{margin:6px 0 0;padding-left:20px}
   ul.pts li{margin:3px 0}
   .kv{display:flex;gap:10px;margin:10px 0;font-size:14px}
@@ -84,6 +63,7 @@
   .btn.sm{font-size:12.5px;padding:4px 9px}
   .btn.on{border-color:var(--danger);color:var(--danger)}
   .btn.sel{border-color:var(--accent);color:#1a56db;background:#eef3fe}
+  .btn.danger{border-color:#f3c1be;color:#d92d20;background:#fff5f5}
   .weeks{margin-top:6px}
   .wk{border:1px solid var(--line);border-radius:12px;background:var(--card);margin:10px 0;overflow:hidden;box-shadow:var(--shadow)}
   .wk-h{display:flex;gap:10px;align-items:center;padding:12px 14px;cursor:pointer}
@@ -150,11 +130,8 @@
   .blk.detail>b{color:var(--accent)}
   .ckp{display:flex;gap:10px;font-size:13px;padding:4px 0;align-items:flex-start}
   .ckp .dt{flex:0 0 78px;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
-  .gcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .gcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
   .gcards .gcard{margin:0}
-  .today-wrap{display:grid;grid-template-columns:minmax(0,1fr) 336px;gap:14px;align-items:start}
-  .today-side{display:flex;flex-direction:column;gap:12px}
-  .today-side .card,.today-side .wordcard{margin:0}
   .side-card{border-radius:14px}
   .chapters{margin-top:8px}
   .chapgroup{border-top:1px dashed var(--line);padding:4px 0}
@@ -182,6 +159,8 @@
   .heat .hd.lv4{background:var(--subj);opacity:1}
   .heat .hd.today{outline:2px solid var(--subj);outline-offset:1px}
   .heat .hd:hover{outline:1px solid #94a3b8;outline-offset:1px}
+  .heat-wrap.static .hd{cursor:default}
+  .heat-wrap.static .hd:hover{outline:none}
   .heat-months{display:flex;gap:3px;font-size:10.5px;color:var(--muted);margin-bottom:4px}
   .heat-months span{width:13px;flex:0 0 13px;overflow:visible;white-space:nowrap}
   .heat-legend{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);margin-top:6px}
@@ -227,49 +206,208 @@
   footer{margin-top:26px;color:#9aa2b1;font-size:12px;text-align:center}
   @media (max-width:1040px){
     .gcards{grid-template-columns:1fr}
-    .today-wrap{grid-template-columns:1fr}
   }
   @media (max-width:760px){
-    .stats{grid-template-columns:repeat(2,1fr)}
     .days{grid-template-columns:repeat(2,1fr)}
     .list-prog{grid-template-columns:1fr}
     .ml>b,.blk>b{flex-basis:96px}
   }
+  /* ============ v3：顶部导航 + 四页结构 ============ */
+  .topbar{position:sticky;top:0;z-index:40;background:rgba(246,247,249,.92);
+    -webkit-backdrop-filter:saturate(180%) blur(8px);backdrop-filter:saturate(180%) blur(8px);
+    border-bottom:1px solid var(--line)}
+  .topbar-in{max-width:1180px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+  .brand .logo{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#2f6feb,#7c3aed);
+    color:#fff;display:grid;place-items:center;font-size:11.5px;font-weight:700;letter-spacing:.3px}
+  .brand .bt{font-size:15px;font-weight:650;line-height:1.25}
+  .brand .bs{font-size:11px;color:var(--muted);line-height:1.25}
+  .nav{display:flex;gap:6px;flex:1 1 auto;flex-wrap:wrap}
+  .nav button{border:1px solid transparent;background:transparent;font:inherit;font-size:15.5px;color:var(--muted);
+    padding:9px 17px;border-radius:11px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+  .nav button:hover{background:#eef1f6;color:var(--text)}
+  .nav button.on{background:#fff;color:var(--text);font-weight:600;border-color:var(--line);box-shadow:var(--shadow)}
+  .nav button small{font-size:12px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+  .nav button.on small{color:#6b7280}
+  .top-actions{display:flex;gap:6px;flex:0 0 auto}
+
+  .hero{display:flex;gap:22px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .hero h1{font-size:23px;margin:3px 0 6px;letter-spacing:.2px}
+  .hero .lede{color:var(--muted);font-size:13px;max-width:62ch}
+  .facts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .fact{background:#f7f8fa;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;color:#374151}
+  .fact b{font-variant-numeric:tabular-nums;font-weight:650}
+
+  .ring{position:relative;width:96px;height:96px;flex:0 0 auto}
+  .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .ring .bg{fill:none;stroke:#eef0f3;stroke-width:3.6}
+  .ring .fg{fill:none;stroke:var(--sc,#2f6feb);stroke-width:3.6;stroke-linecap:round;
+    transition:stroke-dasharray .35s ease}
+  .ring .rt{position:absolute;inset:0;display:grid;place-content:center;text-align:center;line-height:1.15}
+  .ring .rt b{font-size:19px;font-variant-numeric:tabular-nums}
+  .ring .rt span{font-size:11px;color:var(--muted)}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(136px,1fr));gap:10px}
+  .kpi{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 12px}
+  .kpi b{display:block;font-size:19px;line-height:1.3;font-variant-numeric:tabular-nums}
+  .kpi span{font-size:11.5px;color:var(--muted)}
+  .kpi .bar{margin-top:7px;height:5px}
+
+  .sec{margin-top:26px}
+  .sec-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+  .sec-h h2{margin:0;font-size:15.5px}
+  .sec > .card{margin:0}
+
+  .subjbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:11px;padding:7px 12px;cursor:pointer;font:inherit;
+    font-size:13.5px;color:var(--text);display:inline-flex;align-items:center;gap:8px;box-shadow:var(--shadow)}
+  .chip .dot{width:8px;height:8px;border-radius:99px;background:var(--sc,#98a2b3)}
+  .chip small{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .chip:hover{border-color:var(--sc,#c9ced6)}
+  .chip.on{background:var(--scw,#eef3fe);border-color:var(--sc,#2f6feb);font-weight:600}
+  .chip.on .dot{box-shadow:0 0 0 3px #fff}
+
+  .anchors{position:sticky;top:var(--topbar-h,68px);z-index:20;display:flex;gap:6px;flex-wrap:wrap;padding:8px 0;
+    background:linear-gradient(180deg,var(--bg) 55%,rgba(246,247,249,.82));margin-bottom:2px}
+  .anchors button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:4px 11px;font:inherit;
+    font-size:12.5px;color:#374151;cursor:pointer}
+  .anchors button:hover{border-color:var(--subj);color:var(--subj)}
+
+  .toolrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px;padding-top:12px;
+    border-top:1px dashed var(--line)}
+
+  .wordtask{margin:2px 0 8px;padding:6px 9px 7px;border:1px dashed #d7e3fa;border-radius:10px;background:#f8fbff}
+  .wordtask .check{padding:2px 0}
+  .wordtask .wt-m{padding-left:32px;margin-top:1px;font-size:12px;color:var(--muted);line-height:1.55}
+  .wordtask .wt-m b{color:#1f2937;font-variant-numeric:tabular-nums}
+  .gword{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;padding-top:10px;
+    border-top:1px dashed var(--line);font-size:12.5px;color:var(--muted)}
+  .gword .bar{min-width:80px;margin:0}
+
+  /* ---- 阶段甘特 ---- */
+  .gantt{margin-top:6px}
+  .gantt-scale{position:relative;height:16px;margin-left:104px;margin-bottom:5px}
+  .gantt-scale span{position:absolute;top:0;font-size:10.5px;color:var(--muted);transform:translateX(-50%);white-space:nowrap}
+  .grow2{display:flex;align-items:center;gap:10px;margin:7px 0}
+  .grow2 .gl{flex:0 0 94px;display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600}
+  .grow2 .gl .dot{width:8px;height:8px;border-radius:99px;display:inline-block;flex:0 0 auto}
+  .grow2 .track{position:relative;flex:1;height:30px;background:#f6f7f9;border-radius:9px}
+  .gb{position:absolute;top:3px;bottom:3px;border:1px solid transparent;border-radius:7px;font:inherit;font-size:11px;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap;cursor:pointer;
+    padding:0 4px;min-width:6px}
+  .gb:hover{filter:brightness(.96);box-shadow:0 0 0 2px rgba(17,24,39,.1)}
+  .gnow{position:absolute;top:-3px;bottom:-3px;width:2px;background:#111827;opacity:.3;border-radius:2px;pointer-events:none}
+
+  .pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+  .pcard{margin:0}
+  .plist{margin-top:8px}
+  .phrow{border-top:1px dashed var(--line);padding:4px 0}
+  .phrow summary{display:flex;gap:8px;align-items:baseline;cursor:pointer;font-size:13px;list-style:none;padding:4px 0}
+  .phrow summary::-webkit-details-marker{display:none}
+  .phrow summary::before{content:'▸';color:var(--muted);font-size:10px;flex:0 0 auto}
+  .phrow[open] summary::before{content:'▾'}
+  .phrow .pn{font-weight:600}
+  .phrow .pd{color:var(--muted);font-size:11.5px;margin-left:auto;white-space:nowrap}
+  .phrow .pb{height:4px;background:#eef0f3;border-radius:99px;overflow:hidden;margin:2px 0 0}
+  .phrow .pb>i{display:block;height:100%;background:var(--sc,#2f6feb)}
+  .phbody{padding:4px 0 8px 16px}
+  .lbl{font-size:11.5px;color:var(--muted);font-weight:600;letter-spacing:.4px;margin:10px 0 3px}
+  .phbody .lbl:first-child{margin-top:2px}
+  .phsub{margin-top:10px;border-top:1px dashed var(--line);padding-top:6px}
+  .phsub summary{cursor:pointer;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.4px}
+  .phsub summary::-webkit-details-marker{display:none}
+  .phsub summary::before{content:'▸';margin-right:5px;font-size:10px}
+  .phsub[open] summary::before{content:'▾'}
+  .txt{font-size:13.5px;color:#333}
+
+  /* ---- 统计 ---- */
+  .cmp{display:flex;flex-direction:column;gap:4px}
+  .cmprow{display:flex;align-items:center;gap:10px;padding:8px;border:1px solid transparent;border-radius:10px;
+    background:none;font:inherit;cursor:pointer;text-align:left;width:100%}
+  .cmprow:hover{background:#f8fafc;border-color:var(--line)}
+  .cmprow .nm{flex:0 0 86px;display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600}
+  .cmprow .nm i{width:8px;height:8px;border-radius:99px;display:inline-block;flex:0 0 auto}
+  .cmprow .bar{height:8px;margin:0}
+  .cmprow .v{flex:0 0 110px;text-align:right;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .cmprow .arw{color:#c2c8d2;font-size:13px}
+  .d7{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+  .d7 .c{border:1px solid var(--line);border-radius:10px;padding:9px 6px;text-align:center;background:#fbfcfd}
+  .d7 .c.on{background:#eef3fe;border-color:#bcd0f7}
+  .d7 .c b{display:block;font-size:16px;font-variant-numeric:tabular-nums}
+  .d7 .c span{font-size:11px;color:var(--muted)}
+
+  /* ---- 单词柱状 ---- */
+  .whist{display:flex;gap:6px;align-items:flex-end;height:76px;margin-top:8px}
+  .whist .wh{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px;height:100%}
+  .whist .wh i{display:block;width:100%;background:#f3d18e;border-radius:4px 4px 0 0;min-height:2px}
+  .whist .wh span{font-size:9.5px;color:var(--muted)}
+  .whist .wh b{font-size:9.5px;color:#b45309;font-weight:500}
+
+  .note{color:#374151;font-size:13px}
+  .note ul.pts{margin-top:6px}
+  .wrap{max-width:1180px;padding-top:20px}
+
+  @media (max-width:640px){
+    .wrap{padding:14px 12px 56px}
+    .topbar-in{padding:8px 12px;gap:8px}
+    .brand{flex:1 1 auto}
+    .brand .bs{font-size:10.5px}
+    .nav{order:3;flex:1 1 100%;flex-wrap:nowrap;overflow-x:auto;gap:2px;padding-bottom:2px}
+    .nav button{white-space:nowrap;font-size:14px;padding:7px 11px;border-radius:10px}
+    .nav button small{display:none}
+    .top-actions{order:2}
+    .top-actions .btn{font-size:12px;padding:4px 9px}
+    .hero{display:block;position:relative;padding-right:84px}
+    .hero .ring{position:absolute;top:0;right:0;width:68px;height:68px}
+    .hero h1{font-size:20px}
+    .facts{gap:6px}
+    .fact{font-size:11.5px;padding:4px 8px}
+    .gcard .gword .bar{display:none}
+    .gcard .gword{margin-top:8px}
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .kpi b{font-size:17px}
+    .day .tt{-webkit-line-clamp:4}
+    .whist{overflow-x:auto;padding-bottom:4px}
+    .whist .wh{flex:0 0 44px}
+    .cmprow .v{flex:0 0 88px;font-size:11.5px}
+    .gantt{overflow-x:auto;padding-bottom:6px}
+    .gantt-scale,.grow2{min-width:620px}
+    .subjhead .kpis{grid-template-columns:repeat(2,1fr)}
+    .topbar .top-actions .btn{white-space:nowrap}
+  }
+  @media (max-width:860px){
+    .pgrid{grid-template-columns:1fr}
+    .grow2 .gl{flex:0 0 62px;font-size:12px}
+    .gantt-scale{margin-left:72px}
+    .anchors{position:static;background:none;padding-top:2px}
+    .subjhead .row{flex-wrap:wrap!important}
+    .hero{gap:14px}
+    .hero .ring{width:78px;height:78px}
+    .cmprow .sub{display:none}
+  }
 </style>
 </head>
 <body>
+<div class="topbar"><div class="topbar-in">
+  <div class="brand">
+    <div class="logo">22408</div>
+    <div><div class="bt">复习进度</div><div class="bs" id="countdown">—</div></div>
+  </div>
+  <nav class="nav" id="nav">
+    <button data-nav="today">今日计划<small id="navToday"></small></button>
+    <button data-nav="stats">总体统计</button>
+    <button data-nav="phases">阶段总览</button>
+    <button data-nav="subject">单科详情<small id="navSubject"></small></button>
+  </nav>
+  <div class="top-actions">
+    <button class="btn sm" id="export">导出</button>
+    <button class="btn sm" id="import">导入</button>
+    <input type="file" id="file" accept=".json" hidden>
+  </div>
+</div></div>
+
 <div class="wrap">
-  <div class="card">
-    <div class="planbar" id="planbar"></div>
-    <h1 id="title">22408 · 每日计划</h1>
-    <div class="sub" id="meta"></div>
-    <div class="row" style="margin-top:12px">
-      <div class="seg" id="mode">
-        <button data-mode="progress" class="on">按进度推荐</button>
-        <button data-mode="date">按日历</button>
-      </div>
-      <div class="grow"></div>
-      <span class="sub" id="startLabel">开始日期</span>
-      <input type="date" id="start">
-      <button class="btn" id="export">导出</button>
-      <button class="btn" id="import">导入</button>
-      <button class="btn ghost" id="reset">重置本科</button>
-      <input type="file" id="file" accept=".json" hidden>
-    </div>
-    <div class="phases" id="phases"></div>
-  </div>
-
-  <div class="stats" id="stats"></div>
-
-  <div class="tabs" id="tabs">
-    <div class="tab" data-view="today">单科今日</div>
-    <div class="tab" data-view="phase">阶段</div>
-    <div class="tab" data-view="weeks">全部周次</div>
-    <div class="tab" data-view="stats">进度统计</div>
-    <div class="tab" data-view="wrong">错题本</div>
-  </div>
-
-  <div id="view"></div>
+  <main id="view"></main>
   <footer id="foot"></footer>
 </div>
 
@@ -289,7 +427,6 @@
   var KEY = 'study-22408-v2';
   var OLD_KEY = 'math2-plan-state-v1';
   var KINDS = {learn:'学习', practice:'练习', review:'复盘', rest:'机动'};
-  var PLAN_META = {math2:{short:'数学二'}, cs408:{short:'408'}, english:{short:'英语'}, politics:{short:'政治'}};
 
   var cache = {};
   function daysOf(p){
@@ -319,7 +456,6 @@
     });
     if(!s.active || !PLANS[s.active]) s.active = Object.keys(PLANS)[0];
     if(!s.wrong) s.wrong = {};
-    if(!s.statsScope) s.statsScope = 'all';
     return s;
   }
   function emptyState(){
@@ -407,6 +543,10 @@
   function curDayOf(p){
     var st = Pof(p);
     var list = daysOf(p);
+    if (st.pinDate && st.pinDate !== fmt(todayD())) {
+      st.pinDate = null;
+      st.offset = null;
+    }
     if(st.offset !== null && st.offset !== undefined && list[st.offset]) return list[st.offset];
     if(st.mode === 'date') return byDateOf(p);
     return nextUndoneOf(p) || list[list.length-1];
@@ -451,8 +591,14 @@
     var per = w.perDay || 100;
     var from = done + 1, to = Math.min(total, done + per);
     var groups = wb.lists || 50;
-    var gi = Math.min(groups, Math.floor(done / (total / groups)) + 1);
+    var perGroup = total / groups;
+    var gi = Math.min(groups, Math.floor(done / perGroup) + 1);
+    var logged = w.log[fmt(todayD())] || 0;
+    var tFrom = Math.max(1, done - logged + 1);
+    var tTo = Math.min(total, tFrom + per - 1);
+    var tGroup = Math.min(groups, Math.floor((tFrom - 1) / perGroup) + 1);
     return { total: total, done: done, remain: total - done, per: per, from: from, to: to, group: gi,
+             tFrom: tFrom, tTo: tTo, tGroup: tGroup, logged: logged,
              pct: Math.min(100, Math.round(done / total * 1000) / 10), w: w };
   }
   function wordRange(){ return wordRangeOf(pid()); }
@@ -460,33 +606,46 @@
     var r = wordRange();
     if(!r) return '';
     var wb = wordBook(), w = r.w, td = wordToday();
-    var days = r.per > 0 ? Math.ceil(r.remain / r.per) : 0;
+    var target = r.per || 100;
+    var todayPct = Math.min(100, Math.round(td / target * 100));
+    var days = target > 0 ? Math.ceil(r.remain / target) : 0;
     var finish = new Date(todayD().getTime() + days * 86400000);
+    var doneToday = td >= target;
     var html = '<div class="wordcard">' +
-      '<div class="row"><b style="font-size:13.5px">单词进度 · 第 ' + w.cycle + ' 轮</b>' +
+      '<div class="row"><b style="font-size:13.5px">今日单词 · 第 ' + w.cycle + ' 轮</b>' +
       '<span class="pill">' + esc(wb.name) + ' ' + r.total + ' 词</span><div class="grow"></div>' +
-      '<span class="sub">' + r.done + ' / ' + r.total + ' · ' + r.pct + '%</span></div>' +
-      '<div class="bar"><i style="width:' + r.pct + '%"></i></div>' +
-      '<div style="margin-top:8px;font-size:12.5px;color:var(--muted)">本轮剩 ' + r.remain + ' 词 · ' +
-      (r.remain > 0 ? '按每天 ' + r.per + ' 词 → 约 ' + days + ' 天，' + fmt(finish) + ' 背完' : '本轮已背完') + '</div>';
+      '<span class="sub">本轮 ' + r.done + ' / ' + r.total + ' · ' + r.pct + '%</span></div>' +
+      '<div class="row" style="margin-top:10px;align-items:baseline">' +
+      '<span style="font-size:13px">今日目标 <b>' + target + '</b> 词</span>' +
+      '<div class="grow"></div><span class="sub">已背 <b>' + td + '</b> / ' + target + (doneToday ? ' · 已达标' : '') + '</span></div>' +
+      '<div class="bar"><i style="width:' + todayPct + '%"></i></div>' +
+      '<div style="margin-top:8px;font-size:12.5px;color:var(--muted)">' +
+      (r.remain > 0
+        ? '今天背第 ' + r.tFrom + '–' + r.tTo + ' 词（' + esc(wb.name) + '第 ' + r.tGroup + ' 组）· 本轮剩 ' + r.remain +
+          ' 词，按每天 ' + target + ' 词 → 约 ' + days + ' 天，' + fmt(finish) + ' 背完'
+        : '本轮 ' + r.total + ' 词已背完') + '</div>';
     if(r.remain > 0){
-      var tStart = Math.max(1, r.done - td + 1);
-      var tEnd = Math.min(r.total, tStart + r.per - 1);
-      html += '<div class="row" style="margin-top:10px">' +
-        '<span class="sub">' + (td > 0 ? '今日目标' : '今日') + '：第 ' + tStart + '–' + tEnd + ' 词（' + esc(wb.name) + '第 ' + r.group + ' 组）</span>' +
-        '<div class="grow"></div><span class="sub">今日已背 <b>' + td + '</b> 词</span></div>' +
-        '<div class="row" style="margin-top:8px">' +
-        '<span class="sub">今日背了</span>' +
-        '<input id="wnum" type="number" min="10" max="600" step="10" value="' + r.per + '">' +
-        '<span class="sub">词</span>' +
-        '<button class="btn pri sm" id="wlog">打卡</button>' +
-        '<button class="btn sm" id="wundo">撤销今日</button>' +
-        '<div class="grow"></div><span class="sub">每日单词量</span>' +
+      if(!doneToday){
+        html += '<div class="row" style="margin-top:10px">' +
+          '<span class="sub">今天实际背了</span>' +
+          '<input id="wnum" type="number" min="0" max="600" step="10" value="' + Math.max(0, target - td) + '">' +
+          '<span class="sub">词</span>' +
+          '<button class="btn pri sm" id="wlog">打卡</button>' +
+          '<button class="btn sm" id="wundo">撤销今日</button>' +
+          '<span class="sub">默认补齐今日目标；只背了一部分就填实际数量</span>' +
+          '</div>';
+      }else{
+        html += '<div class="row" style="margin-top:10px">' +
+          '<span class="sub">今日单词已达标（' + td + ' / ' + target + '）</span>' +
+          '<button class="btn sm" id="wundo">撤销今日</button>' +
+          '<span class="sub">明天自动从第 ' + (r.done + 1) + ' 词继续</span></div>';
+      }
+      html += '<div class="row" style="margin-top:10px"><span class="sub">每日单词量</span>' +
         '<button class="btn sm" data-wstep="-20">−</button>' +
-        '<input id="wpd" type="number" min="10" max="600" step="10" value="' + r.per + '">' +
+        '<input id="wpd" type="number" min="10" max="600" step="10" value="' + target + '">' +
         '<button class="btn sm" data-wstep="20">+</button>' +
         [60, 80, 100, 150].map(function(v){
-          return '<button class="btn sm' + (v === r.per ? ' sel' : '') + '" data-wset="' + v + '">' + v + '</button>';
+          return '<button class="btn sm' + (v === target ? ' sel' : '') + '" data-wset="' + v + '">' + v + '</button>';
         }).join('') +
         '</div>' +
         '<div class="row" style="margin-top:8px"><span class="sub">进度校准</span>' +
@@ -504,63 +663,22 @@
     var r = wordRangeOf(p);
     if(!r) return '';
     var td = wordTodayOf(p);
-    var checked = td > 0;
+    var target = r.per || 100;
+    var done = td >= target;
     var label = r.remain > 0
-      ? '单词：今日 ' + r.per + ' 词（第 ' + r.from + '–' + r.to + ' 词）'
-      : '单词：本轮已背完（' + r.total + ' 词）';
-    return '<label class="check ' + (checked ? 'done' : '') + '"><input type="checkbox" id="wordChk" data-gp="' + p +
-      '" data-gw="' + p + '"' + (checked ? ' checked' : '') + '><span>' + esc(label) + '</span></label>';
-  }
-  function bindWordCard(){
-    var el = document.getElementById('view');
-    var w = wordState();
-    if(!w) return;
-    var r = wordRange();
-    var log = el.querySelector('#wlog');
-    if(log) log.addEventListener('click', function(){
-      var num = parseInt((el.querySelector('#wnum') || {}).value, 10);
-      if(!num || num < 1) num = r.per;
-      logWords(num);
-    });
-    var undo = el.querySelector('#wundo');
-    if(undo) undo.addEventListener('click', function(){
-      if(wordToday() === 0) return;
-      logWords(-wordToday());
-    });
-    el.querySelectorAll('[data-wstep]').forEach(function(b){
-      b.addEventListener('click', function(){
-        var v = Math.max(10, Math.min(600, (r.per || 100) + parseInt(b.dataset.wstep, 10)));
-        w.perDay = v; save(); renderHead(); renderToday();
-      });
-    });
-    el.querySelectorAll('[data-wset]').forEach(function(b){
-      b.addEventListener('click', function(){
-        w.perDay = parseInt(b.dataset.wset, 10); save(); renderHead(); renderToday();
-      });
-    });
-    var pd = el.querySelector('#wpd');
-    if(pd) pd.addEventListener('change', function(){
-      var v = parseInt(pd.value, 10);
-      if(!v || v < 10 || v > 600) return;
-      w.perDay = v; save(); renderHead(); renderToday();
-    });
-    var sv = el.querySelector('#wsave'), dn = el.querySelector('#wdone');
-    if(sv && dn) sv.addEventListener('click', function(){
-      var v = parseInt(dn.value, 10);
-      if(isNaN(v) || v < 0) return;
-      w.done = Math.min(wordBook().total, v);
-      save(); renderHead(); renderToday();
-    });
-    var nx = el.querySelector('#wnext');
-    if(nx) nx.addEventListener('click', function(){
-      w.done = 0; w.cycle = (w.cycle || 1) + 1; w.log = {};
-      save(); renderHead(); renderToday();
-    });
-    var chk = el.querySelector('#wordChk');
-    if(chk) chk.addEventListener('change', function(){
-      if(chk.checked){ if(wordToday() === 0) logWords(r.per); else renderToday(); }
-      else { if(wordToday() > 0) logWords(-wordToday()); else renderToday(); }
-    });
+      ? '今日单词 ' + target + ' 词（第 ' + r.tFrom + '–' + r.tTo + ' 词）'
+      : '今日单词（本轮 ' + r.total + ' 词已背完）';
+    var d0 = curDayOf(p);
+    var hasReview = d0 ? checklistOf(p, d0).some(function (it) { return /昨天|复习/.test(it.text); }) : false;
+    var yLog = r.w.log[fmt(new Date(todayD().getTime() - 86400000))] || 0;
+    var yHint = (!hasReview && yLog > 0) ? ' · 顺带复习昨天 ' + yLog + ' 词' : '';
+    return '<div class="wordtask' + (done ? ' done' : '') + '">' +
+      '<label class="check ' + (done ? 'done' : '') + '"><input type="checkbox" data-wp="' + p + '"' +
+      (done ? ' checked' : '') + '><span>' + esc(label) + '</span></label>' +
+      '<div class="sub wt-m">已背 <b>' + td + '</b> / ' + target + ' · ' + esc(wordBookOf(p).name) + '第 ' + r.tGroup +
+      ' 组 · 本轮 ' + r.done + ' / ' + r.total + '（' + r.pct + '%）' +
+      (done ? ' · 今日单词已达标' : ' · 还差 ' + (target - td) + ' 词') + yHint + '</div>' +
+      '</div>';
   }
 
   // ---- 章节进度（数学二 / 408：按武忠祥 / 王道章节勾）
@@ -602,61 +720,11 @@
   function chapterCardHtml(p){
     var cs = chapterStatsOf(p);
     if(!cs) return '';
-    return '<div class="card side-card" data-chap-card><div class="row"><b>章节进度</b><div class="grow"></div>' +
-      '<span class="sub" data-chap-total>' + cs.done + ' / ' + cs.total + ' 章</span></div>' +
+    return '<div class="card side-card" data-chap-card><div class="row"><b>' + esc(cs.title) + '</b>' +
+      '<div class="grow"></div><span class="sub" data-chap-total>' + cs.done + ' / ' + cs.total + ' 章</span></div>' +
       '<div class="bar" style="margin-top:8px"><i data-chap-bar style="width:' + cs.pct + '%"></i></div>' +
-      '<div class="sub" style="margin-top:6px">' + esc(cs.title) + '</div>' +
       '<div class="chapters">' + chapterListHtml(p) + '</div>' +
       '<div class="sub" style="margin-top:6px">过完一章勾一章；点书名列可收起。</div></div>';
-  }
-  function phaseSideCard(){
-    var ph = curPhase();
-    if(!ph) return '';
-    var st = phaseStats(ph);
-    var pct = st.study ? Math.round(st.done / st.study * 100) : 0;
-    var left = diffDays(dISO(ph.end), todayD());
-    return '<div class="card side-card"><div class="row"><b>当前阶段</b><div class="grow"></div>' +
-      '<span class="pill">' + esc(ph.short) + '</span></div>' +
-      '<div class="sub" style="margin-top:6px">' + ph.start + ' → ' + ph.end + ' · ' + ph.weeks + ' 周</div>' +
-      '<div class="kv" style="margin:6px 0 0"><b>周次</b><span>第 ' + phaseWeekIndex(ph) + '/' + ph.weeks + ' 周' +
-      (left >= 0 ? ' · 剩 ' + left + ' 天' : '') + '</span></div>' +
-      '<div class="kv"><b>目标</b><span>' + esc(ph.goal) + '</span></div>' +
-      (st.study ? '<div class="bar" style="margin-top:6px"><i style="width:' + pct + '%"></i></div>' +
-        '<div class="sub" style="margin-top:4px">学习日 ' + st.done + '/' + st.study + '</div>' : '') +
-      '<div class="row" style="margin-top:10px"><button class="btn sm" data-side-phase="1">看阶段详情 →</button></div></div>';
-  }
-  function bindChapter(el){
-    el.querySelectorAll('input[data-chapter]').forEach(function(box){
-      box.addEventListener('change', function(){
-        var parts = box.dataset.chapter.split('|');
-        var cs = chapterStateOf(parts[0]);
-        var prev = cs[parts[1]] || {done:false};
-        var lab = box.closest('label');
-        cs[parts[1]] = box.checked ? {done:true, at:fmt(todayD())} : {done:false};
-        save();
-        if(lab) lab.classList.toggle('done', box.checked);
-        if(view === 'stats') renderStats(); else updateChapterDom(parts[0]);
-        toast((box.checked ? '已过 · ' : '取消 · ') + shortText(lab ? lab.innerText : '', 16), '撤销', function(){
-          cs[parts[1]] = prev;
-          box.checked = !!prev.done;
-          save();
-          if(view === 'stats'){ renderStats(); }
-          else { if(lab) lab.classList.toggle('done', !!prev.done); updateChapterDom(parts[0]); }
-        });
-      });
-    });
-  }
-  function bindSide(el){
-    var b = el.querySelector('[data-side-phase]');
-    if(b) b.addEventListener('click', function(){ switchView('phase'); window.scrollTo(0, 0); });
-  }
-  function wrapToday(html){
-    var p = pid(), side = '';
-    if(plan().wordBook) side += wordCardHtml();
-    if(courseOf(p)) side += chapterCardHtml(p);
-    side += phaseSideCard();
-    if(!side) return html;
-    return '<div class="today-wrap"><div class="today-main">' + html + '</div><aside class="today-side">' + side + '</aside></div>';
   }
 
   function fmt(d){
@@ -668,14 +736,7 @@
   function dISO(s){ return new Date(String(s).slice(0,10) + 'T00:00:00'); }
   function todayD(){ var d = new Date(); d.setHours(0,0,0,0); return d; }
   function diffDays(a,b){ return Math.round((a - b)/86400000); }
-  function md(s){ return String(s || '').slice(5,10).replace('-', '.'); }
   function shortDate(s){ return String(s || '').slice(2).replace(/-/g, '.'); }
-  function phases(){ return plan().phases || []; }
-  function phaseById(id){
-    var list = phases();
-    for(var i=0;i<list.length;i++){ if(list[i].id === id) return list[i]; }
-    return null;
-  }
   function phaseState(ph){
     var now = todayD();
     if(now > dISO(ph.end)) return 'done';
@@ -688,81 +749,17 @@
     for(var i=0;i<list.length;i++){ if(now <= dISO(list[i].end)) return list[i]; }
     return list[list.length-1];
   }
-  function curPhase(){ return curPhaseOf(pid()); }
   function phaseWeekIndex(ph){
     var n = Math.floor(diffDays(todayD(), dISO(ph.start))/7) + 1;
     if(n < 1) n = 1;
     if(n > ph.weeks) n = ph.weeks;
     return n;
   }
-  function phaseWeeks(ph){
-    return plan().weeks.filter(function(w){ return w.phase === ph.id; });
-  }
-  function phaseStats(ph){
-    var out = {weeks:0, study:0, done:0, ex:0, exDone:0, rev:0, revDone:0};
-    var wks = phaseWeeks(ph);
-    out.weeks = wks.length;
-    wks.forEach(function(w){
-      (w.days || []).forEach(function(d){
-        var s = P().checks[d.id] || {};
-        if(d.kind === 'learn' || d.kind === 'practice'){
-          out.study++;
-          if(s.done) out.done++;
-        }else if(d.kind === 'review'){
-          out.rev++;
-          if(s.done) out.revDone++;
-        }
-        (d.exercises || []).forEach(function(_,i){
-          out.ex++;
-          if(s.e && s.e[i]) out.exDone++;
-        });
-      });
-    });
-    return out;
-  }
   function phaseBadge(ph){
     var st = phaseState(ph);
     return st === 'done' ? '<span class="pill ok">已结束</span>'
       : st === 'active' ? '<span class="pill">进行中 · 第 ' + phaseWeekIndex(ph) + '/' + ph.weeks + ' 周</span>'
       : '<span class="pill wait">未开始</span>';
-  }
-  function phaseBarHtml(){
-    var list = phases();
-    if(!list.length) return '';
-    var now = todayD();
-    var cur = curPhase();
-    return list.map(function(ph){
-      var st = phaseState(ph), s = phaseStats(ph);
-      var pct = s.study ? Math.round(s.done/s.study*100) : 0;
-      var left = diffDays(dISO(ph.end), now);
-      var tail = st === 'active' ? (left >= 0 ? '剩 ' + left + ' 天' : '超期 ' + (-left) + ' 天')
-        : st === 'todo' ? diffDays(dISO(ph.start), now) + ' 天后开始' : phaseWeeks(ph).length ? '已走完' : '未排细化';
-      return '<button class="ph ' + (cur && cur.id === ph.id ? 'on' : '') + (st === 'done' ? ' done' : '') +
-        '" data-phase="' + ph.id + '">' +
-        '<span class="n">第 ' + ph.seq + ' 阶段 · ' + ph.weeks + ' 周</span>' +
-        '<span class="t">' + esc(ph.short) + '</span>' +
-        '<span class="d">' + shortDate(ph.start) + ' → ' + shortDate(ph.end) + ' · ' + tail + '</span>' +
-        (s.study ? '<span class="pw"><i style="width:' + pct + '%"></i></span>' : '') +
-        '</button>';
-    }).join('');
-  }
-  function globalStageBarHtml(){
-    return Object.keys(PLANS).map(function(p){
-      var ph = curPhaseOf(p);
-      if(!ph) return '';
-      var st = phaseState(ph);
-      var tail = st === 'done' ? '已结束'
-        : st === 'active' ? ('第 ' + phaseWeekIndex(ph) + '/' + ph.weeks + ' 周 · 剩 ' + Math.max(0, diffDays(dISO(ph.end), todayD())) + ' 天')
-        : (diffDays(dISO(ph.start), todayD()) + ' 天后开始');
-      return '<button class="ph ' + (p === pid() ? 'on' : '') + '" data-gstage="' + p + '">' +
-        '<span class="n">' + esc(PLAN_META[p].short) + ' · 第 ' + ph.seq + ' 阶段</span>' +
-        '<span class="t">' + esc(ph.short) + '</span>' +
-        '<span class="d">' + shortDate(ph.start) + ' → ' + shortDate(ph.end) + ' · ' + tail + '</span>' +
-        '</button>';
-    }).join('');
-  }
-  function totalPhaseWeeks(){
-    return phases().reduce(function(n,p){ return n + (p.weeks || 0); }, 0);
   }
   function esc(s){
     return String(s==null?'':s).replace(/[&<>"]/g, function(c){
@@ -871,1107 +868,1325 @@
       '<div class="heat-wrap"><div class="heat-months">' + months + '</div>' +
       '<div class="heat">' + cols + '</div></div>';
   }
-  function bindHeat(el){
-    el.querySelectorAll('[data-hidx]').forEach(function(b){
-      b.addEventListener('click', function(){
-        var idx = +b.dataset.hidx, list = daysOf(pid());
-        if(idx < 0 || idx >= list.length) return;
-        P().offset = idx; save();
-        switchView('today'); window.scrollTo(0, 0);
-      });
-    });
+
+  // =====================================================================
+  // v3 交互层：今日计划 / 总体统计 / 阶段总览 / 单科详情（每科一页）
+  // =====================================================================
+  var SUBJ_ORDER = ['math2', 'cs408', 'english', 'politics'];
+  var SUBJ_FULL = {math2: '数学二', cs408: '408', english: '英语', politics: '政治'};
+  var SUBJ_COLOR = {math2: '#2f6feb', cs408: '#0e9f6e', english: '#d97706', politics: '#d92d20'};
+  var WD = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+  var VIEWS = ['today', 'stats', 'phases', 'subject'];
+  var view = 'today';
+  var pendingAnchor = null;
+
+  if (!state.ui || !state.ui.view || VIEWS.indexOf(state.ui.view) < 0) {
+    state.ui = {view: 'today'};
   }
 
-  // ---- 局部更新：今日计划 / 全局计数 / 章节进度
-  function finishRowHtml(done){
-    return done
-      ? '<button class="btn" id="unfinish">标记未完成</button><span class="sub">这一天已完成</span>'
-      : '<button class="btn pri" id="finish">全部达标，标记完成</button><span class="sub">也可直接把上面的今日计划全部勾上</span>';
+  // ---------------- 通用小部件 ----------------
+  function hexa(hex, a) {
+    var h = String(hex).replace('#', '');
+    if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+    var n = parseInt(h, 16);
+    return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
   }
-  function bindFinish(d){
-    var el = document.getElementById('view');
-    var f = el.querySelector('#finish');
-    if(f) f.addEventListener('click', function(){
-      var st = ds(d.id);
-      (d.checklist || []).forEach(function(_, i){ st.c[i] = true; });
-      if(wordBook() && wordToday() === 0) wordLog(wordState().perDay);
-      st.done = true; st.at = fmt(todayD());
-      P().offset = daysOf(pid()).indexOf(d);
-      save(); renderHead(); renderToday();
-      toast('已标记完成：' + shortText(d.title, 16));
-    });
-    var u = el.querySelector('#unfinish');
-    if(u) u.addEventListener('click', function(){
-      var st = ds(d.id);
-      st.done = false; delete st.at;
-      save(); renderHead(); renderToday();
-      toast('已取消完成：' + shortText(d.title, 16));
-    });
+  function ringHtml(pct, label, color) {
+    var c = 2 * Math.PI * 15.5;
+    var p = Math.max(0, Math.min(100, pct || 0));
+    var len = (p / 100 * c).toFixed(2);
+    return '<div class="ring" style="--sc:' + (color || '#2f6feb') + '">' +
+      '<svg viewBox="0 0 36 36" aria-hidden="true">' +
+      '<circle class="bg" cx="18" cy="18" r="15.5"></circle>' +
+      (p > 0 ? '<circle class="fg" cx="18" cy="18" r="15.5" stroke-dasharray="' + len + ' ' + (c - len).toFixed(2) + '"></circle>' : '') +
+      '</svg><div class="rt"><b>' + p + '%</b><span>' + esc(label) + '</span></div></div>';
   }
-  function updateTodayChecks(d, st){
-    var el = document.getElementById('view');
-    var checked = 0;
-    el.querySelectorAll('input[data-c]').forEach(function(box){
-      var on = !!st.c[+box.dataset.c];
-      if(on) checked++;
-      var lab = box.closest('label');
-      if(lab) lab.classList.toggle('done', on);
-    });
-    var hasWord = !!wordBook();
-    var head = el.querySelector('.plan-head');
-    if(head){
-      var wordDone = hasWord && wordToday() > 0 ? 1 : 0;
-      head.textContent = '今日计划 · 打卡 ' + (checked + wordDone) + '/' +
-        ((d.checklist || []).length + (hasWord ? 1 : 0));
-    }
-    var row = el.querySelector('.finish-row');
-    if(row){
-      var want = isDone(d);
-      if(row.dataset.done !== (want ? '1' : '')){
-        row.dataset.done = want ? '1' : '';
-        row.innerHTML = finishRowHtml(want);
-        bindFinish(d);
-      }
-    }
+  function kpi(big, label, pct, color) {
+    var bar = (pct === null || pct === undefined) ? '' :
+      '<div class="bar"><i style="width:' + Math.max(0, Math.min(100, pct)) + '%' +
+      (color ? ';background:' + color : '') + '"></i></div>';
+    return '<div class="kpi"><b>' + esc(big) + '</b><span>' + esc(label) + '</span>' + bar + '</div>';
   }
-  function globalCounts(){
-    var out = { total: 0, done: 0, per: {} };
-    Object.keys(PLANS).forEach(function(p){
-      var data = planOf(p), o = { done: 0, total: 0 };
-      if(data.startsLater && todayD() < dISO(data.startDate)){ out.per[p] = o; return; }
-      var d = curDayOf(p);
-      if(!d){ out.per[p] = o; return; }
-      var sc = dsOf(p, d.id), wb = data.wordBook;
-      o.total = (d.checklist || []).length + (wb ? 1 : 0);
-      o.done = (d.checklist || []).filter(function(_, i){ return !!sc.c[i]; }).length +
-        (wb && wordTodayOf(p) > 0 ? 1 : 0);
-      out.total += o.total; out.done += o.done;
-      out.per[p] = o;
+  function secHead(title, sub) {
+    return '<div class="sec-h"><h2>' + esc(title) + '</h2>' + (sub ? '<span class="sub">' + esc(sub) + '</span>' : '') + '</div>';
+  }
+  function subjectProgress(p) {
+    var days = studyDays(p);
+    var done = days.filter(function (d) { return isDoneOf(p, d); }).length;
+    return {total: days.length, done: done, pct: days.length ? Math.round(done / days.length * 100) : 0};
+  }
+  function phaseStatsOf(p, ph) {
+    var out = {weeks: 0, study: 0, done: 0, ex: 0, exDone: 0, rev: 0, revDone: 0};
+    (planOf(p).weeks || []).forEach(function (w) {
+      if (w.phase !== ph.id) return;
+      out.weeks++;
+      (w.days || []).forEach(function (d) {
+        var s = Pof(p).checks[d.id] || {};
+        if (d.kind === 'learn' || d.kind === 'practice') {
+          out.study++;
+          if (s.done) out.done++;
+        } else if (d.kind === 'review') {
+          out.rev++;
+          if (s.done) out.revDone++;
+        }
+        (d.exercises || []).forEach(function (_, i) {
+          out.ex++;
+          if (s.e && s.e[i]) out.exDone++;
+        });
+      });
     });
     return out;
   }
-  function updateGlobalCounts(){
-    var el = document.getElementById('view');
-    if(!el) return;
-    var g = globalCounts();
-    var sum = el.querySelector('#gsum');
-    if(sum){
-      sum.textContent = g.done + ' / ' + g.total + ' 项';
-      var bar = el.querySelector('#gsumBar i');
-      if(bar) bar.style.width = (g.total ? Math.round(g.done / g.total * 100) : 0) + '%';
+  // 英语的「今日单词」只由词库驱动；计划清单里的单词项不再重复占勾
+  function isWordOnlyItem(t) {
+    var x = String(t || '');
+    return /新词/.test(x) || /单词\s*\d/.test(x) || /List/.test(x) || /今日量过完/.test(x);
+  }
+  function checklistOf(p, d) {
+    var out = [], hide = !!wordBookOf(p);
+    (d.checklist || []).forEach(function (t, i) {
+      if (hide && isWordOnlyItem(t)) return;
+      out.push({text: t, i: i});
+    });
+    return out;
+  }
+  function wordTargetOf(p) {
+    var w = wordStateOf(p);
+    return w ? (w.perDay || 100) : 0;
+  }
+  function wordTaskDoneOf(p) {
+    if (!wordBookOf(p)) return true;
+    return wordTodayOf(p) >= wordTargetOf(p);
+  }
+  function dayDoneNow(p, d, st) {
+    var items = checklistOf(p, d);
+    return items.every(function (it) { return !!st.c[it.i]; }) && wordTaskDoneOf(p);
+  }
+  function syncDone(p, d, st) {
+    var items = checklistOf(p, d);
+    if (!items.length && !wordBookOf(p)) return;
+    if (dayDoneNow(p, d, st)) {
+      if (!st.done) { st.done = true; st.at = fmt(todayD()); }
+    } else {
+      st.done = false;
+      delete st.at;
     }
-    Object.keys(g.per).forEach(function(p){
-      var n = el.querySelector('[data-gcount="' + p + '"]');
-      if(n) n.textContent = '打卡 ' + g.per[p].done + '/' + g.per[p].total;
-    });
-    el.querySelectorAll('input[data-gc]').forEach(function(box){
-      var lab = box.closest('label');
-      if(lab) lab.classList.toggle('done', box.checked);
-    });
   }
-  function updateChapterDom(p){
-    var cs = chapterStatsOf(p);
-    if(!cs) return;
-    var card = document.querySelector('.today-side [data-chap-card]');
-    if(!card) return;
-    var total = card.querySelector('[data-chap-total]');
-    if(total) total.textContent = cs.done + ' / ' + cs.total + ' 章';
-    var bar = card.querySelector('[data-chap-bar]');
-    if(bar) bar.style.width = cs.pct + '%';
-    cs.groups.forEach(function(gp){
-      var n = card.querySelector('[data-chapgroup="' + gp.id + '"]');
-      if(n) n.textContent = gp.done + '/' + gp.total;
-    });
+  // 动完十字后更新完成态；完成了就把这天固定住，不再自动跳到下一天
+  function pinDay(p, idx) {
+    var st = Pof(p);
+    st.offset = idx;
+    st.pinDate = fmt(todayD());
   }
-  function logWords(amount){
-    var wb = wordBook();
-    var before = wordState().done;
-    wordLog(amount);
-    var after = wordState().done;
-    renderHead(); renderToday();
-    toast('单词 ' + (amount > 0 ? '+' : '') + amount + '（' + after + ' / ' + wb.total + '）', '撤销', function(){
-      wordLog(before - after);
-      renderHead(); renderToday();
-    });
+  function unpinDay(p) {
+    var st = Pof(p);
+    st.offset = null;
+    st.pinDate = null;
   }
-
-  function renderHead(){
-    var isGlobal = (view === 'plan');
-    var isStats = (view === 'stats');
-    var chromeHidden = isGlobal || isStats;
-    var scope = state.statsScope || 'all';
-    document.body.dataset.subject = pid();
-    var bar = document.getElementById('planbar');
-    var gc0 = globalCounts();
-    bar.innerHTML = '<button data-plan="__plan" class="global ' + (isGlobal ? 'on' : '') + '">今日计划<small>' +
-      gc0.done + '/' + gc0.total + '</small></button>' +
-      Object.keys(PLANS).map(function(k){
-        var d = studyDays(k), dn = d.filter(function(x){
-          var s = state.plans[k].checks[x.id]; return s && s.done;
-        }).length;
-        return '<button data-plan="' + k + '" class="' + (!isGlobal && k === pid() ? 'on' : '') + '">' +
-          esc(PLAN_META[k].short) + '<small>' + dn + '/' + d.length + '</small></button>';
-      }).join('');
-
-    var st = studyDays(pid());
-    var doneN = st.filter(isDone).length;
-    var pct = st.length ? Math.round(doneN/st.length*100) : 0;
-    var cur = curDay();
-    var ph = curPhase();
-    var examD = plan().examDate ? dISO(plan().examDate) : null;
-    document.getElementById('title').textContent = isGlobal ? '22408 · 今日计划'
-      : isStats ? '22408 · 进度统计'
-      : plan().title;
-    var metaTxt =
-      '起始 ' + P().startDate + ' · ' + phases().length + ' 个阶段 / ' + totalPhaseWeeks() + ' 周（细化 ' + plan().weeks.length +
-      ' 周）· ' + st.length + ' 个章节学习日 · ' + reviewDays(pid()).length + ' 个复盘日' +
-      (exTotal(pid()) ? ' · ' + exTotal(pid()) + ' 道课后题' : '') +
-      (ph ? ' · 当前 ' + ph.short + '（第 ' + phaseWeekIndex(ph) + '/' + ph.weeks + ' 周）' : ' · 当前第 ' + (cur ? cur.week : '—') + ' 周');
-    document.getElementById('meta').textContent = isGlobal
-      ? (fmt(todayD()) + ' · 四科今日任务 · ' + (examD ? '距初试 ' + Math.max(0, diffDays(examD, todayD())) + ' 天' : ''))
-      : isStats
-        ? (fmt(todayD()) + ' · ' + (scope === 'all' ? '四科全局 · 每天打卡、章节、单词合并统计'
-            : esc(PLAN_META[scope].short) + ' · 单科统计（可切回全局）') +
-           (examD ? ' · 距初试 ' + Math.max(0, diffDays(examD, todayD())) + ' 天' : ''))
-        : metaTxt;
-    document.getElementById('phases').innerHTML = isGlobal ? globalStageBarHtml() : (isStats ? '' : phaseBarHtml());
-    document.getElementById('phases').style.display = (isGlobal || !isStats) ? '' : 'none';
-    document.getElementById('stats').style.display = chromeHidden ? 'none' : '';
-    document.getElementById('mode').style.display = chromeHidden ? 'none' : '';
-    document.getElementById('startLabel').style.display = chromeHidden ? 'none' : '';
-    document.getElementById('start').style.display = chromeHidden ? 'none' : '';
-    document.getElementById('reset').style.display = chromeHidden ? 'none' : '';
-    document.getElementById('start').value = P().startDate;
-    document.querySelectorAll('#tabs .tab').forEach(function(t){
-      t.classList.toggle('on', t.dataset.view === view);
-    });
-    var exT = exTotal(pid());
-    var wr = wordRange();
-    var secondCard = wr
-      ? card(wr.done + ' / ' + wr.total, '单词（第 ' + wr.w.cycle + ' 轮）', wr.pct + '%')
-      : exT ? card(exDone(pid()) + ' / ' + exT, '课后题', Math.round(exDone(pid())/exT*100) + '%')
-          : '<div class="stat"><b>—</b><span>课后题</span><div class="bar"><i style="width:0"></i></div>' +
-            '<span style="font-size:11.5px">本科目以背诵 / 单词为主</span></div>';
-    document.getElementById('stats').innerHTML = [
-      card(doneN + ' / ' + st.length, '章节学习日', pct + '%'),
-      secondCard,
-      card(revDone(pid()) + ' / ' + reviewDays(pid()).length, '周复盘', Math.round(revDone(pid())/(reviewDays(pid()).length||1)*100) + '%'),
-      card(streak(pid()) + ' 天', '连续完成', '从第 1 周算起')
-    ].join('');
-    document.querySelectorAll('#mode button').forEach(function(b){
-      b.classList.toggle('on', b.dataset.mode === P().mode);
-    });
+  function afterDayChange(p, d) {
+    if (!d) return;
+    var st = dsOf(p, d.id);
+    syncDone(p, d, st);
+    if (st.done) {
+      var i = daysOf(p).indexOf(d);
+      if (i >= 0) pinDay(p, i);
+    }
+    save();
   }
-  function card(big, label, sub){
-    return '<div class="stat"><b>' + esc(big) + '</b><span>' + esc(label) + '</span>' +
-      '<div class="bar"><i style="width:' + (parseInt(sub)||0) + '%"></i></div>' +
-      '<span style="font-size:11.5px">' + esc(sub) + '</span></div>';
+  function advanceDay(p) {
+    var list = daysOf(p), cur = curDayOf(p);
+    var i = list.indexOf(cur), n = i + 1;
+    while (n < list.length && isRest(list[n])) n++;
+    if (n >= list.length) { toast('已经是最后一天了'); return; }
+    pinDay(p, n);
+    save();
+    if (view === 'subject') {
+      render();
+      scrollToSec('sec-day');
+    } else {
+      var y = window.pageYOffset;
+      render();
+      window.scrollTo(0, y);
+    }
+  }
+  function toggleWordTask(p, checked) {
+    var target = wordTargetOf(p), td = wordTodayOf(p);
+    if (checked) {
+      if (td < target) wordLogOf(p, target - td);
+    } else if (td > 0) {
+      wordLogOf(p, -td);
+    }
+    afterDayChange(p, curDayOf(p));
+    refresh();
+  }
+  function nextStudyAfterOf(p, d) {
+    var list = daysOf(p);
+    for (var k = list.indexOf(d) + 1; k < list.length; k++) {
+      if (!isRest(list[k])) return list[k];
+    }
+    return null;
+  }
+  function stepDay(p, dir) {
+    var list = daysOf(p), cur = curDayOf(p);
+    var n = list.indexOf(cur) + dir;
+    if (n < 0 || n >= list.length) return;
+    pinDay(p, n);
+    save();
+    render();
+    scrollToSec('sec-day');
+  }
+  function logWordsFor(p, n) {
+    var wb = wordBookOf(p);
+    var before = wordStateOf(p).done;
+    wordLogOf(p, n);
+    var after = wordStateOf(p).done;
+    var today = wordTodayOf(p), target = wordTargetOf(p);
+    afterDayChange(p, curDayOf(p));
+    toast('单词 ' + (n > 0 ? '+' : '') + n + '（今日 ' + today + ' / ' + target + ' · 本轮 ' + after + ' / ' + wb.total + '）',
+      '撤销', function () {
+        wordLogOf(p, before - after);
+        afterDayChange(p, curDayOf(p));
+        refresh();
+      });
+    refresh();
   }
 
-  function renderGlobalPlan(){
-    var el = document.getElementById('view');
-    var order = Object.keys(PLANS);
-    var total = 0, doneN = 0, blocks = '';
-
-    order.forEach(function(p){
-      var data = planOf(p), st = Pof(p);
-      var head = '<span class="badge subj c-' + p + '">' + esc(PLAN_META[p].short) + '</span>';
-      if(data.startsLater && todayD() < dISO(data.startDate)){
-        var wait = diffDays(dISO(data.startDate), todayD());
-        blocks += '<div class="gcard dim"><div class="row">' + head +
-          '<span class="gt">还没启动</span><span class="sub">' + data.startDate + ' 开始（还有 ' + wait + ' 天）</span>' +
-          '<div class="grow"></div><button class="btn sm" data-gophase="' + p + '">看阶段</button></div></div>';
+  // ---------------- 路由 ----------------
+  function readHash() {
+    var raw = String(location.hash || '').replace(/^#\/?/, '');
+    if (!raw) return null;
+    var parts = raw.split('/');
+    var v = VIEWS.indexOf(parts[0]) >= 0 ? parts[0] : null;
+    if (!v) return null;
+    if (parts[1] && PLANS[parts[1]]) state.active = parts[1];
+    return v;
+  }
+  function go(v, p, anchor) {
+    if (p && PLANS[p]) state.active = p;
+    view = v;
+    state.ui = {view: v, subject: state.active};
+    save();
+    pendingAnchor = anchor || null;
+    var h = '#/' + v + (v === 'subject' ? '/' + state.active : '');
+    if (location.hash === h) {
+      render();
+      applyPendingScroll();
+    } else {
+      location.hash = h;
+    }
+  }
+  function stickyOffset() {
+    var top = document.querySelector('.topbar');
+    var bar = document.querySelector('.anchors');
+    var h = top ? top.offsetHeight : 0;
+    if (bar && window.getComputedStyle(bar).position === 'sticky') h += bar.offsetHeight;
+    return h + 12;
+  }
+  function applyPendingScroll() {
+    if (pendingAnchor) {
+      var id = pendingAnchor;
+      pendingAnchor = null;
+      var t = document.getElementById(id);
+      if (t) {
+        window.scrollTo(0, Math.max(0, t.getBoundingClientRect().top + window.pageYOffset - stickyOffset()));
         return;
       }
-      var d = curDayOf(p);
-      if(!d){ blocks += '<div class="gcard dim"><div class="row">' + head + '<span class="sub">计划已走完</span></div></div>'; return; }
-      var sc = dsOf(p, d.id);
-      var ph = curPhaseOf(p);
-      var wb = data.wordBook;
-      var wDone = wb ? wordTodayOf(p) : 0;
-      var nItems = (d.checklist||[]).length + (wb ? 1 : 0);
-      var nDone = (d.checklist||[]).filter(function(_,i){ return !!sc.c[i]; }).length + (wb && wDone > 0 ? 1 : 0);
-      total += nItems; doneN += nDone;
-
-      var rows = '';
-      if(wb) rows += wordRowHtml(p);
-      (d.checklist||[]).forEach(function(c,i){
-        rows += '<label class="check ' + (sc.c[i]?'done':'') + '"><input type="checkbox" data-gp="' + p +
-          '" data-gd="' + d.id + '" data-gc="' + i + '"' + (sc.c[i]?' checked':'') + '><span>' + esc(c) + '</span></label>';
-      });
-
-      var wordLine = '';
-      if(wb){
-        var r = wordRangeOf(p);
-        wordLine = '<div class="gword"><span>单词 ' + r.done + '/' + r.total + '（第 ' + r.w.cycle + ' 轮）</span>' +
-          '<div class="bar grow" style="margin:0"><i style="width:' + r.pct + '%"></i></div>' +
-          '<span>' + (r.remain > 0 ? '今日第 ' + r.from + '–' + r.to + ' 词' : '本轮已背完') + '</span>' +
-          '<button class="btn sm" data-gwlog="' + p + '">+ ' + r.per + ' 词</button></div>';
-      }
-      var chapLine = '';
-      if(courseOf(p)){
-        var cst = chapterStatsOf(p);
-        chapLine = '<div class="gword"><span>章节 ' + cst.done + '/' + cst.total + ' 章</span>' +
-          '<div class="bar grow" style="margin:0"><i style="width:' + cst.pct + '%"></i></div>' +
-          '<span>' + cst.groups.map(function(g){ return g.short + ' ' + g.done + '/' + g.total; }).join(' · ') + '</span></div>';
-      }
-
-      blocks += '<div class="gcard">' +
-        '<div class="row" style="align-items:baseline">' + head +
-        '<span class="gt">' + esc(d.title) + '</span>' +
-        '<div class="grow"></div><span class="sub" data-gcount="' + p + '">打卡 ' + nDone + '/' + nItems + '</span></div>' +
-        '<div class="row" style="margin-top:2px">' +
-        '<span class="sub">第 ' + d.week + ' 周 · ' + esc(d.weekday) + (ph ? ' · ' + esc(ph.short) : '') + '</span>' +
-        '<div class="grow"></div><button class="btn sm" data-gopen="' + p + '">细节 →</button></div>' +
-        '<div style="margin-top:4px">' + rows + '</div>' + wordLine + chapLine + '</div>';
+    }
+    window.scrollTo(0, 0);
+  }
+  function scrollToSec(id) {
+    var t = document.getElementById(id);
+    if (!t) return;
+    window.scrollTo(0, Math.max(0, t.getBoundingClientRect().top + window.pageYOffset - stickyOffset()));
+  }
+  function refresh() {
+    var y = window.pageYOffset;
+    render();
+    window.scrollTo(0, y);
+  }
+  function syncTop() {
+    document.querySelectorAll('#nav [data-nav]').forEach(function (b) {
+      b.classList.toggle('on', b.dataset.nav === view);
     });
+    var g = todayTotals();
+    var nt = document.getElementById('navToday');
+    if (nt) nt.textContent = g.done + '/' + g.total;
+    var ns = document.getElementById('navSubject');
+    if (ns) ns.textContent = SUBJ_FULL[state.active];
+    var cd = document.getElementById('countdown');
+    if (cd) cd.textContent = '距初试 ' + Math.max(0, diffDays(dISO(PLANS.math2.examDate), todayD())) + ' 天';
+  }
+  function syncStickyOffsets() {
+    var top = document.querySelector('.topbar');
+    if (top) document.documentElement.style.setProperty('--topbar-h', top.offsetHeight + 'px');
+  }
+  function render() {
+    document.body.setAttribute('data-subject', view === 'subject' ? state.active : 'all');
+    syncTop();
+    syncStickyOffsets();
+    var el = document.getElementById('view');
+    if (view === 'stats') el.innerHTML = statsPageHtml();
+    else if (view === 'phases') el.innerHTML = phasesPageHtml();
+    else if (view === 'subject') el.innerHTML = subjectPageHtml();
+    else el.innerHTML = todayPageHtml();
+    bindView();
+  }
 
-    var examD = plan().examDate ? dISO(plan().examDate) : null;
-    var pct = total ? Math.round(doneN / total * 100) : 0;
-    var html = '<div class="card"><div class="row"><h2 style="margin:0" class="grow">今日计划</h2>' +
-      '<span class="sub">' + fmt(todayD()) + ' · ' + order.length + ' 科' +
-      (examD ? ' · 距初试 ' + Math.max(0, diffDays(examD, todayD())) + ' 天' : '') + '</span></div>' +
-      '<div class="row" style="margin-top:12px" id="gsumBar"><div class="bar grow" style="margin:0"><i style="width:' + pct + '%"></i></div>' +
-      '<span class="sub" id="gsum">' + doneN + ' / ' + total + ' 项</span></div>' +
-      '<div class="sub" style="margin-top:6px">勾一项就是打卡，四科都在这一页；点「细节」进单科看知识点、课后题和单词设置。</div></div>';
+  // ---------------- 今日计划 ----------------
+  function todayOf(p) {
+    var data = planOf(p);
+    if (data.startsLater && todayD() < dISO(data.startDate)) {
+      return {p: p, data: data, notStarted: true, wait: diffDays(dISO(data.startDate), todayD()), total: 0, done: 0};
+    }
+    var d = curDayOf(p);
+    if (!d) return {p: p, data: data, over: true, total: 0, done: 0};
+    var sc = dsOf(p, d.id), wb = !!data.wordBook;
+    var items = checklistOf(p, d);
+    var total = items.length + (wb ? 1 : 0);
+    var done = items.filter(function (it) { return !!sc.c[it.i]; }).length +
+      (wb && wordTaskDoneOf(p) ? 1 : 0);
+    return {p: p, data: data, day: d, sc: sc, wb: wb, items: items, total: total, done: done,
+            complete: isDoneOf(p, d)};
+  }
+  function todayTotals() {
+    var out = {done: 0, total: 0, per: {}};
+    SUBJ_ORDER.forEach(function (p) {
+      var t = todayOf(p);
+      out.done += t.done;
+      out.total += t.total;
+      out.per[p] = t;
+    });
+    return out;
+  }
+  function todayPageHtml() {
+    var g = todayTotals();
+    var pct = g.total ? Math.round(g.done / g.total * 100) : 0;
+    var ph = curPhaseOf('math2');
+    var startD = dISO(PLANS.math2.startDate);
+    var notYet = todayD() < startD;
+    var h = '<div class="card hero">' +
+      '<div class="grow">' +
+      '<div class="sub">' + fmt(todayD()) + ' · ' + WD[todayD().getDay()] + '</div>' +
+      '<h1>今日计划</h1>' +
+      '<div class="lede">四科今天的清单，勾完就算今天打卡。英语的今日单词直接在这里勾；章节、课后题、单词设置进「单科详情」。</div>' +
+      '<div class="facts">' +
+      '<span class="fact">距初试 <b>' + Math.max(0, diffDays(dISO(PLANS.math2.examDate), todayD())) + '</b> 天</span>' +
+      (notYet ? '<span class="fact">计划 <b>' + shortDate(PLANS.math2.startDate) + '</b> 开始 · 还有 ' + diffDays(startD, todayD()) + ' 天</span>' : '') +
+      (ph ? '<span class="fact">当前 <b>' + esc(ph.short) + '</b> · 第 ' + phaseWeekIndex(ph) + '/' + ph.weeks + ' 周</span>' : '') +
+      '<span class="fact">今日打卡 <b>' + g.done + '</b>/' + g.total + '</span>' +
+      '</div></div>' + ringHtml(pct, '今日完成', '#2f6feb') + '</div>' +
+      '<div class="bar" style="margin-top:12px"><i style="width:' + pct + '%"></i></div>' +
+      '<div class="sub" style="margin-top:6px">' +
+      (pct >= 100 ? '四科都打完了，收工。' : '没打完也没关系，明天从没完成的那一项接着来。') + '</div>';
 
-    el.innerHTML = html + '<div class="gcards">' + blocks + '</div>';
+    h += '<div class="sec" style="margin-top:22px">' + secHead('四科今日', '点「本科详情」看知识点、课后题与单词设置') +
+      '<div class="gcards">' + SUBJ_ORDER.map(function (p) { return todayCardHtml(todayOf(p)); }).join('') + '</div></div>';
 
-    el.querySelectorAll('input[data-gc]').forEach(function(box){
-      box.addEventListener('change', function(){
-        var p = box.dataset.gp, dayId = box.dataset.gd, i = +box.dataset.gc;
-        var st2 = dsOf(p, dayId);
-        var prev = !!st2.c[i];
-        st2.c[i] = box.checked;
-        var day = dayById(p, dayId);
-        syncDone(day, st2);
-        save();
-        updateGlobalCounts();
-        toast((box.checked ? '已打卡 · ' : '已取消 · ') + esc(PLAN_META[p].short) + ' · ' + shortText(day.checklist[i], 16), '撤销', function(){
-          st2.c[i] = prev;
-          box.checked = prev;
-          syncDone(day, st2);
-          save();
-          updateGlobalCounts();
+    h += '<div class="card note" style="margin-top:16px"><b>怎么用</b><ul class="pts">' +
+      '<li>这一页只做一件事：把今天每科该做的勾掉。</li>' +
+      '<li>勾完不会自动跳到下一天：完成的那天会停住，点「下一天 →」再走。</li>' +
+      '<li>「总体统计」看四科平均完成度与打卡日历；「阶段总览」看四科四段路线。</li>' +
+      '</ul></div>';
+    return h;
+  }
+  function todayCardHtml(t) {
+    var p = t.p, data = t.data;
+    var head = '<span class="badge subj c-' + p + '">' + SUBJ_FULL[p] + '</span>';
+    if (t.notStarted) {
+      return '<div class="gcard dim"><div class="row">' + head + '<span class="gt">还没启动</span>' +
+        '<div class="grow"></div><span class="sub">' + data.startDate + ' 开始 · 还有 ' + t.wait + ' 天</span></div>' +
+        '<div class="row" style="margin-top:8px"><span class="sub">' + esc(shortText(data.goal || '', 42)) + '</span>' +
+        '<div class="grow"></div><button class="btn sm" data-gopen="' + p + '">看计划 →</button></div></div>';
+    }
+    if (t.over) {
+      return '<div class="gcard dim"><div class="row">' + head + '<div class="grow"></div><span class="sub">计划已走完</span></div></div>';
+    }
+    var d = t.day, sc = t.sc, ph = curPhaseOf(p);
+    var h = '<div class="gcard">';
+    h += '<div class="row"><span class="badge k-' + d.kind + '">' + KINDS[d.kind] + '</span>' + head +
+      '<span class="gt">' + esc(d.title) + '</span></div>';
+    h += '<div class="row" style="margin-top:2px"><span class="sub">第 ' + d.week + ' 周 · ' + esc(d.weekday) +
+      (ph ? ' · ' + esc(ph.short) : '') + '</span><div class="grow"></div>' +
+      '<span class="sub">' + (t.total ? '打卡 ' + t.done + '/' + t.total : '机动日') + '</span>' +
+      (t.complete ? '<button class="btn sm pri" data-gnext="' + p + '">下一天 →</button>' : '') +
+      '<button class="btn sm" data-gopen="' + p + '">本科详情 →</button></div>';
+    h += '<div style="margin-top:4px">';
+    if (t.wb) h += wordRowHtml(p);
+    (t.items || []).forEach(function (it) {
+      var i = it.i;
+      h += '<label class="check ' + (sc.c[i] ? 'done' : '') + '"><input type="checkbox" data-gp="' + p +
+        '" data-gd="' + d.id + '" data-gc="' + i + '"' + (sc.c[i] ? ' checked' : '') + '><span>' + esc(it.text) + '</span></label>';
+    });
+    h += '</div>';
+    if (courseOf(p)) {
+      var cs = chapterStatsOf(p);
+      h += '<div class="gword"><span>章节 ' + cs.done + '/' + cs.total + ' 章</span>' +
+        '<div class="bar grow"><i style="width:' + cs.pct + '%"></i></div>' +
+        '<span>' + cs.groups.map(function (x) { return x.short + ' ' + x.done + '/' + x.total; }).join(' · ') + '</span></div>';
+    }
+    return h + '</div>';
+  }
+  function bindToday(el) {
+    el.querySelectorAll('input[data-gc]').forEach(function (box) {
+      box.addEventListener('change', function () {
+        var p = box.dataset.gp;
+        var day = dayById(p, box.dataset.gd);
+        if (!day) return;
+        var st = dsOf(p, day.id), i = +box.dataset.gc, prev = !!st.c[i];
+        st.c[i] = box.checked;
+        afterDayChange(p, day);
+        toast((box.checked ? '已打卡 · ' : '已取消 · ') + SUBJ_FULL[p] + ' · ' + shortText(day.checklist[i], 16), '撤销', function () {
+          st.c[i] = prev;
+          afterDayChange(p, day);
+          refresh();
         });
+        refresh();
       });
     });
-    el.querySelectorAll('input[data-gw]').forEach(function(box){
-      box.addEventListener('change', function(){
-        var p = box.dataset.gw;
-        if(box.checked){ if(wordTodayOf(p) === 0) wordLogOf(p, wordStateOf(p).perDay); }
-        else { wordLogOf(p, -wordTodayOf(p)); }
-        save(); renderGlobalPlan();
+    bindWordTask(el);
+    el.querySelectorAll('[data-gnext]').forEach(function (b) {
+      b.addEventListener('click', function () { advanceDay(b.dataset.gnext); });
+    });
+    el.querySelectorAll('[data-gopen]').forEach(function (b) {
+      b.addEventListener('click', function () { go('subject', b.dataset.gopen); });
+    });
+  }
+  function bindWordTask(el) {
+    el.querySelectorAll('input[data-wp]').forEach(function (box) {
+      box.addEventListener('change', function () { toggleWordTask(box.dataset.wp, box.checked); });
+    });
+  }
+
+  // ---------------- 总体统计 ----------------
+  function subjectStat(p) {
+    var days = studyDays(p);
+    var done = days.filter(function (d) { return isDoneOf(p, d); }).length;
+    var map = checkinMap(p);
+    var last7 = 0;
+    for (var i = 0; i < 7; i++) {
+      if (map[fmt(new Date(todayD().getTime() - i * 86400000))]) last7++;
+    }
+    var minutes = days.reduce(function (n, d) {
+      var st = Pof(p).checks[d.id];
+      return n + (st && st.done ? (d.minutes || 0) : 0);
+    }, 0);
+    return {
+      p: p, total: days.length, done: done, pct: days.length ? Math.round(done / days.length * 100) : 0,
+      map: map, last7: last7, minutes: minutes, phase: curPhaseOf(p), ch: chapterStatsOf(p), wr: wordRangeOf(p)
+    };
+  }
+  function allCheckins() {
+    var map = {};
+    SUBJ_ORDER.forEach(function (p) {
+      var m = checkinMap(p);
+      Object.keys(m).forEach(function (k) { map[k] = (map[k] || 0) + m[k]; });
+    });
+    return map;
+  }
+  function activeDays(map) {
+    return Object.keys(map).filter(function (k) { return map[k] > 0; }).length;
+  }
+  function longestStreak(map) {
+    var keys = Object.keys(map).filter(function (k) { return map[k] > 0; }).sort();
+    var best = 0, run = 0, prev = null;
+    keys.forEach(function (k) {
+      var d = dISO(k);
+      run = (prev && diffDays(d, prev) === 1) ? run + 1 : 1;
+      if (run > best) best = run;
+      prev = d;
+    });
+    return best;
+  }
+  function heatGridHtml(start, n, map, color) {
+    if (!n) return '';
+    var weeks = Math.ceil(n / 7), todayS = fmt(todayD());
+    var months = '', cols = '', lastM = -1;
+    for (var w = 0; w < weeks; w++) {
+      var mon = new Date(start.getTime() + w * 7 * 86400000);
+      months += '<span>' + (mon.getMonth() !== lastM ? (mon.getMonth() + 1) + '月' : '') + '</span>';
+      lastM = mon.getMonth();
+      var col = '';
+      for (var dow = 0; dow < 7; dow++) {
+        var idx = w * 7 + dow;
+        var ds = fmt(new Date(start.getTime() + idx * 86400000));
+        var inRange = idx < n, c = inRange ? (map[ds] || 0) : 0;
+        col += '<button type="button" class="hd' + (inRange ? (c ? ' lv' + Math.min(4, c) : '') : ' off') +
+          (ds === todayS ? ' today' : '') + '"' +
+          (inRange ? ' title="' + ds + ' · ' + c + ' 次打卡"' : '') + '></button>';
+      }
+      cols += '<div class="hcol">' + col + '</div>';
+    }
+    return '<div class="heat-wrap static" style="--subj:' + color + '">' +
+      '<div class="heat-months">' + months + '</div><div class="heat">' + cols + '</div></div>';
+  }
+  function heatAllHtml() {
+    var start = null, end = null;
+    SUBJ_ORDER.forEach(function (p) {
+      var s = planStartOf(p), list = daysOf(p);
+      if (!list.length) return;
+      var e = new Date(s.getTime() + (list.length - 1) * 86400000);
+      if (!start || s < start) start = s;
+      if (!end || e > end) end = e;
+    });
+    if (!start) return '';
+    return heatGridHtml(start, diffDays(end, start) + 1, allCheckins(), '#475569');
+  }
+  function last7Html(map) {
+    var cells = '';
+    for (var i = 6; i >= 0; i--) {
+      var d = new Date(todayD().getTime() - i * 86400000);
+      var c = map[fmt(d)] || 0;
+      cells += '<div class="c' + (c ? ' on' : '') + '"><b>' + (c || '·') + '</b><span>' + WD[d.getDay()] + '</span></div>';
+    }
+    return '<div class="d7">' + cells + '</div>';
+  }
+  function statsPageHtml() {
+    var stats = SUBJ_ORDER.map(subjectStat);
+    var totalDays = 0, doneDays = 0, minutes = 0, pctSum = 0;
+    stats.forEach(function (s) {
+      totalDays += s.total;
+      doneDays += s.done;
+      minutes += s.minutes;
+      pctSum += s.pct;
+    });
+    var avg = stats.length ? Math.round(pctSum / stats.length) : 0;
+    var map = allCheckins();
+    var streakN = streakOfMap(map);
+    var best = longestStreak(map);
+    var left = Math.max(0, diffDays(dISO(PLANS.math2.examDate), todayD()));
+
+    var h = '<div class="card hero"><div class="grow">' +
+      '<div class="sub">' + fmt(todayD()) + ' · 四科合并</div>' +
+      '<h1>总体统计</h1>' +
+      '<div class="lede">平均完成度按「每科各占 1/4」算，避免英语 354 个学习日把比例吃掉。</div>' +
+      '<div class="facts">' +
+      '<span class="fact">累计 <b>' + doneDays + '</b> / ' + totalDays + ' 学习日</span>' +
+      '<span class="fact">约 <b>' + Math.round(minutes / 60) + '</b> 小时</span>' +
+      '<span class="fact">距初试 <b>' + left + '</b> 天</span></div></div>' +
+      ringHtml(avg, '平均完成', '#475569') + '</div>' +
+      '<div class="bar"><i style="width:' + avg + '%;background:#475569"></i></div>' +
+      '<div class="kpis" style="margin-top:14px">' +
+      kpi(doneDays + ' / ' + totalDays, '累计学习日', totalDays ? Math.round(doneDays / totalDays * 100) : 0, '#475569') +
+      kpi(activeDays(map) + ' 天', '有打卡的天数') +
+      kpi(streakN + ' 天', '当前连续打卡') +
+      kpi(best + ' 天', '最长连续打卡') +
+      kpi(Math.round(minutes / 60) + ' h', '已投入') +
+      kpi(left + ' 天', '距初试') +
+      '</div>';
+
+    h += '<div class="sec" style="margin-top:22px">' + secHead('四科对比', '点一行进单科详情') +
+      '<div class="card"><div class="cmp">' + stats.map(function (s) {
+        return '<button type="button" class="cmprow" data-gosubj="' + s.p + '">' +
+          '<span class="nm"><i style="background:' + SUBJ_COLOR[s.p] + '"></i>' + SUBJ_FULL[s.p] + '</span>' +
+          '<span class="bar grow"><i style="width:' + s.pct + '%;background:' + SUBJ_COLOR[s.p] + '"></i></span>' +
+          '<span class="v">' + s.done + '/' + s.total + ' · ' + s.pct + '%</span>' +
+          '<span class="sub">近 7 天 ' + s.last7 + '</span>' +
+          '<span class="arw">→</span></button>';
+      }).join('') + '</div></div></div>';
+
+    h += '<div class="sec" style="margin-top:22px">' + secHead('最近 7 天', '四科合计打卡次数') +
+      '<div class="card">' + last7Html(map) + '</div></div>';
+
+    h += '<div class="sec" style="margin-top:22px">' + secHead('打卡日历', '四科合并 · 颜色越深当天打卡越多') +
+      '<div class="card">' + heatAllHtml() + '</div></div>';
+    return h;
+  }
+  function bindStats(el) {
+    el.querySelectorAll('[data-gosubj]').forEach(function (b) {
+      b.addEventListener('click', function () { go('subject', b.dataset.gosubj); });
+    });
+  }
+
+  // ---------------- 阶段总览 ----------------
+  function ganttHtml() {
+    var base = null, end = null;
+    SUBJ_ORDER.forEach(function (p) {
+      var data = planOf(p);
+      var s = dISO(data.startDate);
+      if (!base || s < base) base = s;
+      (data.phases || []).forEach(function (ph) {
+        var e = dISO(ph.end);
+        if (!end || e > end) end = e;
       });
     });
-    el.querySelectorAll('[data-gwlog]').forEach(function(b){
-      b.addEventListener('click', function(){
-        var p = b.dataset.gwlog, before = wordStateOf(p).done, amount = wordStateOf(p).perDay;
-        wordLogOf(p, amount);
-        renderGlobalPlan();
-        toast('单词 +' + amount + '（' + wordStateOf(p).done + ' / ' + wordBookOf(p).total + '）', '撤销', function(){
-          wordLogOf(p, before - wordStateOf(p).done);
-          renderGlobalPlan();
-        });
+    if (!base || !end) return '<div class="empty">没有阶段数据。</div>';
+    var exam = dISO(PLANS.math2.examDate);
+    if (exam > end) end = exam;
+    var span = diffDays(end, base) + 1;
+    var nowLeft = Math.max(0, Math.min(100, diffDays(todayD(), base) / span * 100));
+
+    var scale = '';
+    var m = new Date(base.getFullYear(), base.getMonth(), 1), lastPos = -100;
+    while (m <= end) {
+      var pos = diffDays(m, base) / span * 100;
+      if (pos < 0 && m.getFullYear() === base.getFullYear() && m.getMonth() === base.getMonth()) pos = 0;
+      if (pos >= 0 && pos <= 100 && pos - lastPos > 4.2) {
+        lastPos = pos;
+        scale += '<span style="left:' + pos.toFixed(2) + '%">' + (m.getMonth() + 1) + '月</span>';
+      }
+      m = new Date(m.getFullYear(), m.getMonth() + 1, 1);
+    }
+
+    var rows = SUBJ_ORDER.map(function (p) {
+      var data = planOf(p), color = SUBJ_COLOR[p];
+      var blocks = (data.phases || []).map(function (ph) {
+        var s = dISO(ph.start), e = dISO(ph.end);
+        var left = diffDays(s, base) / span * 100;
+        var w = (diffDays(e, s) + 1) / span * 100;
+        var st = phaseState(ph);
+        var style = 'left:' + left.toFixed(2) + '%;width:' + Math.max(w, 1.1).toFixed(2) + '%;';
+        if (st === 'active') style += 'background:' + color + ';border-color:' + color + ';color:#fff;';
+        else if (st === 'done') style += 'background:' + hexa(color, .42) + ';border-color:' + hexa(color, .42) + ';color:#fff;';
+        else style += 'background:' + hexa(color, .13) + ';border-color:' + hexa(color, .3) + ';color:' + color + ';';
+        return '<button type="button" class="gb" data-gblock="' + p + '|' + ph.id + '" style="' + style + '" title="' +
+          esc(ph.name) + ' · ' + ph.start + ' → ' + ph.end + ' · ' + ph.weeks + ' 周">' +
+          (w > 6 ? esc(ph.short) : '') + '</button>';
+      }).join('');
+      return '<div class="grow2"><div class="gl"><span class="dot" style="background:' + color + '"></span>' +
+        SUBJ_FULL[p] + '</div><div class="track">' + blocks +
+        '<span class="gnow" style="left:' + nowLeft.toFixed(2) + '%"></span></div></div>';
+    }).join('');
+
+    return '<div class="gantt"><div class="gantt-scale">' + scale + '</div>' + rows + '</div>';
+  }
+  function phaseDetailHtml(ph) {
+    var h = '<div class="phbody">';
+    h += '<div class="lbl">阶段目标</div><div class="txt">' + esc(ph.goal || '—') + '</div>';
+    var wsum = (ph.mainline || []).reduce(function (n, m) { return n + (m.weeks || 0); }, 0);
+    if ((ph.mainline || []).length) {
+      h += '<div class="lbl">主线' + (wsum ? '（' + wsum + ' 周）' : '') + '</div>';
+      ph.mainline.forEach(function (m) {
+        h += '<div class="ml"><b>' + esc(m.name) + (m.weeks ? '<small>' + m.weeks + ' 周</small>' : '') +
+          '</b><span>' + esc(m.content) + '</span></div>';
       });
-    });
-    el.querySelectorAll('[data-gopen]').forEach(function(b){
-      b.addEventListener('click', function(){
-        state.active = b.dataset.gopen;
-        P().offset = null; save();
-        switchView('today');
-        window.scrollTo(0, 0);
+    }
+    if ((ph.outputs || []).length) {
+      h += '<div class="lbl">阶段产出</div><ul class="pts">' +
+        ph.outputs.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
+    }
+    if ((ph.checkpoints || []).length) {
+      h += '<div class="lbl">检查点</div>';
+      ph.checkpoints.forEach(function (c) {
+        h += '<div class="ckp"><span class="dt">' + esc(String(c.date)) + '</span><div><b>' + esc(c.what) +
+          '</b><div class="sub">达标线：' + esc(c.pass) + '</div></div></div>';
       });
-    });
-    el.querySelectorAll('[data-gophase]').forEach(function(b){
-      b.addEventListener('click', function(){
-        state.active = b.dataset.gophase;
-        P().offset = null; save();
-        switchView('phase');
-        window.scrollTo(0, 0);
+    }
+    if ((ph.exit || []).length) {
+      h += '<div class="lbl">进入下一阶段的门槛</div><ul class="pts">' +
+        ph.exit.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
+    }
+    if ((ph.blocks || []).length) {
+      h += '<details class="phsub"><summary>周骨架 · ' + ph.weeks + ' 周</summary>';
+      ph.blocks.forEach(function (b) {
+        h += '<div class="blk' + (b.detail ? ' detail' : '') + '"><b>' + esc(b.name) +
+          (b.weeks > 1 && !b.detail ? ' · ' + b.weeks + ' 周' : '') + '</b><span class="c">' + esc(b.content) + '</span></div>';
+      });
+      h += '</details>';
+    }
+    return h + '</div>';
+  }
+  function phaseCardHtml(p) {
+    var data = planOf(p), phs = data.phases || [];
+    var now = curPhaseOf(p);
+    var curStat = now ? phaseStatsOf(p, now) : null;
+    var curPct = curStat && curStat.study ? Math.round(curStat.done / curStat.study * 100) : 0;
+    var nowTxt = now ? (todayD() < dISO(now.start)
+      ? diffDays(dISO(now.start), todayD()) + ' 天后开始'
+      : '第 ' + phaseWeekIndex(now) + '/' + now.weeks + ' 周') : '';
+    var rows = phs.map(function (ph) {
+      var ps = phaseStatsOf(p, ph);
+      var pc = ps.study ? Math.round(ps.done / ps.study * 100) : 0;
+      var open = now && now.id === ph.id;
+      return '<details class="phrow" style="--sc:' + SUBJ_COLOR[p] + '"' + (open ? ' open' : '') + '>' +
+        '<summary><span class="pn">' + (ph.seq ? '第 ' + ph.seq + ' 阶段 · ' : '') + esc(ph.short) + '</span>' +
+        '<span class="pd">' + shortDate(ph.start) + ' → ' + shortDate(ph.end) + ' · ' + ph.weeks + ' 周</span></summary>' +
+        '<div class="pb"><i style="width:' + pc + '%"></i></div>' +
+        '<div class="sub" style="margin-top:4px">学习日 ' + (ps.study ? ps.done + '/' + ps.study + ' · ' + pc + '%' : '待细化') +
+        (ps.ex ? ' · 课后题 ' + ps.exDone + '/' + ps.ex : '') + (ps.rev ? ' · 复盘 ' + ps.revDone + '/' + ps.rev : '') + '</div>' +
+        phaseDetailHtml(ph) + '</details>';
+    }).join('');
+    return '<div class="card pcard">' +
+      '<div class="row"><span class="badge subj c-' + p + '">' + SUBJ_FULL[p] + '</span>' +
+      '<span class="gt">' + (now ? esc(now.short) : '—') + '</span>' + (now ? phaseBadge(now) : '') +
+      '<div class="grow"></div><span class="sub">' + curPct + '%</span></div>' +
+      '<div class="sub" style="margin-top:4px">' +
+      (now ? nowTxt + ' · ' + esc(shortText(now.goal || '', 40)) : '') + '</div>' +
+      '<div class="bar" style="margin-top:8px"><i style="width:' + curPct + '%;background:' + SUBJ_COLOR[p] + '"></i></div>' +
+      '<div class="plist">' + rows + '</div></div>';
+  }
+  function phasesPageHtml() {
+    var left = Math.max(0, diffDays(dISO(PLANS.math2.examDate), todayD()));
+    return '<div class="card">' +
+      '<div class="sec-h"><h2>全年路线 · 四科阶段同框</h2><span class="sub">' +
+      shortDate(PLANS.math2.startDate) + ' → ' + shortDate(PLANS.math2.examDate) + ' · 距初试 ' + left + ' 天</span></div>' +
+      ganttHtml() +
+      '<div class="sub" style="margin-top:8px">实色 = 进行中 · 淡色 = 已结束 · 浅底描边 = 未开始 · 黑色竖线 = 今天；点色块进该科阶段详情。</div>' +
+      '</div>' +
+      '<div class="pgrid">' + SUBJ_ORDER.map(phaseCardHtml).join('') + '</div>' +
+      '<div class="card note" style="margin-top:12px"><b>阶段怎么用</b><ul class="pts">' +
+      '<li>门槛制：上一阶段的门槛没过，先补 1–2 周再进下一段，不要两段平行推进。</li>' +
+      '<li>只有当前阶段排到天；后面的阶段只锁周数与主线，避免照着假计划跑。</li>' +
+      '<li>阶段按固定日期走（从初试倒排），到点自动切；「开始日期」只影响逐日排期。</li>' +
+      '<li>要改阶段时间或目标：改 <code>build_phases.py</code> → 跑 <code>python3 scripts/build.py --only web</code>。</li>' +
+      '</ul></div>';
+  }
+  function bindPhases(el) {
+    el.querySelectorAll('[data-gblock]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var parts = b.dataset.gblock.split('|');
+        go('subject', parts[0], 'sec-phase');
       });
     });
   }
 
-  function renderToday(){
-    var el = document.getElementById('view');
-    var startDate = dISO(plan().startDate);
-    if(plan().startsLater && todayD() < startDate){
-      var wait = diffDays(startDate, todayD());
-      var fp = phases()[0];
-      var waitCard = '<div class="card"><div class="phc-h"><h2 style="margin:0">' + esc(plan().title) + '</h2>' +
-        '<span class="pill wait">还没启动</span></div>' +
-        '<div class="kv" style="margin-top:12px"><b>开始</b><span>' + plan().startDate + '（还有 ' + wait + ' 天）</span></div>' +
-        '<div class="kv"><b>资料</b><span>' + esc(plan().tools || '') + '</span></div>' +
-        (fp ? '<div class="kv" style="align-items:flex-start"><b>到时候</b><span>' + esc(fp.goal) + '</span></div>' : '') +
-        '<div class="sub">现在不用看这一科，精力先给数学二 / 408 / 英语；到点会自动切到这里。</div>' +
-        '<div class="row" style="margin-top:14px"><button class="btn pri" id="goPhase">看看这一段的安排</button></div></div>';
-      el.innerHTML = wrapToday(waitCard);
-      el.querySelector('#goPhase').addEventListener('click', function(){ switchView('phase'); window.scrollTo(0,0); });
-      bindSide(el);
-      return;
+  // ---------------- 单科详情 ----------------
+  function subjbarHtml() {
+    return '<div class="subjbar">' + SUBJ_ORDER.map(function (p) {
+      var g = subjectProgress(p);
+      return '<button type="button" class="chip c-' + p + (p === state.active ? ' on' : '') + '" data-subj="' + p + '">' +
+        '<span class="dot"></span>' + SUBJ_FULL[p] + '<small>' + g.done + '/' + g.total + ' · ' + g.pct + '%</small></button>';
+    }).join('') + '</div>';
+  }
+  function wordKpi(p) {
+    var r = wordRangeOf(p);
+    return r ? kpi(r.done + ' / ' + r.total, '单词（第 ' + r.w.cycle + ' 轮）', r.pct, SUBJ_COLOR.english) : '';
+  }
+  function finishRow(done) {
+    return '<div class="row" style="margin-top:16px">' +
+      (done
+        ? '<button class="btn pri" type="button" data-daynext="1">下一天 →</button>' +
+          '<button class="btn" type="button" data-finish="0">标记未完成</button>' +
+          '<span class="sub">这一天已完成；不点「下一天」就停在这一天</span>'
+        : '<button class="btn pri" type="button" data-finish="1">全部达标，标记完成</button>' +
+          '<span class="sub">也可以逐项勾上面的清单</span>') +
+      '</div>';
+  }
+  function dayCardHtml(p) {
+    var data = planOf(p);
+    if (data.startsLater && todayD() < dISO(data.startDate)) {
+      return '<div class="card empty">这一科 ' + data.startDate + ' 启动（还有 ' +
+        diffDays(dISO(data.startDate), todayD()) + ' 天），现在把精力放在数学二 / 408 / 英语上。</div>';
     }
-    var d = curDay();
-    if(!d){ el.innerHTML = '<div class="card empty">本科目计划已全部走完。</div>'; return; }
-    var s = ds(d.id);
-    var rest = isRest(d);
-    var all = (d.checklist||[]).length;
-    var checked = (d.checklist||[]).filter(function(_,i){ return !!s.c[i]; }).length;
-    var done = isDone(d);
-
-    var html = '<div class="card">';
-    html += '<div class="row"><span class="badge k-' + d.kind + '">' + KINDS[d.kind] + '</span>' +
+    var d = curDayOf(p);
+    if (!d) return '<div class="card empty">这一科的计划已经全部走完。</div>';
+    var s = dsOf(p, d.id), rest = isRest(d), hasWord = !!wordBookOf(p);
+    var items = checklistOf(p, d);
+    var checked = items.filter(function (it) { return !!s.c[it.i]; }).length;
+    var all = items.length + (hasWord ? 1 : 0);
+    var doneN = checked + (hasWord && wordTaskDoneOf(p) ? 1 : 0);
+    var done = isDoneOf(p, d);
+    var list = daysOf(p), idx = list.indexOf(d);
+    var h = '<div class="card">';
+    h += '<div class="row"><span class="badge k-' + d.kind + '">' + KINDS[d.kind] + '</span>' +
       '<span class="sub">第 ' + d.week + ' 周 · ' + esc(d.weekday) + '</span>' +
       '<div class="grow"></div>' +
-      (P().offset !== null && P().offset !== undefined ? '<button class="btn ghost" id="today">回到今日</button>' : '') +
-      '<button class="btn ghost" id="prev">前一天</button><button class="btn ghost" id="next">后一天</button></div>';
-    html += '<h2 style="margin-top:10px">' + esc(d.title) + '</h2>';
-    var phNow = curPhase();
-    if(phNow){
+      (Pof(p).offset !== null && Pof(p).offset !== undefined && !done ? '<button class="btn ghost sm" type="button" data-dayauto="1">回到当前进度</button>' : '') +
+      '<button class="btn ghost sm" type="button" data-daystep="-1"' + (idx <= 0 ? ' disabled' : '') + '>← 前一天</button>' +
+      '<button class="btn ghost sm" type="button" data-daystep="1"' + (idx >= list.length - 1 ? ' disabled' : '') + '>后一天 →</button></div>';
+    h += '<h2 style="margin:10px 0 2px">' + esc(d.title) + '</h2>';
+    var phNow = curPhaseOf(p);
+    if (phNow) {
       var left = diffDays(dISO(phNow.end), todayD());
-      html += '<div class="sub" style="margin:-4px 0 10px">当前阶段：' + esc(phNow.name) + ' · 第 ' +
-        phaseWeekIndex(phNow) + '/' + phNow.weeks + ' 周 · ' + (left >= 0 ? '距阶段结束 ' + left + ' 天' : '已过阶段截止') +
-        (phNow.id !== d.phase && d.phase ? '（本日属于 ' + esc((phaseById(d.phase) || {}).short || '') + '）' : '') + '</div>';
+      var pre = todayD() < dISO(data.startDate);
+      h += '<div class="sub" style="margin-bottom:6px">当前阶段：' + esc(phNow.name) + ' · ' +
+        (pre ? '计划 ' + shortDate(data.startDate) + ' 开始' : '第 ' + phaseWeekIndex(phNow) + '/' + phNow.weeks + ' 周') + ' · ' +
+        (left >= 0 ? '距阶段结束 ' + left + ' 天' : '已过阶段截止') + '</div>';
     }
-
-    if(rest){
-      var other = pid() === 'math2' ? '408' : '数学二';
-      html += '<div class="kv"><b>说明</b><span>今天留给' + other + '，本科目不重复排。</span></div>';
-      var nx = nextStudyAfter(d);
-      if(nx) html += '<div class="kv"><b>下一天</b><span>第 ' + nx.week + ' 周 ' + esc(nx.weekday) + ' · ' + esc(nx.title) + '</span></div>';
-      if(wordBook()){
-        html += '<h3 class="plan-head" style="margin-top:16px">今日计划 · 打卡 ' + (wordToday() > 0 ? 1 : 0) + '/1</h3>' + wordRowHtml();
-        html += '<div class="row" style="margin-top:14px">' +
-          (done ? '<button class="btn" id="unfinish">标记未完成</button>' : '<button class="btn pri" id="finish">标记完成</button>') +
-          '</div>';
-      }
-    }else{
-      // 1) 单词进度已在上面渲染
-
-      // 2) 今日计划：每一项都能打卡
-      var hasWord = !!wordBook();
-      var planAll = all + (hasWord ? 1 : 0);
-      var planDone = checked + (hasWord && wordToday() > 0 ? 1 : 0);
-      html += '<h3 class="plan-head" style="margin-top:16px">今日计划 · 打卡 ' + planDone + '/' + planAll + '</h3>';
-      if(hasWord) html += wordRowHtml();
-      (d.checklist||[]).forEach(function(c,i){
-        html += '<label class="check ' + (s.c[i]?'done':'') + '"><input type="checkbox" data-c="' + i + '"' +
-          (s.c[i]?' checked':'') + '><span>' + esc(c) + '</span></label>';
+    if (rest) {
+      h += '<div class="kv"><b>说明</b><span>今天留给' + (p === 'math2' ? '408' : '数学二') + '，本科目不重复排。</span></div>';
+      var nx = nextStudyAfterOf(p, d);
+      if (nx) h += '<div class="kv"><b>下一天</b><span>第 ' + nx.week + ' 周 ' + esc(nx.weekday) + ' · ' + esc(nx.title) + '</span></div>';
+      if (hasWord) h += '<h3 style="margin-top:16px">今日计划 · 打卡 ' + (wordTaskDoneOf(p) ? 1 : 0) + '/1</h3>' + wordRowHtml(p);
+      return h + finishRow(done) + '</div>';
+    }
+    h += '<h3 style="margin-top:16px">今日计划 · 打卡 ' + doneN + '/' + all + '</h3>';
+    if (hasWord) h += wordRowHtml(p);
+    items.forEach(function (it) {
+      var i = it.i;
+      h += '<label class="check ' + (s.c[i] ? 'done' : '') + '"><input type="checkbox" data-c="' + i + '"' +
+        (s.c[i] ? ' checked' : '') + '><span>' + esc(it.text) + '</span></label>';
+    });
+    h += '<div class="split"></div>';
+    h += '<div class="kv"><b>阅读</b><span>' + esc(d.reading || '—') + '</span></div>';
+    if ((d.learn || []).length) {
+      h += '<div class="kv" style="align-items:flex-start"><b>知识点</b><div><ul class="pts">' +
+        d.learn.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div>';
+    }
+    if ((d.practice || []).length) {
+      h += '<div class="kv" style="align-items:flex-start"><b>动手</b><div><ul class="pts">' +
+        d.practice.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div>';
+    }
+    if ((d.exercises || []).length) {
+      h += '<h3>课后题 · ' + d.exercises.length + ' 道</h3>';
+      d.exercises.forEach(function (e, k) {
+        var key = p + ':' + e.id, marked = !!state.wrong[key];
+        h += '<div class="ex" data-ex="' + k + '"><div class="row"><div class="grow"><div class="t">' + (k + 1) + '. ' + esc(e.title) + '</div>' +
+          '<span class="sub">难度 ' + (e.difficulty || 2) + '/3</span></div>' +
+          '<label class="check" style="padding:0"><input type="checkbox" data-e="' + k + '"' +
+          (s.e[k] ? ' checked' : '') + '><span>做对</span></label></div>' +
+          '<div class="p">' + esc(e.prompt) + '</div><div class="hint">提示：' + esc(e.hint) + '</div>' +
+          '<div class="row" style="margin-top:8px"><button class="btn sm" type="button" data-ans="' + k + '">看答案</button>' +
+          '<button class="btn sm' + (marked ? ' on' : '') + '" type="button" data-wrong="' + k + '">' +
+          (marked ? '已在错题本 · 移出' : '记入错题本') + '</button></div>' +
+          '<div class="ans">' + esc(e.answer) + '</div></div>';
       });
-
-      // 3) 今天学什么
-      html += '<div class="split"></div>';
-      html += '<div class="kv"><b>阅读</b><span>' + esc(d.reading || '—') + '</span></div>';
-      if(d.learn && d.learn.length){
-        html += '<div class="kv" style="align-items:flex-start"><b>知识点</b><div><ul class="pts">' +
-          d.learn.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div>';
-      }
-      if(d.practice && d.practice.length){
-        html += '<div class="kv" style="align-items:flex-start"><b>动手</b><div><ul class="pts">' +
-          d.practice.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div>';
-      }
-
-      // 4) 课后题
-      if(d.exercises && d.exercises.length){
-        html += '<h3>课后题 · ' + d.exercises.length + ' 道</h3>';
-        d.exercises.forEach(function(e,idx){
-          var key = pid() + ':' + e.id;
-          var marked = !!state.wrong[key];
-          html += '<div class="ex" data-ex="' + idx + '">' +
-            '<div class="row"><div class="grow"><div class="t">' + (idx+1) + '. ' + esc(e.title) + '</div>' +
-            '<span class="sub">难度 ' + (e.difficulty||2) + '/3</span></div>' +
-            '<label class="check" style="padding:0"><input type="checkbox" data-e="' + idx + '"' + (s.e[idx]?' checked':'') + '><span>做对</span></label>' +
-            '</div><div class="p">' + esc(e.prompt) + '</div>' +
-            '<div class="hint">提示：' + esc(e.hint) + '</div>' +
-            '<div class="row" style="margin-top:8px">' +
-            '<button class="btn" data-ans="' + idx + '">看答案</button>' +
-            '<button class="btn' + (marked ? ' on' : '') + '" data-wrong="' + idx + '">' + (marked ? '已在错题本 · 移出' : '记入错题本') + '</button>' +
-            '</div><div class="ans">' + esc(e.answer) + '</div></div>';
-        });
-      }
-
-      html += '<div class="row finish-row" style="margin-top:16px" data-done="' + (done ? '1' : '') + '">' +
-        finishRowHtml(done) + '</div>';
     }
-    html += '</div>';
-    el.innerHTML = wrapToday(html);
-    bindWordCard();
-    bindChapter(el);
-    bindSide(el);
+    return h + finishRow(done) + '</div>';
+  }
+  function phaseBarsHtml(p) {
+    var phs = planOf(p).phases || [];
+    var body = phs.map(function (ph) {
+      var ps = phaseStatsOf(p, ph);
+      var pc = ps.study ? Math.round(ps.done / ps.study * 100) : 0;
+      return '<div class="lp"><div class="h"><span>' + (ph.seq ? '第 ' + ph.seq + ' 阶段 · ' : '') + esc(ph.short) + '</span>' +
+        '<span class="muted">' + (ps.study ? ps.done + '/' + ps.study + ' · ' + pc + '%' : '待细化') + '</span></div>' +
+        '<div class="bar"><i style="width:' + pc + '%;background:' + SUBJ_COLOR[p] + '"></i></div>' +
+        '<div class="sub" style="margin-top:4px">' + shortDate(ph.start) + ' → ' + shortDate(ph.end) + ' · ' +
+        ph.weeks + ' 周 · ' + esc(shortText(ph.goal || '', 46)) + '</div></div>';
+    }).join('');
+    return '<div class="card"><div class="list-prog">' + body + '</div>' +
+      '<div class="row" style="margin-top:12px"><button class="btn sm" type="button" data-navphases="1">看四科阶段同框 →</button></div></div>';
+  }
+  function wordHistCardHtml(p) {
+    var w = wordStateOf(p);
+    if (!w) return '';
+    var max = Math.max(1, w.perDay || 100), bars = '';
+    for (var i = 13; i >= 0; i--) {
+      var d = new Date(todayD().getTime() - i * 86400000);
+      var n = w.log[fmt(d)] || 0;
+      bars += '<div class="wh"><b>' + (n || '') + '</b><i style="height:' +
+        Math.max(2, Math.min(100, n / max * 100)) + '%"></i><span>' +
+        (d.getMonth() + 1) + '/' + d.getDate() + '</span></div>';
+    }
+    return '<div class="card" style="margin-top:12px"><div class="sec-h"><h2>近 14 天背词</h2>' +
+      '<span class="sub">每天目标 ' + (w.perDay || 100) + ' 词</span></div>' +
+      '<div class="whist">' + bars + '</div></div>';
+  }
+  function bookCardHtml(p) {
+    if (courseOf(p)) return chapterCardHtml(p);
+    if (wordBookOf(p)) return wordCardHtml() + wordHistCardHtml(p);
+    return '<div class="card empty">这一科以背诵 + 计划表为主，没有章节或单词库。</div>';
+  }
+  function weekCardOf(p, w) {
+    var stDays = (w.days || []).filter(function (d) { return d.kind === 'learn' || d.kind === 'practice'; });
+    var dn = stDays.filter(function (d) { return isDoneOf(p, d); }).length;
+    var cur = curDayOf(p);
+    var open = (cur && cur.week === w.week) || Pof(p).weekOpen === w.week;
+    var h = '<div class="wk' + (open ? ' open' : '') + '"><div class="wk-h">' +
+      '<span class="n">第 ' + w.week + ' 周</span><span class="ti">' + esc(w.title) + '</span>' +
+      '<span class="sub">' + dn + '/' + stDays.length + ' 完成</span></div><div class="wk-b">' +
+      (w.check ? '<div class="ck">' + esc(w.check) + '</div>' : '') +
+      '<div class="sub" style="margin-bottom:6px">本周过关：' + esc(w.goal || '') + '</div>' +
+      (w.target ? '<div class="sub" style="margin-bottom:10px">本周题量：' + esc(w.target) + '</div>' : '') +
+      '<div class="days">' + (w.days || []).map(function (d) {
+        var done = isDoneOf(p, d);
+        return '<div class="day' + (isRest(d) ? ' rest' : '') + (done ? ' done' : '') + '" data-wday="' + d.id +
+          '" title="' + esc(d.weekday + ' · ' + d.title) + '">' +
+          '<div class="wd">' + esc(d.weekday) + '</div><div class="tt">' + esc(d.title) + '</div><span class="dot"></span></div>';
+      }).join('') + '</div></div></div>';
+    return h;
+  }
+  function weeksHtml(p) {
+    var data = planOf(p), phs = data.phases || [];
+    var focus = Pof(p).weeksFilter || 'all';
+    var chips = '<div class="pseg">' +
+      '<button type="button" class="pseg-b' + (focus === 'all' ? ' on' : '') + '" data-wf="all">全部</button>' +
+      phs.filter(function (x) {
+        return (data.weeks || []).some(function (w) { return w.phase === x.id; });
+      }).map(function (x) {
+        return '<button type="button" class="pseg-b' + (focus === x.id ? ' on' : '') + '" data-wf="' + x.id + '">' +
+          '第 ' + x.seq + ' 阶段 · ' + esc(x.short) + '</button>';
+      }).join('') + '</div>';
+    var weeks = (data.weeks || []).filter(function (w) { return focus === 'all' || w.phase === focus; });
+    var limit = Pof(p).weeksLimit || 12;
+    var shown = weeks.length > limit ? weeks.slice(0, limit) : weeks;
+    var body = shown.length
+      ? shown.map(function (w) { return weekCardOf(p, w); }).join('')
+      : '<div class="empty">这一阶段还没有排到周。</div>';
+    var more = '';
+    if (weeks.length > limit) {
+      more = '<div class="row" style="margin-top:10px"><button class="btn sm" type="button" data-wmore="all">展开全部 ' +
+        weeks.length + ' 周</button><span class="sub">本科目共 ' + weeks.length + ' 周，先看前 ' + limit + ' 周</span></div>';
+    } else if (weeks.length > 12) {
+      more = '<div class="row" style="margin-top:10px"><button class="btn sm" type="button" data-wmore="12">只看前 12 周</button></div>';
+    }
+    return '<div class="card">' + chips + body + more + '</div>';
+  }
+  function wrongListOf(p) {
+    var out = [];
+    Object.keys(state.wrong).forEach(function (key) {
+      var parts = key.split(':');
+      if (parts[0] !== p) return;
+      var exId = parts[1], day = null, ex = null;
+      daysOf(p).forEach(function (d) {
+        (d.exercises || []).forEach(function (e) { if (e.id === exId) { day = d; ex = e; } });
+      });
+      if (ex && day) out.push({key: key, p: p, day: day, ex: ex, rec: state.wrong[key]});
+    });
+    out.sort(function (a, b) { return a.day.week - b.day.week; });
+    return out;
+  }
+  function wrongItemHtml(x) {
+    return '<div class="wrong' + (x.rec.mastered ? ' mastered' : '') + '">' +
+      '<div class="head"><span class="badge k-' + x.day.kind + '">第 ' + x.day.week + ' 周</span>' +
+      '<span class="t">' + esc(x.ex.title) + '</span></div>' +
+      '<div class="prompt">' + esc(x.ex.prompt) + '</div>' +
+      '<textarea placeholder="写一句错因：概念不清 / 公式记错 / 计算失误 / 没思路" data-note="' + x.key + '">' +
+      esc(x.rec.note || '') + '</textarea>' +
+      '<div class="row" style="margin-top:8px">' +
+      '<label class="check" style="padding:0"><input type="checkbox" data-mastered="' + x.key + '"' +
+      (x.rec.mastered ? ' checked' : '') + '><span>已掌握</span></label>' +
+      '<div class="grow"></div>' +
+      '<button class="btn sm" type="button" data-ans-wrong="' + x.key + '">看答案</button>' +
+      '<button class="btn sm" type="button" data-remove="' + x.key + '">移出</button></div>' +
+      '<div class="ans" style="display:none;font-size:13px;background:#f4f7fb;border-left:3px solid var(--accent);' +
+      'padding:8px 10px;border-radius:6px;margin-top:8px;white-space:pre-wrap">' + esc(x.ex.answer) + '</div></div>';
+  }
+  function wrongCardHtml(p) {
+    var list = wrongListOf(p);
+    if (!list.length) {
+      return '<div class="card empty">这一科还没有错题。在每天的课后题旁边点「记入错题本」，这里会自动汇总。</div>';
+    }
+    return '<div class="card"><div class="sub" style="margin-bottom:6px">共 ' + list.length + ' 道 · 已掌握 ' +
+      list.filter(function (x) { return !!x.rec.mastered; }).length + ' 道</div>' +
+      list.map(wrongItemHtml).join('') + '</div>';
+  }
+  function heatCardHtml(p) {
+    return '<div class="card">' + heatmapHtml(p) + '</div>';
+  }
+  function subjectPageHtml() {
+    var p = state.active, data = planOf(p), st = Pof(p);
+    var prog = subjectProgress(p);
+    var ph = curPhaseOf(p);
+    var left = Math.max(0, diffDays(dISO(data.examDate || PLANS.math2.examDate), todayD()));
+    var hasWord = !!wordBookOf(p), hasCourse = !!courseOf(p);
+    var started = todayD() >= dISO(data.startDate);
+    var h = subjbarHtml();
 
-    el.querySelectorAll('input[data-c]').forEach(function(box){
-      box.addEventListener('change', function(){
-        var i = +box.dataset.c;
-        var st = ds(d.id);
-        var prev = !!st.c[i];
-        st.c[i] = box.checked;
-        syncDone(d, st);
+    h += '<div class="card subjhead">' +
+      '<div class="row" style="flex-wrap:nowrap;gap:18px;align-items:flex-start">' +
+      '<div class="grow" style="min-width:0">' +
+      '<div class="sub">' + (ph ? '第 ' + ph.seq + ' 阶段 · ' + esc(ph.short) +
+        (started ? ' · 第 ' + phaseWeekIndex(ph) + '/' + ph.weeks + ' 周' : ' · ' + diffDays(dISO(data.startDate), todayD()) + ' 天后开始')
+        : '未配置阶段') + ' · 距初试 ' + left + ' 天</div>' +
+      '<h1 style="margin:2px 0 4px">' + esc(data.title) + '</h1>' +
+      '<div class="sub">' + esc(data.tools || '') + '</div></div>' +
+      ringHtml(prog.pct, '总进度', SUBJ_COLOR[p]) + '</div>' +
+      '<div class="bar" style="margin-top:12px"><i style="width:' + prog.pct + '%;background:' + SUBJ_COLOR[p] + '"></i></div>' +
+      '<div class="sub" style="margin-top:6px">学习日 ' + prog.done + ' / ' + prog.total + ' · ' + prog.pct + '%</div>' +
+      '<div class="kpis" style="margin-top:14px">' +
+      kpi(prog.done + ' / ' + prog.total, '学习日', prog.pct, SUBJ_COLOR[p]) +
+      (hasWord ? wordKpi(p)
+        : (exTotal(p) ? kpi(exDone(p) + ' / ' + exTotal(p), '课后题', Math.round(exDone(p) / exTotal(p) * 100), SUBJ_COLOR[p])
+                      : kpi('—', '课后题'))) +
+      kpi(revDone(p) + ' / ' + reviewDays(p).length, '周复盘', reviewDays(p).length ? Math.round(revDone(p) / reviewDays(p).length * 100) : 0, SUBJ_COLOR[p]) +
+      kpi(streak(p) + ' 天', '连续学习日') +
+      '</div>' +
+      '<div class="toolrow">' +
+      '<span class="sub">排期方式</span>' +
+      '<div class="seg"><button type="button" data-mode="progress" class="' + (st.mode === 'progress' ? 'on' : '') + '">按进度推荐</button>' +
+      '<button type="button" data-mode="date" class="' + (st.mode === 'date' ? 'on' : '') + '">按日历</button></div>' +
+      '<span class="sub">开始日期</span><input type="date" id="startDate" value="' + st.startDate + '">' +
+      '<div class="grow"></div><button class="btn" type="button" id="resetSubject">重置本科</button></div>' +
+      '<div class="sub" style="margin-top:8px">按进度推荐 = 自动停在下一条没完成的学习日；按日历 = 从开始日期算今天第几天。开始日期只影响逐日排期，阶段按固定日期走。</div>' +
+      '</div>';
+
+    h += '<div class="anchors">' + [
+      ['sec-day', '今日明细'],
+      ['sec-phase', '阶段进度'],
+      ['sec-book', hasCourse ? '章节进度' : (hasWord ? '单词进度' : '进度')],
+      ['sec-weeks', '全部周次'],
+      ['sec-heat', '打卡日历'],
+      ['sec-wrong', '错题本']
+    ].map(function (a) {
+      return '<button type="button" data-scroll="' + a[0] + '">' + a[1] + '</button>';
+    }).join('') + '</div>';
+
+    h += '<section class="sec" id="sec-day">' + secHead('今日明细', '按天推进 · 清单 / 知识点 / 课后题') + dayCardHtml(p) + '</section>';
+    h += '<section class="sec" id="sec-phase">' + secHead('阶段进度', '四段目标与门槛，细节看「阶段总览」') + phaseBarsHtml(p) + '</section>';
+    h += '<section class="sec" id="sec-book">' +
+      secHead(hasCourse ? '章节进度' : (hasWord ? '单词进度' : '进度'),
+        hasCourse ? '过完一章勾一章 · 点书名列收起' : (hasWord ? '词库总量 + 每日量 + 打卡' : '')) +
+      bookCardHtml(p) + '</section>';
+    h += '<section class="sec" id="sec-weeks">' + secHead('全部周次', '点某一天跳到那天的明细') + weeksHtml(p) + '</section>';
+    h += '<section class="sec" id="sec-heat">' + secHead('打卡日历', '本科目每天的打卡次数') + heatCardHtml(p) + '</section>';
+    h += '<section class="sec" id="sec-wrong">' + secHead('错题本', '本科目记下的课后题') + wrongCardHtml(p) + '</section>';
+    return h;
+  }
+  function bindWordCard(el) {
+    var p = state.active;
+    if (!wordBookOf(p)) return;
+    var w = wordStateOf(p), r = wordRangeOf(p);
+    var d0 = curDayOf(p);
+    var log = el.querySelector('#wlog');
+    if (log) log.addEventListener('click', function () {
+      var num = parseInt((el.querySelector('#wnum') || {}).value, 10);
+      if (!num || num < 1) num = Math.max(1, wordTargetOf(p) - wordTodayOf(p));
+      logWordsFor(p, num);
+    });
+    var undo = el.querySelector('#wundo');
+    if (undo) undo.addEventListener('click', function () {
+      if (wordTodayOf(p) > 0) logWordsFor(p, -wordTodayOf(p));
+    });
+    el.querySelectorAll('[data-wstep]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        w.perDay = Math.max(10, Math.min(600, (w.perDay || 100) + parseInt(b.dataset.wstep, 10)));
+        afterDayChange(p, d0);
+        refresh();
+      });
+    });
+    el.querySelectorAll('[data-wset]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        w.perDay = parseInt(b.dataset.wset, 10);
+        afterDayChange(p, d0);
+        refresh();
+      });
+    });
+    var pd = el.querySelector('#wpd');
+    if (pd) pd.addEventListener('change', function () {
+      var v = parseInt(pd.value, 10);
+      if (!v || v < 10 || v > 600) return;
+      w.perDay = v;
+      afterDayChange(p, d0);
+      refresh();
+    });
+    var sv = el.querySelector('#wsave'), dn = el.querySelector('#wdone');
+    if (sv && dn) sv.addEventListener('click', function () {
+      var v = parseInt(dn.value, 10);
+      if (isNaN(v) || v < 0) return;
+      w.done = Math.min(wordBookOf(p).total, v);
+      save();
+      refresh();
+    });
+    var nx = el.querySelector('#wnext');
+    if (nx) nx.addEventListener('click', function () {
+      w.done = 0;
+      w.cycle = (w.cycle || 1) + 1;
+      w.log = {};
+      afterDayChange(p, d0);
+      refresh();
+    });
+  }
+  function bindChapters(el, p) {
+    var cs = chapterStateOf(p);
+    el.querySelectorAll('input[data-chapter]').forEach(function (box) {
+      box.addEventListener('change', function () {
+        var parts = box.dataset.chapter.split('|');
+        var key = parts[1];
+        var prev = cs[key] || {done: false};
+        cs[key] = box.checked ? {done: true, at: fmt(todayD())} : {done: false};
         save();
-        updateTodayChecks(d, st);
-        renderHead();
-        toast((box.checked ? '已打卡 · ' : '已取消 · ') + shortText(d.checklist[i], 18), '撤销', function(){
-          st.c[i] = prev;
-          box.checked = prev;
-          syncDone(d, st);
+        var lab = box.closest('label');
+        toast((box.checked ? '已过 · ' : '取消 · ') + shortText(lab ? lab.innerText : '', 16), '撤销', function () {
+          cs[key] = prev;
           save();
-          updateTodayChecks(d, st);
-          renderHead();
+          refresh();
         });
+        refresh();
       });
     });
-    el.querySelectorAll('input[data-e]').forEach(function(box){
-      box.addEventListener('change', function(){
-        var st = ds(d.id);
-        st.e[+box.dataset.e] = box.checked;
-        save(); renderHead();
+  }
+  function bindWeeks(el, p) {
+    el.querySelectorAll('[data-wf]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        Pof(p).weeksFilter = b.dataset.wf;
+        save();
+        render();
+        scrollToSec('sec-weeks');
       });
     });
-    el.querySelectorAll('button[data-ans]').forEach(function(btn){
-      btn.addEventListener('click', function(){
+    el.querySelectorAll('[data-wmore]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        Pof(p).weeksLimit = b.dataset.wmore === 'all' ? 999 : 12;
+        save();
+        render();
+        scrollToSec('sec-weeks');
+      });
+    });
+    el.querySelectorAll('.wk-h').forEach(function (h) {
+      h.addEventListener('click', function () { h.parentElement.classList.toggle('open'); });
+    });
+    el.querySelectorAll('[data-wday]').forEach(function (cell) {
+      cell.addEventListener('click', function () {
+        var day = dayById(p, cell.dataset.wday);
+        var idx = daysOf(p).indexOf(day);
+        if (idx < 0) return;
+        pinDay(p, idx);
+        save();
+        render();
+        scrollToSec('sec-day');
+      });
+    });
+  }
+  function bindWrong(el, p) {
+    el.querySelectorAll('textarea[data-note]').forEach(function (t) {
+      t.addEventListener('input', function () {
+        var k = t.dataset.note;
+        if (!state.wrong[k]) return;
+        state.wrong[k].note = t.value;
+        save();
+      });
+    });
+    el.querySelectorAll('input[data-mastered]').forEach(function (box) {
+      box.addEventListener('change', function () {
+        var k = box.dataset.mastered;
+        if (!state.wrong[k]) return;
+        state.wrong[k].mastered = box.checked;
+        save();
+        refresh();
+      });
+    });
+    el.querySelectorAll('button[data-remove]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        delete state.wrong[btn.dataset.remove];
+        save();
+        refresh();
+      });
+    });
+    el.querySelectorAll('button[data-ans-wrong]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var box = btn.closest('.wrong').querySelector('.ans');
+        var open = box.style.display !== 'none';
+        box.style.display = open ? 'none' : 'block';
+        btn.textContent = open ? '看答案' : '收起';
+      });
+    });
+  }
+  function bindDaySection(el, p) {
+    var d = curDayOf(p);
+    if (!d) return;
+    el.querySelectorAll('input[data-c]').forEach(function (box) {
+      box.addEventListener('change', function () {
+        var s = dsOf(p, d.id), i = +box.dataset.c, prev = !!s.c[i];
+        s.c[i] = box.checked;
+        afterDayChange(p, d);
+        toast((box.checked ? '已打卡 · ' : '已取消 · ') + shortText((d.checklist || [])[i], 18), '撤销', function () {
+          s.c[i] = prev;
+          afterDayChange(p, d);
+          refresh();
+        });
+        refresh();
+      });
+    });
+    el.querySelectorAll('input[data-e]').forEach(function (box) {
+      box.addEventListener('change', function () {
+        var s = dsOf(p, d.id);
+        s.e[+box.dataset.e] = box.checked;
+        save();
+        toast(box.checked ? '课后题 +1' : '课后题已取消');
+        refresh();
+      });
+    });
+    el.querySelectorAll('[data-ans]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
         var box = btn.closest('.ex');
         box.classList.toggle('open');
         btn.textContent = box.classList.contains('open') ? '收起答案' : '看答案';
       });
     });
-    el.querySelectorAll('button[data-wrong]').forEach(function(btn){
-      btn.addEventListener('click', function(){
+    el.querySelectorAll('[data-wrong]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
         var e = d.exercises[+btn.dataset.wrong];
-        var key = pid() + ':' + e.id;
-        if(state.wrong[key]) delete state.wrong[key];
-        else state.wrong[key] = {note:'', mastered:false, at:new Date().toISOString().slice(0,10)};
-        save(); renderToday();
-        if(view === 'wrong') renderWrong();
-      });
-    });
-    bindFinish(d);
-    var pv = el.querySelector('#prev'), nx2 = el.querySelector('#next'), td = el.querySelector('#today');
-    if(pv) pv.addEventListener('click', function(){ step(-1); });
-    if(nx2) nx2.addEventListener('click', function(){ step(1); });
-    if(td) td.addEventListener('click', function(){ P().offset = null; save(); renderHead(); renderToday(); });
-  }
-  function step(dir){
-    var d = curDay();
-    var list = daysOf(pid());
-    var n = list.indexOf(d) + dir;
-    if(n < 0 || n >= list.length) return;
-    P().offset = n;
-    save(); renderHead(); renderToday();
-  }
-  function nextStudyAfter(d){
-    var list = daysOf(pid());
-    for(var k=list.indexOf(d)+1;k<list.length;k++){ if(!isRest(list[k])) return list[k]; }
-    return null;
-  }
-  function syncDone(d, st){
-    var all = d.checklist || [];
-    if(all.length && all.every(function(_,i){ return !!st.c[i]; })){
-      if(!st.done){ st.done = true; st.at = fmt(todayD()); }
-    }else if(all.length){
-      st.done = false;
-      delete st.at;
-    }
-  }
-
-  function weekCard(w){
-    var stDays = w.days.filter(function(d){ return d.kind === 'learn' || d.kind === 'practice'; });
-    var dn = stDays.filter(function(d){
-      var s = P().checks[d.id]; return s && s.done;
-    }).length;
-    return '<div class="wk" data-w="' + w.week + '"><div class="wk-h">' +
-      '<span class="n">第 ' + w.week + ' 周</span><span class="ti">' + esc(w.title) + '</span>' +
-      '<span class="sub">' + dn + '/' + stDays.length + ' 完成</span></div>' +
-      '<div class="wk-b">' +
-      (w.check ? '<div class="ck">' + esc(w.check) + '</div>' : '') +
-      '<div class="sub" style="margin-bottom:6px">本周过关：' + esc(w.goal) + '</div>' +
-      (w.target ? '<div class="sub" style="margin-bottom:10px">本周题量：' + esc(w.target) + '</div>' : '') +
-      '<div class="days">' + w.days.map(function(d){
-        var s = P().checks[d.id];
-        var cls = ['day'];
-        if(isRest(d)) cls.push('rest');
-        if(s && s.done) cls.push('done');
-        return '<div class="' + cls.join(' ') + '" data-day="' + d.id + '"><div class="wd">' + esc(d.weekday) +
-          '</div><div class="tt">' + esc(d.title) + '</div><span class="dot"></span></div>';
-      }).join('') + '</div></div></div>';
-  }
-  function renderWeeks(){
-    var el = document.getElementById('view');
-    var list = phases();
-    var cur = curPhase();
-    var focus = P().weeksFilter || (cur && cur.id) || 'all';
-
-    var html = '<div class="card" style="padding:12px 14px"><div class="row">' +
-      '<span class="sub" style="flex:0 0 auto">只看</span>' +
-      '<div class="pseg" style="margin:0">' +
-      '<button class="pseg-b' + (focus === 'all' ? ' on' : '') + '" data-wf="all">全部</button>' +
-      list.map(function(x){
-        return '<button class="pseg-b' + (focus === x.id ? ' on' : '') + '" data-wf="' + x.id + '">' +
-          '第 ' + x.seq + ' 阶段 · ' + esc(x.short) + '</button>';
-      }).join('') +
-      '</div></div></div>';
-
-    var groups = focus === 'all' ? list : list.filter(function(x){ return x.id === focus; });
-    html += '<div class="weeks">';
-    groups.forEach(function(ph){
-      var wks = phaseWeeks(ph);
-      html += '<div class="phase-h"><h2>' + esc(ph.name) + '</h2>' + phaseBadge(ph) +
-        '<span class="sub">' + shortDate(ph.start) + ' → ' + shortDate(ph.end) + ' · ' + ph.weeks + ' 周' +
-        (wks.length ? ' · 细化 ' + wks.length + ' 周' : ' · 未细化') + '</span></div>';
-      if(wks.length) html += wks.map(weekCard).join('');
-      if(wks.length < ph.weeks){
-        (ph.blocks || []).filter(function(b){ return !b.detail; }).forEach(function(b){
-          html += '<div class="wk skel"><div class="skel-h"><span class="n">' + esc(b.name) +
-            (b.weeks > 1 ? ' · ' + b.weeks + ' 周' : '') + '</span><span class="c">' + esc(b.content) +
-            '</span><span class="pill wait">待细化</span></div></div>';
-        });
-      }
-    });
-    el.innerHTML = html + '</div>';
-
-    el.querySelectorAll('[data-wf]').forEach(function(b){
-      b.addEventListener('click', function(){
-        P().weeksFilter = b.dataset.wf;
+        var key = p + ':' + e.id;
+        if (state.wrong[key]) {
+          delete state.wrong[key];
+          toast('已移出错题本：' + shortText(e.title, 16));
+        } else {
+          state.wrong[key] = {note: '', mastered: false, at: fmt(todayD())};
+          toast('已记入错题本：' + shortText(e.title, 16));
+        }
         save();
-        renderWeeks();
-        window.scrollTo(0, 0);
+        refresh();
       });
     });
-    el.querySelectorAll('.wk-h').forEach(function(h){
-      h.addEventListener('click', function(){ h.parentElement.classList.toggle('open'); });
-    });
-    el.querySelectorAll('.day').forEach(function(cell){
-      cell.addEventListener('click', function(){
-        var l = daysOf(pid());
-        P().offset = l.indexOf(dayById(pid(), cell.dataset.day));
+    el.querySelectorAll('[data-finish]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var want = b.dataset.finish === '1';
+        var s = dsOf(p, d.id);
+        if (want) {
+          (d.checklist || []).forEach(function (_, i) { s.c[i] = true; });
+          if (wordBookOf(p) && !wordTaskDoneOf(p)) wordLogOf(p, wordTargetOf(p) - wordTodayOf(p));
+          s.done = true;
+          s.at = fmt(todayD());
+          pinDay(p, daysOf(p).indexOf(d));
+          toast('已标记完成：' + shortText(d.title, 16) + '，点「下一天 →」继续');
+        } else {
+          s.done = false;
+          delete s.at;
+          toast('已取消完成：' + shortText(d.title, 16));
+        }
         save();
-        view = 'today';
-        document.querySelectorAll('#tabs .tab').forEach(function(t){ t.classList.toggle('on', t.dataset.view === 'today'); });
-        renderHead(); renderToday();
+        refresh();
       });
     });
-  }
-
-  function focusPhase(){
-    var list = phases();
-    if(!list.length) return null;
-    var id = P().phaseFocus, hit = null;
-    list.forEach(function(ph){ if(ph.id === id) hit = ph; });
-    return hit || curPhase();
-  }
-  function gotoPhase(id){
-    P().phaseFocus = id;
-    save();
-    if(view === 'phase') renderPhases(); else switchView('phase');
-    var anchor = document.getElementById('view');
-    if(anchor) window.scrollTo({ top: anchor.getBoundingClientRect().top + window.pageYOffset - 12, behavior: 'auto' });
-  }
-  function renderPhaseCard(ph){
-    var st = phaseState(ph), s = phaseStats(ph);
-    var pct = s.study ? Math.round(s.done/s.study*100) : 0;
-    var wsum = (ph.mainline||[]).reduce(function(n,m){ return n + (m.weeks||0); }, 0);
-    var html = '<div class="phc' + (st === 'active' ? ' on' : '') + '" id="ph-' + ph.id + '">' +
-      '<div class="phc-h"><h2>' + esc(ph.name) + '</h2>' + phaseBadge(ph) + '</div>' +
-      '<div class="dates">' + ph.start + ' → ' + ph.end + ' · ' + ph.weeks + ' 周 · 每周 ' + esc(ph.hoursPerWeek || '') + '</div>';
-
-    if(s.weeks){
-      html += '<div class="lp" style="margin-top:12px"><div class="h"><span>细化排期 · ' + s.weeks + ' 周</span>' +
-        '<span class="muted">' + s.done + '/' + s.study + ' 学习日</span></div><div class="bar"><i style="width:' + pct + '%"></i></div></div>' +
-        '<div class="sub" style="margin-top:4px">' + (s.ex ? '课后题 ' + s.exDone + '/' + s.ex + ' · ' : '') +
-        '周复盘 ' + s.revDone + '/' + s.rev + '</div>';
-    }else{
-      html += '<div class="sub" style="margin-top:8px">暂无逐日排期：先锁定阶段目标与主线，细化等前一阶段收口后再排。</div>';
-    }
-
-    html += '<div class="lbl">阶段目标</div><div style="font-size:14px">' + esc(ph.goal) + '</div>';
-
-    if(ph.mainline && ph.mainline.length){
-      html += '<div class="lbl">主线' + (wsum ? '（' + wsum + ' 周）' : '') + '</div>';
-      ph.mainline.forEach(function(m){
-        html += '<div class="ml"><b>' + esc(m.name) + (m.weeks ? '<small>' + m.weeks + ' 周</small>' : '') + '</b><span>' + esc(m.content) + '</span></div>';
-      });
-    }
-    if(ph.outputs && ph.outputs.length){
-      html += '<div class="lbl">阶段产出</div><ul class="pts">' +
-        ph.outputs.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
-    }
-    if(ph.checkpoints && ph.checkpoints.length){
-      html += '<div class="lbl">检查点</div>';
-      ph.checkpoints.forEach(function(c){
-        html += '<div class="ckp"><span class="dt">' + esc(String(c.date)) + '</span><div><b>' + esc(c.what) +
-          '</b><div class="sub">达标线：' + esc(c.pass) + '</div></div></div>';
-      });
-    }
-    if(ph.exit && ph.exit.length){
-      html += '<div class="lbl">进入下一阶段的门槛</div><ul class="pts">' +
-        ph.exit.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
-    }
-    if(ph.blocks && ph.blocks.length){
-      html += '<div class="lbl">周骨架 · ' + ph.weeks + ' 周</div>';
-      ph.blocks.forEach(function(b){
-        html += '<div class="blk' + (b.detail ? ' detail' : '') + '"><b>' + esc(b.name) +
-          (b.weeks > 1 && !b.detail ? ' · ' + b.weeks + ' 周' : '') + '</b><span class="c">' + esc(b.content) + '</span></div>';
-      });
-    }
-    return html + '</div>';
-  }
-  function renderPhases(){
-    var el = document.getElementById('view');
-    var list = phases();
-    if(!list.length){ el.innerHTML = '<div class="card empty">这份计划还没有配置阶段。</div>'; return; }
-    var now = todayD();
-    var phNow = curPhase();
-    var ph = focusPhase();
-    var idx = list.indexOf(ph);
-    var exam = plan().examDate ? dISO(plan().examDate) : null;
-    var nowTxt = [];
-    if(phNow){
-      var stNow = phaseState(phNow);
-      nowTxt.push(esc(phNow.name) + (stNow === 'active'
-        ? '（第 ' + phaseWeekIndex(phNow) + '/' + phNow.weeks + ' 周，剩 ' + Math.max(0, diffDays(dISO(phNow.end), now)) + ' 天）'
-        : stNow === 'done' ? '（已结束）' : '（' + diffDays(dISO(phNow.start), now) + ' 天后开始）'));
-    }
-    if(exam) nowTxt.push('距初试 ' + fmt(exam) + ' 还有 ' + Math.max(0, diffDays(exam, now)) + ' 天');
-
-    var html = '<div class="card"><div class="row"><h2 style="margin:0" class="grow">全年阶段路线</h2>' +
-      '<span class="sub">' + shortDate(plan().startDate) + ' → ' + shortDate(plan().examDate || list[list.length-1].end) +
-      ' · ' + list.length + ' 段 / ' + totalPhaseWeeks() + ' 周</span></div>' +
-      '<div class="sub" style="margin-top:6px">' + esc(plan().yearGoal || '') + '</div>' +
-      '<div class="kv" style="margin-top:10px"><b>现在</b><span>' + nowTxt.join(' · ') + '</span></div>' +
-      '<div class="sub">阶段 = 时间 + 目标 + 主线 + 门槛。点下面的段直接换内容，不在同一页往下堆。</div>' +
-      '<h3 style="margin-bottom:6px">切换阶段</h3>' +
-      '<div class="pseg">' +
-      list.map(function(x){
-        var st = phaseState(x);
-        return '<button class="pseg-b' + (ph && x.id === ph.id ? ' on' : '') + (st === 'done' ? ' done' : '') +
-          '" data-focus="' + x.id + '">第 ' + x.seq + ' 阶段 · ' + esc(x.short) +
-          '<small>' + shortDate(x.start) + ' → ' + shortDate(x.end) + ' · ' + x.weeks + ' 周</small></button>';
-      }).join('') +
-      '</div></div>';
-
-    html += '<div class="row" style="margin:2px 0 0">' +
-      '<button class="btn" data-pnav="-1"' + (idx <= 0 ? ' disabled' : '') + '>← 上一段</button>' +
-      '<button class="btn" data-pnav="1"' + (idx >= list.length - 1 ? ' disabled' : '') + '>下一段 →</button>' +
-      '<span class="sub">第 ' + (idx + 1) + ' / ' + list.length + ' 段</span>' +
-      (phNow && ph && phNow.id !== ph.id ? '<button class="btn ghost" data-pnow="1">回到当前阶段</button>' : '') +
-      '</div>';
-
-    html += renderPhaseCard(ph);
-
-    html += '<div class="card" style="margin-top:12px"><h3 style="margin-top:0">阶段怎么推进</h3><ul class="pts">' +
-      '<li>门槛制：上一阶段的门槛没过，先补 1–2 周再进下一段，不要两段平行推进。</li>' +
-      '<li>只有当前阶段排到天；后面阶段只锁周数和主线，避免照着假计划跑。</li>' +
-      '<li>阶段按固定日期走（从初试倒排），顶部「当前阶段」自动切换，历史勾选不受影响；「开始日期」只影响逐日排期。</li>' +
-      '<li>要改阶段时间或目标：改 <code>build_phases.py</code> → 跑脚本 → 重新生成页面（见 README「改计划」）。</li>' +
-      '</ul></div>';
-    el.innerHTML = html;
-
-    el.querySelectorAll('[data-focus]').forEach(function(b){
-      b.addEventListener('click', function(){ gotoPhase(b.dataset.focus); });
+    el.querySelectorAll('[data-daystep]').forEach(function (b) {
+      b.addEventListener('click', function () { stepDay(p, +b.dataset.daystep); });
     });
-    el.querySelectorAll('[data-pnav]').forEach(function(b){
-      b.addEventListener('click', function(){
-        var n = idx + parseInt(b.dataset.pnav, 10);
-        if(n < 0 || n >= list.length) return;
-        gotoPhase(list[n].id);
-      });
+    el.querySelectorAll('[data-daynext]').forEach(function (b) {
+      b.addEventListener('click', function () { advanceDay(p); });
     });
-    var backNow = el.querySelector('[data-pnow]');
-    if(backNow) backNow.addEventListener('click', function(){ gotoPhase(phNow.id); });
-  }
-
-  var SUBJ_COLOR = { math2: '#2f6feb', cs408: '#0e9f6e', english: '#d97706', politics: '#d92d20' };
-  function statsScopeBar(){
-    var scope = state.statsScope || 'all';
-    return '<div class="pseg" style="margin-bottom:14px">' +
-      '<button class="pseg-b' + (scope === 'all' ? ' on' : '') + '" data-scope="all">全局</button>' +
-      Object.keys(PLANS).map(function(k){
-        return '<button class="pseg-b' + (scope === k ? ' on' : '') + '" data-scope="' + k + '">' +
-          esc(PLAN_META[k].short) + '</button>';
-      }).join('') + '</div>';
-  }
-  function bindScope(el){
-    el.querySelectorAll('[data-scope]').forEach(function(b){
-      b.addEventListener('click', function(){
-        state.statsScope = b.dataset.scope;
-        if(b.dataset.scope !== 'all') state.active = b.dataset.scope;
-        save();
-        renderHead();
-        renderStats();
-        var tabs = document.getElementById('tabs');
-        window.scrollTo(0, Math.max(0, tabs.getBoundingClientRect().top + window.pageYOffset - 12));
-      });
-    });
-  }
-  function subjectStat(p){
-    var data = planOf(p);
-    var days = studyDays(p);
-    var done = days.filter(function(d){
-      var st = Pof(p).checks[d.id];
-      return st && st.done;
-    }).length;
-    var map = checkinMap(p);
-    var last7 = 0;
-    for(var i = 0; i < 7; i++){
-      var ds = fmt(new Date(todayD().getTime() - i * 86400000));
-      if(map[ds]) last7++;
-    }
-    return {
-      p: p, data: data, total: days.length, done: done,
-      pct: days.length ? Math.round(done / days.length * 100) : 0,
-      phase: curPhaseOf(p), ch: chapterStatsOf(p), wr: wordRangeOf(p),
-      last7: last7, map: map,
-      minutes: days.reduce(function(n, d){
-        var st = Pof(p).checks[d.id];
-        return n + (st && st.done ? (d.minutes || 0) : 0);
-      }, 0)
-    };
-  }
-  function globalHeatmapHtml(){
-    var order = Object.keys(PLANS), maps = {}, start = null, end = null;
-    order.forEach(function(p){
-      maps[p] = checkinMap(p);
-      var s0 = planStartOf(p), list = daysOf(p);
-      if(!list.length) return;
-      var e0 = new Date(s0.getTime() + (list.length - 1) * 86400000);
-      if(!start || s0 < start) start = s0;
-      if(!end || e0 > end) end = e0;
-    });
-    if(!start) return '';
-    var total = Math.round((end - start) / 86400000) + 1;
-    var weeks = Math.ceil(total / 7);
-    var counts = {};
-    order.forEach(function(p){
-      Object.keys(maps[p]).forEach(function(k){ counts[k] = (counts[k] || 0) + maps[p][k]; });
-    });
-    var todayS = fmt(todayD()), months = '', cols = '', lastMonth = -1;
-    for(var w = 0; w < weeks; w++){
-      var mon = new Date(start.getTime() + w * 7 * 86400000);
-      months += '<span>' + (mon.getMonth() !== lastMonth ? (mon.getMonth() + 1) + '月' : '') + '</span>';
-      lastMonth = mon.getMonth();
-      var col = '';
-      for(var dow = 0; dow < 7; dow++){
-        var idx = w * 7 + dow;
-        if(idx >= total){ col += '<button type="button" class="hd off"></button>'; continue; }
-        var ds = fmt(new Date(start.getTime() + idx * 86400000));
-        var c = counts[ds] || 0;
-        col += '<button type="button" class="hd' + (c ? ' lv' + Math.min(4, c) : '') + (ds === todayS ? ' today' : '') +
-          '" title="' + ds + ' · ' + c + ' 次打卡"></button>';
-      }
-      cols += '<div class="hcol">' + col + '</div>';
-    }
-    var active = 0, best = 0, run = 0, prev = false;
-    for(var i2 = 0; i2 < total; i2++){
-      var k2 = fmt(new Date(start.getTime() + i2 * 86400000));
-      var ok = (counts[k2] || 0) > 0;
-      if(ok){ active++; run = prev ? run + 1 : 1; if(run > best) best = run; }
-      else run = 0;
-      prev = ok;
-    }
-    var dd = todayD();
-    if(!counts[fmt(dd)]) dd = new Date(dd.getTime() - 86400000);
-    var streak = 0;
-    while(counts[fmt(dd)]){ streak++; dd = new Date(dd.getTime() - 86400000); }
-    return '<div class="heat-top">' +
-      '<div class="heat-legend"><span>少</span><i style="opacity:.25"></i><i style="opacity:.45"></i>' +
-      '<i style="opacity:.7"></i><i></i><span>多</span></div>' +
-      '<div class="heat-stats">' +
-      '<div><b>' + active + '</b><span>天打卡</span></div>' +
-      '<div><b>' + streak + '</b><span>当前连续</span></div>' +
-      '<div><b>' + best + '</b><span>最长连续</span></div>' +
-      '</div></div>' +
-      '<div class="heat-wrap"><div class="heat-months">' + months + '</div>' +
-      '<div class="heat" style="--subj:#475569">' + cols + '</div></div>';
-  }
-  function subjectStatCard(s){
-    var second = s.ch
-      ? '章节 ' + s.ch.done + '/' + s.ch.total + ' 章'
-      : (s.wr ? '单词 ' + s.wr.done + '/' + s.wr.total + '（第 ' + s.wr.w.cycle + ' 轮）'
-              : '阶段 ' + (s.phase ? s.phase.short : '—'));
-    return '<div class="gcard">' +
-      '<div class="row"><span class="badge subj c-' + s.p + '">' + esc(PLAN_META[s.p].short) + '</span>' +
-      '<span class="gt">' + (s.phase ? esc(s.phase.short) : '—') + '</span>' +
-      '<div class="grow"></div><span class="sub">' + s.pct + '%</span></div>' +
-      '<div class="sub" style="margin-top:4px">第 ' +
-      (s.phase ? phaseWeekIndex(s.phase) + '/' + s.phase.weeks : '—') + ' 周 · 学习日 ' + s.done + '/' + s.total +
-      ' · 近 7 天 ' + s.last7 + ' 天</div>' +
-      '<div class="bar" style="margin-top:8px"><i style="width:' + s.pct + '%;background:' + SUBJ_COLOR[s.p] + '"></i></div>' +
-      '<div class="row" style="margin-top:10px"><span class="sub">' + second + '</span><div class="grow"></div>' +
-      '<button class="btn sm" data-scope="' + s.p + '">看这一科 →</button></div></div>';
-  }
-  function renderGlobalStats(){
-    var el = document.getElementById('view');
-    var stats = Object.keys(PLANS).map(subjectStat);
-    var totalDays = 0, doneDays = 0, minutes = 0, pctSum = 0;
-    stats.forEach(function(s){
-      totalDays += s.total; doneDays += s.done; minutes += s.minutes; pctSum += s.pct;
-    });
-    var avg = stats.length ? Math.round(pctSum / stats.length) : 0;
-    var examD = plan().examDate ? dISO(plan().examDate) : null;
-    var html = '<div class="card">' + statsScopeBar() +
-      '<div class="row" style="align-items:flex-end">' +
-      '<div class="grow"><h2 style="margin:0 0 4px">总进度</h2>' +
-      '<div class="sub">四科平均完成度（每科各占 1/4，避免英语 354 天把比例吃掉）</div></div>' +
-      '<div style="text-align:right"><b style="font-size:34px;line-height:1.1;font-variant-numeric:tabular-nums">' + avg + '%</b></div></div>' +
-      '<div class="row" style="margin-top:10px;font-size:13px;color:var(--muted)">' +
-      '<span>累计完成 <b>' + doneDays + ' / ' + totalDays + '</b> 个学习日</span><span>·</span>' +
-      '<span>已投入约 ' + Math.round(minutes / 60) + ' 小时</span><span>·</span>' +
-      '<span>距初试 ' + (examD ? Math.max(0, diffDays(examD, todayD())) : '—') + ' 天</span></div>' +
-      '<div class="list-prog" style="margin-top:12px">' +
-      stats.map(function(s){
-        return '<div class="lp"><div class="h"><span>' + esc(PLAN_META[s.p].short) + '</span>' +
-          '<span class="muted">' + s.done + '/' + s.total + ' · ' + s.pct + '%</span></div>' +
-          '<div class="bar"><i style="width:' + s.pct + '%;background:' + SUBJ_COLOR[s.p] + '"></i></div></div>';
-      }).join('') +
-      '</div></div>';
-    html += '<div class="gcards">' + stats.map(subjectStatCard).join('') + '</div>';
-    html += '<div class="card" style="margin-top:12px"><h3 style="margin-top:0">打卡日历 · 四科合计</h3>' + globalHeatmapHtml() + '</div>';
-    el.innerHTML = html;
-    bindScope(el);
-  }
-
-  function statGroups(p){
-    if(p === 'math2') return [{name:'高数（第 1–7 周）', from:1, to:7}, {name:'线代（第 8–10 周）', from:8, to:10},
-      {name:'错题与总测（第 11–12 周）', from:11, to:12}];
-    if(p === 'cs408') return [{name:'数据结构（第 1–5 周）', from:1, to:5}, {name:'计算机组成原理（第 6–9 周）', from:6, to:9},
-      {name:'操作系统（第 10–11 周）', from:10, to:11}, {name:'计算机网络（第 12 周）', from:12, to:12}];
-    return phases().filter(function(ph){ return phaseWeeks(ph).length; }).map(function(ph){
-      var ws = phaseWeeks(ph), a = ws[0].week, b = ws[ws.length-1].week;
-      return {name: ph.short + '（第 ' + a + (b > a ? '–' + b : '') + ' 周）', from:a, to:b};
-    });
-  }
-  function renderStats(){
-    if((state.statsScope || 'all') === 'all'){ renderGlobalStats(); return; }
-    var p = state.statsScope;
-    var st = studyDays(p);
-    var doneN = st.filter(isDone).length;
-    var groups = statGroups(p);
-    var html = statsScopeBar() + '<div class="card"><h2>总体进度</h2>' +
-      '<div class="lp" style="margin-bottom:14px"><div class="h"><span>全部章节学习日</span><span class="muted">' +
-      doneN + '/' + st.length + '</span></div><div class="bar"><i style="width:' + Math.round(doneN/st.length*100) + '%"></i></div></div>' +
-      '<h3>阶段进度</h3><div class="list-prog">' +
-      phases().map(function(ph){
-        var ps = phaseStats(ph), pc = ps.study ? Math.round(ps.done/ps.study*100) : 0;
-        return '<div class="lp"><div class="h"><span>' + esc(ph.name) + '</span><span class="muted">' +
-          (ps.study ? ps.done + '/' + ps.study : '待细化') + '</span></div>' +
-          '<div class="bar"><i style="width:' + pc + '%"></i></div></div>';
-      }).join('') + '</div>' +
-      '<!--CHAPTERS-->' +
-      '<h3>分块进度</h3><div class="list-prog">';
-    groups.forEach(function(g){
-      var list = st.filter(function(d){ return d.week>=g.from && d.week<=g.to; });
-      var dn = list.filter(isDone).length;
-      var pc = list.length ? Math.round(dn/list.length*100) : 0;
-      html += '<div class="lp"><div class="h"><span>' + esc(g.name) + '</span><span class="muted">' + dn + '/' + list.length +
-        '</span></div><div class="bar"><i style="width:' + pc + '%"></i></div></div>';
-    });
-    html += '</div><h3>逐周完成情况</h3>';
-    plan().weeks.forEach(function(w){
-      var list = w.days.filter(function(d){ return d.kind === 'learn' || d.kind === 'practice'; });
-      var dn = list.filter(function(d){ var s = P().checks[d.id]; return s && s.done; }).length;
-      var pc = Math.round(dn/list.length*100);
-      html += '<div class="row" style="padding:4px 0;font-size:13px"><span style="flex:0 0 62px" class="muted">第 ' + w.week +
-        ' 周</span><div class="bar grow" style="margin:0"><i style="width:' + pc + '%"></i></div>' +
-        '<span style="flex:0 0 54px;text-align:right" class="muted">' + dn + '/' + list.length + '</span></div>';
-    });
-    html += '</div>';
-    var cs = chapterStatsOf(p);
-    var chapBlock = cs
-      ? '<h3>章节进度 · ' + cs.done + '/' + cs.total + ' 章</h3>' +
-        '<div class="sub" style="margin-bottom:6px">' + esc(cs.title) + '</div>' +
-        '<div class="list-prog">' + cs.groups.map(function(g){
-          return '<div class="lp"><div class="h"><span>' + esc(g.short) + '</span><span class="muted">' + g.done + '/' + g.total +
-            '</span></div><div class="bar"><i style="width:' + g.pct + '%"></i></div></div>';
-        }).join('') + '</div>' +
-        '<div class="chapters wide">' + chapterListHtml(p) + '</div>'
-      : '';
-    var heat = heatmapHtml(p);
-    html = html.replace('<!--CHAPTERS-->', '<h3>打卡日历</h3>' + heat + chapBlock);
-    document.getElementById('view').innerHTML = html;
-    bindScope(document.getElementById('view'));
-    bindChapter(document.getElementById('view'));
-    bindHeat(document.getElementById('view'));
-  }
-
-  function wrongList(){
-    var out = [];
-    Object.keys(state.wrong).forEach(function(key){
-      var parts = key.split(':');
-      var p = parts[0], exId = parts[1];
-      if(!PLANS[p]) return;
-      var day = null, ex = null;
-      daysOf(p).forEach(function(d){
-        (d.exercises||[]).forEach(function(e){ if(e.id === exId){ day = d; ex = e; } });
-      });
-      if(ex && day) out.push({key:key, pid:p, day:day, ex:ex, rec:state.wrong[key]});
-    });
-    out.sort(function(a,b){
-      if(a.pid !== b.pid) return a.pid === 'math2' ? -1 : 1;
-      return a.day.week - b.day.week;
-    });
-    return out;
-  }
-  function renderWrong(){
-    var list = wrongList();
-    var el = document.getElementById('view');
-    if(!list.length){
-      el.innerHTML = '<div class="card empty">还没有错题。在「单科今日」里每道课后题旁边点「记入错题本」，这里会自动汇总。</div>';
-      return;
-    }
-    var mastered = list.filter(function(x){ return x.rec.mastered; }).length;
-    var html = '<div class="card"><div class="row"><h2 style="margin:0" class="grow">错题本</h2>' +
-      '<span class="sub">共 ' + list.length + ' 道 · 已掌握 ' + mastered + ' 道</span></div>';
-    list.forEach(function(x){
-      html += '<div class="wrong ' + (x.rec.mastered ? 'mastered' : '') + '" data-key="' + x.key + '">' +
-        '<div class="head"><span class="badge k-' + x.day.kind + '">' + esc(PLAN_META[x.pid].short) + '</span>' +
-        '<span class="t">' + esc(x.ex.title) + '</span><div class="grow"></div>' +
-        '<span class="meta">第 ' + x.day.week + ' 周 · ' + esc(x.day.title) + '</span></div>' +
-        '<div class="prompt">' + esc(x.ex.prompt) + '</div>' +
-        '<textarea placeholder="写一句错因：概念不清 / 公式记错 / 计算失误 / 没思路" data-note="' + x.key + '">' + esc(x.rec.note || '') + '</textarea>' +
-        '<div class="row" style="margin-top:8px">' +
-        '<label class="check" style="padding:0"><input type="checkbox" data-mastered="' + x.key + '"' + (x.rec.mastered?' checked':'') + '><span>已掌握</span></label>' +
-        '<div class="grow"></div>' +
-        '<button class="btn sm" data-ans-wrong="' + x.key + '">看答案</button>' +
-        '<button class="btn sm" data-remove="' + x.key + '">移出</button></div>' +
-        '<div class="ans" style="display:none;font-size:13px;background:#f4f7fb;border-left:3px solid var(--accent);padding:8px 10px;border-radius:6px;margin-top:8px;white-space:pre-wrap">' +
-        esc(x.ex.answer) + '</div></div>';
-    });
-    html += '</div>';
-    el.innerHTML = html;
-
-    el.querySelectorAll('textarea[data-note]').forEach(function(t){
-      t.addEventListener('input', function(){
-        var k = t.dataset.note;
-        if(!state.wrong[k]) return;
-        state.wrong[k].note = t.value;
-        save();
-      });
-    });
-    el.querySelectorAll('input[data-mastered]').forEach(function(box){
-      box.addEventListener('change', function(){
-        var k = box.dataset.mastered;
-        if(!state.wrong[k]) return;
-        state.wrong[k].mastered = box.checked;
-        save(); renderWrong();
-      });
-    });
-    el.querySelectorAll('button[data-remove]').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        delete state.wrong[btn.dataset.remove];
-        save(); renderWrong();
-      });
-    });
-    el.querySelectorAll('button[data-ans-wrong]').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        var box = btn.closest('.wrong').querySelector('.ans');
-        box.style.display = box.style.display === 'none' ? 'block' : 'none';
-        btn.textContent = box.style.display === 'none' ? '看答案' : '收起';
-      });
-    });
-  }
-
-  var view = 'plan';
-  function render(){
-    renderHead();
-    if(view === 'plan') renderGlobalPlan();
-    else if(view === 'today') renderToday();
-    else if(view === 'phase') renderPhases();
-    else if(view === 'weeks') renderWeeks();
-    else if(view === 'stats') renderStats();
-    else renderWrong();
-  }
-  function switchView(v){
-    view = v;
-    document.querySelectorAll('#tabs .tab').forEach(function(t){ t.classList.toggle('on', t.dataset.view === v); });
-    render();
-  }
-
-  document.querySelectorAll('#tabs .tab').forEach(function(t){
-    t.addEventListener('click', function(){ switchView(t.dataset.view); });
-  });
-  document.getElementById('phases').addEventListener('click', function(e){
-    var gs = e.target.closest('button[data-gstage]');
-    if(gs){
-      state.active = gs.dataset.gstage;
-      P().offset = null;
+    var auto = el.querySelector('[data-dayauto]');
+    if (auto) auto.addEventListener('click', function () {
+      unpinDay(p);
       save();
-      switchView('phase');
-      window.scrollTo(0, 0);
-      return;
-    }
-    var b = e.target.closest('button[data-phase]');
-    if(!b) return;
-    P().phaseFocus = b.dataset.phase;
-    save();
-    switchView('phase');
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  });
-  document.getElementById('planbar').addEventListener('click', function(e){
-    var b = e.target.closest('button[data-plan]');
-    if(!b) return;
-    if(b.dataset.plan === '__plan'){
-      switchView('plan');
-      window.scrollTo(0, 0);
-      return;
-    }
-    state.active = b.dataset.plan;
-    P().offset = null;
-    if(view === 'stats') state.statsScope = state.active;
-    save();
-    if(view === 'plan'){ switchView('today'); return; }
-    if(view === 'today' || view === 'phase' || view === 'weeks' || view === 'stats') render(); else { renderHead(); renderWrong(); }
-  });
-  document.querySelectorAll('#mode button').forEach(function(b){
-    b.addEventListener('click', function(){
-      P().mode = b.dataset.mode;
-      P().offset = null;
-      save(); renderHead();
-      if(view !== 'today') switchView('today'); else renderToday();
+      render();
+      scrollToSec('sec-day');
     });
+  }
+  function bindSubject(el) {
+    var p = state.active, st = Pof(p);
+    el.querySelectorAll('[data-subj]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (b.dataset.subj !== p) go('subject', b.dataset.subj);
+      });
+    });
+    el.querySelectorAll('[data-mode]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        st.mode = b.dataset.mode;
+        unpinDay(p);
+        save();
+        refresh();
+      });
+    });
+    var sd = el.querySelector('#startDate');
+    if (sd) sd.addEventListener('change', function () {
+      if (!sd.value) return;
+      st.startDate = sd.value;
+      unpinDay(p);
+      save();
+      refresh();
+    });
+    var rs = el.querySelector('#resetSubject');
+    if (rs) {
+      var armed = false, armTimer = null;
+      var disarm = function () {
+        armed = false;
+        rs.textContent = '重置本科';
+        rs.classList.remove('danger');
+        clearTimeout(armTimer);
+      };
+      rs.addEventListener('click', function () {
+        if (!armed) {
+          armed = true;
+          rs.textContent = '再点一次确认清空';
+          rs.classList.add('danger');
+          clearTimeout(armTimer);
+          armTimer = setTimeout(disarm, 4000);
+          return;
+        }
+        disarm();
+        state.plans[p] = blank(p);
+        save();
+        refresh();
+        toast('已重置「' + SUBJ_FULL[p] + '」的进度');
+      });
+    }
+    el.querySelectorAll('[data-scroll]').forEach(function (b) {
+      b.addEventListener('click', function () { scrollToSec(b.dataset.scroll); });
+    });
+    bindDaySection(el, p);
+    bindWordTask(el);
+    bindWordCard(el);
+    bindChapters(el, p);
+    bindWeeks(el, p);
+    bindWrong(el, p);
+    el.querySelectorAll('[data-hidx]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var idx = +b.dataset.hidx, list = daysOf(p);
+        if (idx < 0 || idx >= list.length) return;
+        pinDay(p, idx);
+        save();
+        render();
+        scrollToSec('sec-day');
+      });
+    });
+    var np = el.querySelector('[data-navphases]');
+    if (np) np.addEventListener('click', function () { go('phases'); });
+  }
+  function bindView() {
+    var el = document.getElementById('view');
+    if (view === 'today') bindToday(el);
+    else if (view === 'stats') bindStats(el);
+    else if (view === 'phases') bindPhases(el);
+    else bindSubject(el);
+  }
+
+  // ---------------- 启动 ----------------
+  document.getElementById('nav').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-nav]');
+    if (b) go(b.dataset.nav);
   });
-  document.getElementById('start').addEventListener('change', function(e){
-    if(!e.target.value) return;
-    P().startDate = e.target.value;
-    P().offset = null;
-    save(); render();
+  window.addEventListener('resize', syncStickyOffsets);
+  window.addEventListener('hashchange', function () {
+    view = readHash() || 'today';
+    state.ui = {view: view, subject: state.active};
+    save();
+    render();
+    applyPendingScroll();
   });
-  document.getElementById('export').addEventListener('click', function(){
-    var blob = new Blob([JSON.stringify({version:2, exportedAt:new Date().toISOString(), state:state}, null, 2)], {type:'application/json'});
+  document.getElementById('export').addEventListener('click', function () {
+    var blob = new Blob([JSON.stringify({version: 3, exportedAt: new Date().toISOString(), state: state}, null, 2)], {type: 'application/json'});
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'study-progress-' + fmt(new Date()) + '.json';
     a.click();
-    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
   });
-  document.getElementById('import').addEventListener('click', function(){
+  document.getElementById('import').addEventListener('click', function () {
     document.getElementById('file').click();
   });
-  document.getElementById('file').addEventListener('change', function(e){
+  document.getElementById('file').addEventListener('change', function (e) {
     var f = e.target.files[0];
-    if(!f) return;
+    if (!f) return;
     var r = new FileReader();
-    r.onload = function(){
-      try{
+    r.onload = function () {
+      try {
         var d = JSON.parse(r.result);
         var s = d.state || d;
-        if(s && s.plans && s.active && PLANS[s.active]){
+        if (s && s.plans && s.active && PLANS[s.active]) {
           state = normalize(s);
-          save(); render();
-        }else{
-          alert('文件格式不对，需要本页导出的进度文件。');
+          state.ui = {view: view, subject: state.active};
+          save();
+          render();
+          toast('已导入进度');
+        } else {
+          toast('导入失败：文件格式不对，需要本页导出的进度文件');
         }
-      }catch(err){ alert('不是合法的 JSON。'); }
+      } catch (err) {
+        toast('导入失败：不是合法的 JSON');
+      }
     };
     r.readAsText(f);
     e.target.value = '';
   });
-  document.getElementById('reset').addEventListener('click', function(){
-    if(!confirm('清空「' + PLAN_META[pid()].short + '」的勾选与完成记录？另一科目与错题本不受影响。')) return;
-    state.plans[pid()] = blank(pid());
-    save(); render();
+
+  document.getElementById('foot').innerHTML =
+    '数据只存本机浏览器（localStorage），换设备用「导出」带走。' +
+    ' 今日计划 = 四科合一的打卡清单；单科详情 = 每科一页的详细进程（今日明细 / 阶段 / 章节或单词 / 周次 / 日历 / 错题）。' +
+    ' · v3 · 2026.11';
+
+  // 隔天打开：昨天「固定在这一天」的记录自动放开，回到下一条没完成的学习日
+  Object.keys(PLANS).forEach(function (p) {
+    var st = state.plans[p];
+    if (st && st.pinDate && st.pinDate !== fmt(todayD())) {
+      st.pinDate = null;
+      st.offset = null;
+    }
   });
 
-  document.getElementById('foot').textContent =
-    '数据只存本机浏览器（localStorage），换设备用「导出」带走。「今日计划」是四科合一的打卡清单；知识点、课后题、单词量设置进「单科今日」。 · v2026.11.07';
-
+  var initView = readHash() || (state.ui && state.ui.view) || 'today';
+  view = VIEWS.indexOf(initView) >= 0 ? initView : 'today';
+  state.ui = {view: view, subject: state.active};
+  save();
+  if (!location.hash) {
+    var h0 = '#/' + view + (view === 'subject' ? '/' + state.active : '');
+    try {
+      if (history.replaceState) history.replaceState(null, '', h0);
+      else location.hash = h0;
+    } catch (e) {
+      location.hash = h0;
+    }
+  }
   render();
 })();
 </script>
